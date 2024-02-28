@@ -1,4 +1,4 @@
-## Bond Buddy
+## Bond Buddies
 COP 4331 large project
 
 ### Contributors
