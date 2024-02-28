@@ -47,9 +47,20 @@ app.post('/api/register', async (req, res, next) =>
     let _lastName = lastName.trim();
     let _email = email.trim();
 
+    const newUser = 
+    {
+        FirstName: _firstName,
+        LastName: _lastName,
+        Login: _username,
+        Password: _password,
+        Email: _email
+    }
+
+    // send user to the database 
     try
     {
         const db = client.db()
+        const res = db.collection('Users').insertOne(newUser);
     }
     catch (e)
     {
