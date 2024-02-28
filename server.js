@@ -30,12 +30,16 @@ app.use((req, res, next) =>
 
 app.post('/api/register', async (req, res, next) =>
 {
-    // payload: username, password, firstName, lastName, email
+    // body: username, password, firstName, lastName, email
     // response: JWT bearer token
 
     // initialize error string
     let error = '';
 
+    // initialize response object
+    let ret = {};
+
+    // process body 
     const { username, password, firstName, lastName, email } = req.body;
     let _username = username.trim();
     let _password = password.trim();
@@ -43,6 +47,19 @@ app.post('/api/register', async (req, res, next) =>
     let _lastName = lastName.trim();
     let _email = email.trim();
 
+    try
+    {
+        const db = client.db()
+    }
+    catch (e)
+    {
+        error = e.toString();
+    }
+
+    ret.error = error;
+
+    // return response object
+    res.status(200).json(ret);
 });
 
 app.listen(5000); // start Node + Express server on port 5000
