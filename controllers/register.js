@@ -28,9 +28,9 @@ const register = (async (req, res) =>
         Email: _email
     }
 
-    // send user to the database 
     try
     {
+        // send user to the database 
         const client = getMongoClient();
         client.connect();
         const db = client.db()
@@ -44,8 +44,14 @@ const register = (async (req, res) =>
         else 
         {
             const res = db.collection('Users').insertOne(newUser);
+            const tokenBody = 
+            {
+                id: newUser._id.toString(),
+                login: newUser.Login
+            }
+            ret.bearer = await generateJWT(tokenBody);
         }
-
+        
         // return success
         res.status(200).json(ret);
     }
