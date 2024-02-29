@@ -2,6 +2,8 @@ const jose = require('jose');
 const { createSecretKey } = require('crypto');
 require('dotenv').config();
 
+const secret = createSecretKey(process.env.JWT_SECRET, 'utf-8');
+
 /**
  * Generate a JWT bearer token
  * 
@@ -10,11 +12,29 @@ require('dotenv').config();
  */
 const generateJWT = (async (body) =>
 {
-    const secret = createSecretKey(process.env.JWT_SECRET, 'utf-8');
     return await new jose.SignJWT(body)
         .setProtectedHeader({alg: 'HS256'})
         .setIssuedAt()
         .sign(secret);
 });
 
-module.exports = { generateJWT };
+/**
+ * Verify a JWT bearer token
+ * 
+ * @param {string} token - JWT token to be verified
+ * @returns payload extracted from the token
+ */
+const verifyJWT = (async (token) =>
+{
+    try 
+    {
+        const { payload, protectedHeader } = await jose.jwtVerify(token, secret);
+        return payload;
+    }
+    catch (e)
+    {
+        return {};
+    }
+});
+
+module.exports = { generateJWT, verifyJWT };
