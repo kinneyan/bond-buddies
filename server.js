@@ -36,9 +36,6 @@ app.post('/api/register', async (req, res, next) =>
     // body: username, password, firstName, lastName, email
     // response: JWT bearer token
 
-    // initialize error string
-    let error = '';
-
     // initialize response object
     let ret = {};
 
@@ -66,15 +63,26 @@ app.post('/api/register', async (req, res, next) =>
     try
     {
         const db = client.db()
-        const res = db.collection('Users').insertOne(newUser);
+
+        // check if username exists
+        const duplicate = await db.collection('Users').find({Login: newUser.Login}).toArray();
+        if (duplicate.length > 0)
+        {
+            ret.error = "Username is already taken.";
+        }
+        else 
+        {
+            const res = db.collection('Users').insertOne(newUser);
+        }
+
+        // return success
+        res.status(200).json(ret);
     }
     catch (e)
     {
-        error = e.toString();
+        ret.error = e.toString();
+
+        // return internal server error
+        res.status(500).json(ret);
     }
-
-    ret.error = error;
-
-    // return response object
-    res.status(200).json(ret);
 });
