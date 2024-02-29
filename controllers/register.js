@@ -2,9 +2,9 @@ const { getMongoClient } = require('../utils/database');
 const { shaHash } = require('../utils/hash');
 const { generateJWT, verifyJWT } = require('../utils/auth');
 
-const register = (async (req, res) => 
+const register = (async (req, res, next) => 
 {
-    // body: username, password, firstName, lastName, email
+    // body: username, password, confirmPassword, firstName, lastName, email
     // response: JWT bearer token
 
     // initialize response object
@@ -12,12 +12,21 @@ const register = (async (req, res) =>
     ret.error = '';
 
     // process body 
-    const { username, password, firstName, lastName, email } = req.body;
+    const { username, password, confirmPassword, firstName, lastName, email } = req.body;
     let _username = username.trim();
     let _password = password.trim();
+    let _confirmPassword = confirmPassword.trim();
     let _firstName = firstName.trim();
     let _lastName = lastName.trim();
     let _email = email.trim();
+
+    // check if passwords match
+    if (_password !== _confirmPassword)
+    {
+        ret.error = "Passwords do not match.";
+        res.status(200).json(ret);
+        return;
+    }
     
     const newUser = 
     {
@@ -54,6 +63,7 @@ const register = (async (req, res) =>
         
         // return success
         res.status(200).json(ret);
+        return;
     }
     catch (e)
     {
@@ -61,6 +71,7 @@ const register = (async (req, res) =>
 
         // return internal server error
         res.status(500).json(ret);
+        return;
     }
 });
 
