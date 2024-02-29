@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+const { createHash } = require('crypto');
 
 /**
  * Hashes text with the sha256 algorithm into base64 encoding
@@ -8,10 +8,7 @@ const crypto = require('crypto');
  */
 const shaHash = (input) =>
 {
-    // input: text to be hashed
-    // output: hashed text (base64 encoded)
-
-    return crypto.createHash('sha256').update(input).digest('base64');
+    return createHash('sha256').update(input).digest('base64');
 };
 
 module.exports = { shaHash };
