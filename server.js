@@ -2,6 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+// get routes
+const userRoutes = require('./routes/user');
+
+// initialize express
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -19,5 +23,8 @@ app.use((req, res, next) =>
     );
     next();
 });
-
+        
 app.listen(5000); // start Node + Express server on port 5000
+
+// set the user api routes
+app.use('/user', userRoutes);
