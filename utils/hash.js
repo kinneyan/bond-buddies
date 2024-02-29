@@ -8,9 +8,6 @@ const { createHash } = require('crypto');
  */
 const shaHash = (input) =>
 {
-    // input: text to be hashed
-    // output: hashed text (base64 encoded)
-
     return createHash('sha256').update(input).digest('base64');
 };
 
