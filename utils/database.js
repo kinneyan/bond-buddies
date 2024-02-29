@@ -5,8 +5,9 @@ require('dotenv').config();
 const url = process.env.MONGODB_URI;
 
 /**
+ * Creates a MongoClient object for the MONGODB_URI environment variable
  * 
- * @returns {MongoClient} MongoClient object of the MONGODB_URI environment variable
+ * @returns {MongoClient} MongoClient object
  */
 const getMongoClient = () =>
 {
