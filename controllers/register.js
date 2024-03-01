@@ -1,6 +1,6 @@
 const { getMongoClient } = require('../utils/database');
 const { shaHash } = require('../utils/hash');
-const { generateJWT, verifyJWT } = require('../utils/auth');
+const { generateJWT } = require('../utils/auth');
 
 const register = (async (req, res, next) => 
 {
