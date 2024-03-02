@@ -11,14 +11,30 @@ const register = (async (req, res, next) =>
     let ret = {};
     ret.error = '';
 
-    // process body 
-    const { username, password, confirmPassword, firstName, lastName, email } = req.body;
-    let _username = username.trim();
-    let _password = password.trim();
-    let _confirmPassword = confirmPassword.trim();
-    let _firstName = firstName.trim();
-    let _lastName = lastName.trim();
-    let _email = email.trim();
+    let _username = '';
+    let _password = '';
+    let _confirmPassword = '';
+    let _firstName = '';
+    let _lastName = '';
+    let _email = '';
+
+    try
+    {
+        // process body 
+        const { username, password, confirmPassword, firstName, lastName, email } = req.body;
+        _username = username.trim();
+        _password = password.trim();
+        _confirmPassword = confirmPassword.trim();
+        _firstName = firstName.trim();
+        _lastName = lastName.trim();
+        _email = email.trim();
+    }
+    catch (e) 
+    {
+        ret.error = 'Bad request syntax. Missing or incorrect information.'
+        res.status(400).json(ret);
+        return;
+    }
 
     // check if passwords match
     if (_password !== _confirmPassword)
