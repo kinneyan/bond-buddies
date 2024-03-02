@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+// get port information
+const PORT = process.env.PORT || 5000;
+
 // get routes
 const userRoutes = require('./routes/user');
 
@@ -9,6 +12,12 @@ const userRoutes = require('./routes/user');
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+// set the port
+app.set('port', PORT);
+
+// link api routes
+app.use('/user', userRoutes);
 
 app.use((req, res, next) =>
 {
@@ -23,8 +32,9 @@ app.use((req, res, next) =>
     );
     next();
 });
-        
-app.listen(5000); // start Node + Express server on port 5000
-
-// set the user api routes
-app.use('/user', userRoutes);
+   
+// Start express
+app.listen(PORT, () => 
+{
+    console.log('Server listening on port ' + PORT);
+});
