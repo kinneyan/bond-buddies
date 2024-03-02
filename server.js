@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 // get port information
 const PORT = process.env.PORT || 5000;
@@ -38,3 +39,13 @@ app.listen(PORT, () =>
 {
     console.log('Server listening on port ' + PORT);
 });
+
+if (process.env.NODE_ENV === 'production')
+{
+    app.use(express.static('frontend/build'));
+
+    app.get('*', (req, res) =>
+    {
+        res.sendFile(path.resulve(__dirname, 'frontend', 'build', 'index.html'));
+    });
+}
