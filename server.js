@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 
 // get port information
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 // get routes
 const userRoutes = require('./routes/user');
