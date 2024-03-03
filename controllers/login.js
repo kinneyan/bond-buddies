@@ -11,10 +11,22 @@ const login = (async (req, res, next) =>
     let ret = {};
     ret.error = '';
 
-    // process body
-    const { username, password } = req.body;
-    let _username = username.trim();
-    let _password = password.trim();
+    let _username = '';
+    let _password = '';
+
+    try 
+    {
+        // process body
+        const { username, password } = req.body;
+        _username = username.trim();
+        _password = password.trim();
+    }
+    catch (e) 
+    {
+        ret.error = 'Bad request syntax. Missing or incorrect information.'
+        res.status(400).json(ret);
+        return;
+    }
 
     const body = 
     {
