@@ -1,0 +1,131 @@
+body {
+	background: linear-gradient(45deg, #FF1B6B, #BA5CA2, #7B97D4, #45CAFF);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo img{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    height: 50px;
+    width: auto;
+}
+
+.navbar-login{
+    margin-right: 15px;
+    color: black;
+    font-family: 'omnesbold', Arial;
+}
+
+@keyframes gradient{
+    0%{
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+}
+
+body .login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login, .forgot{
+    background-color: white;
+    padding-left: 80px;
+    padding-right: 80px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: "Roboto", sans-serif;
+}
+
+.login h2, .forgot h2{
+    font-family: 'omnesregular', Arial, sans-serif !important;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+}
+
+#userfield{
+    margin-bottom: 20px;
+}
+
+input{
+    border: 2px solid black !important; 
+    border-radius: 50%;
+}
+
+a{
+    text-decoration: none;
+}
+
+.forgotpass{
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.holder{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.holder a{
+    color: black !important;
+    transition: 0.5s;
+}
+
+.holder a:hover{
+    color: #00A7E9 !important;
+    transition: 0.5s;
+}
+
+button{
+    margin-bottom: 10px;
+    background-color: black !important;
+}
+
+#sendResetPasswordEmailBtn{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footerinfo{
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+}
+
+.footerinfo div {
+    margin-top: 20px;
+    flex-grow: 1;
+}
+
+.footerinfo a{
+    color: white;
+    text-decoration: none;
+}
