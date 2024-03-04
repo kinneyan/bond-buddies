@@ -9,10 +9,10 @@ const Header = () => {
     <div className="header">
       <nav className="navbar navbar-dark bg-transparent">
         <div className="navbar-logo">
-          <a href="index.html"><img src={logo} alt="Logo"/></a>
+          <a href="index"><img src={logo} alt="Logo"/></a>
         </div>
         <div className="navbar-login">
-          <a href="login.html" className="btn btn-light">Login/Register</a>
+          <a href="login" className="btn btn-light">Login/Register</a>
         </div>
       </nav>
     </div>

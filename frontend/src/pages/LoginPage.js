@@ -50,7 +50,7 @@ const LoginPage = () => {
                 <button id="submitbtn" type="submit" className="btn btn-primary">Log In</button>
               </div>
               <div className="holder">
-                <a href="register.html">Need an account?</a>
+                <a href="register">Need an account?</a>
               </div>
             </form>
           </div>

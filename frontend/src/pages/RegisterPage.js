@@ -58,7 +58,7 @@ const RegisterForm = () => {
                     <button id="submitbtn" className="btn btn-primary">Register</button>
                 </div>
                 <div className="holder">
-                    <a href="login.html">Have an account?</a>
+                    <a href="login">Have an account?</a>
                 </div>
             </form>
         </div>
