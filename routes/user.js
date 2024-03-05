@@ -8,14 +8,15 @@ const router = express.Router();
 
 const { register } = require('../controllers/register');
 const { login } = require('../controllers/login');
-
-router.post('/register', register);
-router.post('/login', login);
+const { update } = require('../controllers/updateUser');
 
 // get auth middlware
 const { authenticate } = require('../middleware/auth');
 
-const { update } = require('../controllers/updateUser');
+router.post('/register', register);
+router.post('/login', login);
+
+router.post('/update', authenticate);
 router.post('/update', update);
 
 module.exports = router;
