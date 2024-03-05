@@ -60,8 +60,6 @@ const register = (async (req, res, next) =>
         client.connect();
         const db = client.db()
 
-        let bearer = '';
-
         // check if username exists
         const duplicate = await db.collection('Users').find({Login: newUser.Login}).toArray();
         if (duplicate.length > 0)
@@ -76,9 +74,8 @@ const register = (async (req, res, next) =>
                 id: newUser._id.toString(),
                 login: newUser.Login
             }
-            bearer =  await generateJWT(tokenBody);
+            ret.bearer = await generateJWT(tokenBody);
         }
-        res.set('Authorization', 'Bearer ' + bearer);
         
         // return success
         res.status(200).json(ret);
