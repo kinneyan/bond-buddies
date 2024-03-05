@@ -9,7 +9,7 @@ const searchFriends = (async (req, res, next) => 
     let _search = '';
     try
     {
-        const { userId, search } = req.body;
+        const {search } = req.body;
         _search = search.trim();
     }    
     catch (e)
