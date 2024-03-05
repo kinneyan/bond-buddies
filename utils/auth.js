@@ -15,6 +15,7 @@ const generateJWT = (async (body) =>
     return await new jose.SignJWT(body)
         .setProtectedHeader({alg: 'HS256'})
         .setIssuedAt()
+        .setExpirationTime('1h')
         .sign(secret);
 });
 
