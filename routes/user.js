@@ -12,4 +12,10 @@ const { login } = require('../controllers/login');
 router.post('/register', register);
 router.post('/login', login);
 
+// get auth middlware
+const { authenticate } = require('../middleware/auth');
+
+const { update } = require('../controllers/updateUser');
+router.post('/update', update);
+
 module.exports = router;
