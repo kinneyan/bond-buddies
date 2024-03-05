@@ -1,3 +1,5 @@
+const { getMongoClient } = require('../utils/database');
+
 const removeFriend = (async (req, res, next) => 
 {
     // header: auth token
@@ -30,17 +32,23 @@ const removeFriend = (async (req, res, next) =>
         client.connect();
         const db = client.db();
 
-        const query = await db.collection('Users').find(body).toArray();
+        // attempt to delete relationship
+        const del = await db.collection('Relationships').deleteOne(requestBody);
 
-        if (query.length < 1)
+        // check if deletion occured 
+        if (del.acknowledged === true && del.deletedCount === 0)
         {
             res.locals.ret.error = 'Could not find friendship.'
             res.status(200).json(res.locals.ret);
+            return;
+
         }
     }
     catch (e) 
     {
-
+        res.locals.ret.error = 'Encountered an error while removing friend.';
+        res.status(500).json(res.locals.ret);
+        return;
     }
 
     res.status(200).json(res.locals.ret);
