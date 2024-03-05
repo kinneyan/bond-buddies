@@ -64,7 +64,7 @@ const login = (async (req, res, next) =>
             id: query[0]._id.toString(),
             login: body.Login
         }
-        res.set('Authorization', 'Bearer ' + await generateJWT(tokenBody));
+        ret.bearer = await generateJWT(tokenBody);
 
         // add user information
         ret.firstName = query[0].FirstName;
