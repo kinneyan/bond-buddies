@@ -10,9 +10,6 @@ const PORT = process.env.PORT || 3001;
 const userRoutes = require('./routes/user');
 const friendRoutes = require('./routes/friends');
 
-// get middleware
-const { authenticate } = require('./middleware/auth');
-
 // initialize express
 const app = express();
 app.use(cors());
@@ -24,7 +21,6 @@ app.set('port', PORT);
 // link api routes
 app.use('/user', userRoutes);
 
-app.use('/friends', authenticate);
 app.use('/friends', friendRoutes);
 
 app.use((req, res, next) =>
