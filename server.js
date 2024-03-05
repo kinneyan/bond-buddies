@@ -20,7 +20,6 @@ app.set('port', PORT);
 
 // link api routes
 app.use('/user', userRoutes);
-
 app.use('/friends', friendRoutes);
 
 app.use((req, res, next) =>
