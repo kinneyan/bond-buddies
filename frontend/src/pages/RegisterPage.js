@@ -1,16 +1,17 @@
 import React from 'react';
-import Header from '../components/Header';
+import AuthHeader from '../components/AuthHeader';
 import Footer from '../components/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/RegisterPage.css'; 
+import { NavLink } from 'react-router-dom';
 
 const RegisterForm = () => {
   return (
-    <div className="register-container">
+    <div className="RPregister-container">
 
-        <div className="register">
+        <div className="RPregister">
             <form className="register1-form">
-                <h2>Register</h2>
+                <h2 id="registerh2" >Register</h2>
                 <div className="row">
                     <div className="col">
                         <div id="firstName" className="form-group">
@@ -41,13 +42,13 @@ const RegisterForm = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <div className="form-group">
+                        <div  id="password" className="form-group">
                             <label for="password">Password</label>
                             <input type="password" className="form-control" id="password"/>
                         </div>
                     </div>
                     <div className="col">
-                        <div className="form-group">
+                        <div  id="confirmPassword" className="form-group">
                             <label for="confirmPassword">Confirm Password</label>
                             <input type="confirmPassword" className="form-control" id="confirmPassword"/>
                         </div>
@@ -55,10 +56,10 @@ const RegisterForm = () => {
                 </div>
 
                 <div className="d-flex justify-content-center">
-                    <button id="submitbtn" className="btn btn-primary">Register</button>
+                    <button id="registerbtn" className="btn btn-primary">Register</button>
                 </div>
-                <div className="holder">
-                    <a href="login">Have an account?</a>
+                <div className="RPholder">
+                    <NavLink id="accountbtn" to="/login">Have an account?</NavLink>
                 </div>
             </form>
         </div>
@@ -69,7 +70,7 @@ const RegisterForm = () => {
 const RegisterPage = () => {
   return (
     <>
-      <Header />
+      <AuthHeader />
       <RegisterForm />
       <Footer />
     </>

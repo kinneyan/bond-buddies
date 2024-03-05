@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
+import AuthHeader from '../components/AuthHeader';
 import Footer from '../components/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/LoginPage.css'; 
+import { NavLink } from 'react-router-dom';
 
 const LoginPage = () => {
   const [showLogin, setShowLogin] = useState(true);
@@ -29,12 +30,12 @@ const LoginPage = () => {
 
   return (
     <>
-      <Header />
-      <div className="login-container">
+      <AuthHeader />
+      <div className="LGlogin-container">
         {showLogin && (
-          <div className="login">
+          <div className="LGlogin">
             <form className="login-form">
-              <h2>Login</h2>
+              <h2 id="loginh2">Login</h2>
               <div id="userfield" className="form-group">
                 <label htmlFor="username">Username</label>
                 <input type="username" className="form-control" id="username"/>
@@ -44,22 +45,22 @@ const LoginPage = () => {
                 <input type="password" className="form-control" id="pwd"/>
               </div>
               <div className="forgotpass">
-                <button onClick={handleForgotClick} className="btn-member btn-fade">Forgot Password?</button>
+                <button onClick={handleForgotClick} id='forgot-btn' className="btn-member btn-fade">Forgot Password?</button>
               </div>
               <div className="d-flex justify-content-center">
                 <button id="submitbtn" type="submit" className="btn btn-primary">Log In</button>
               </div>
-              <div className="holder">
-                <a href="register">Need an account?</a>
+              <div className="LGholder">
+                <NavLink id="needaccount" to="/register">Need an account?</NavLink>
               </div>
             </form>
           </div>
         )}
 
         {showForgot && (
-          <div className="forgot">
+          <div className="LGforgot">
             <form id="forgotPassword" className="forgot-form">
-              <h2>Forgot Password</h2>
+              <h2 id="registerh2">Forgot Password</h2>
 
               <div className="form-group">
                 <label htmlFor="forgotEmailInput">Email</label>
@@ -74,6 +75,7 @@ const LoginPage = () => {
 
               <div className="d-flex justify-content-center">
                 <button
+                  id="sendResetPasswordEmailBtn"
                   onClick={handleSendResetPasswordEmail}
                   type="button"
                   className="btn btn-primary"
@@ -84,8 +86,8 @@ const LoginPage = () => {
 
               <p id="forgotPasswordSuccessMessage">{forgotPasswordSuccessMessage}</p>
 
-              <div className="back">
-                <button onClick={handleLoginClick} className="btn-login btn-fade">Back to Login</button>
+              <div className="HPback">
+                <button id="backbtn" onClick={handleLoginClick} className="btn-login btn-fade">Back to Login</button>
               </div>
             </form>
           </div>

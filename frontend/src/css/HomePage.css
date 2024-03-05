@@ -1,4 +1,16 @@
-.header{
+@keyframes gradient{
+	0%{
+		background-position: 0% 50%;
+	}
+	50%{
+		background-position: 100% 50%;
+	}
+	100%{
+		background-position: 0% 50%;
+	}
+}
+
+.HPheader{
     background-image: url(../images/bg.JPG);
     margin: 0;
     padding: 0;
@@ -8,32 +20,43 @@
     background-position: center;
 }
 
-.navbar{
+.HPnavbar{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
 }
 
-.navbar-logo img{
+.HPnavbar-logo #HPlogo{
     margin-top: 10px;
     margin-left: 10px;
     height: 50px;
     width: auto;
 }
 
-.navbar-login button{
+#HPloginbutton, #HPregisterbutton{
     margin-top: 10px;
-    margin-right: 15px;
     padding: 10px 15px;
     cursor: pointer;
     font-size: 16px;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
+    transition: 0.3s;
 }
 
-.title{
+#HPloginbutton:hover, #HPregisterbutton:hover{
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    transition: 0.3s;
+}
+
+#HPloginbutton{
+    margin-right: 20px;
+}
+
+.HPtitle{
     position: absolute;
     top: 40%;
     left: 50%;
@@ -42,11 +65,11 @@
     margin-top: 100px;
 }
 
-.compname, .slogan{
+.HPcompname, .HPslogan{
     white-space: nowrap;
 }
 
-.compname{
+.HPcompname{
     font-family: 'omnesbold', Arial, sans-serif;
     font-size: 90px;
     line-height: 80px;
@@ -54,7 +77,7 @@
     color: white;
 }
 
-.slogan{
+.HPslogan{
     font-family: 'omnesbold', Arial, sans-serif;
     font-size: 70px;
     line-height: 80px;
@@ -68,23 +91,11 @@
     background-size: 400% 400%;
 }
 
-@keyframes gradient{
-	0%{
-		background-position: 0% 50%;
-	}
-	50%{
-		background-position: 100% 50%;
-	}
-	100%{
-		background-position: 0% 50%;
-	}
-}
-
-.assessments{
+.HPassessments{
     margin-bottom: 80px;
 }
 
-.assesstext{
+.HPassesstext{
     margin-top: 80px;
     margin-bottom: 70px;
     text-align: center;
@@ -94,14 +105,14 @@
     font-weight: 500;
 }
 
-.circle-container{
+.HPcircle-container{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     text-align: center;
 }
   
-.circle1, .circle2, .circle3{
+.HPcircle1, .HPcircle2, .HPcircle3{
     position: relative;
     width: 200px;
     height: 200px;
@@ -116,7 +127,7 @@
     margin-bottom: 50px;
 }
   
-.inner-circle{
+.HPinner-circle{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -134,16 +145,17 @@
     font-family: "Roboto", sans-serif;
 }
 
-.circleText{
+.HPcircleText{
     margin: 20px;
 }
 
-.moreinfo{
+.HPmoreinfo{
     display: flex;
     flex-direction: row;
     height: 70vh;
 }
-.left{
+
+.HPleft{
     flex: 1.25;
     display: flex;
     justify-content: center;
@@ -153,17 +165,17 @@
     background: linear-gradient(45deg, #FF1B6B, #BA5CA2, #7B97D4, #45CAFF);
 }
 
-.left h1{
+.HPleft #leftTitle{
     font-size: 50px;
 }
 
-.moreText{
+.HPmoreText{
     font-size: 18px;
     margin-left: 40px;
     margin-right: 40px;
 }
 
-.right{
+.HPright{
     flex: 3;
     padding: 20px;
     background-color: #ffffff;
@@ -178,7 +190,7 @@
     background-color: black;
     color: white;
     text-align: center;
-    padding: 1rem;
+    padding: 0.4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
