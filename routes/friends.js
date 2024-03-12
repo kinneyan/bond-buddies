@@ -9,6 +9,7 @@ const { addFriend } = require('../controllers/addFriend');
 
 router.post('/remove', authenticate);
 router.post('/remove', removeFriend);
+
 router.post('/add', authenticate);
 router.post('/add', addFriend);
 
