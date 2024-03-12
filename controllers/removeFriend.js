@@ -12,6 +12,7 @@ const removeFriend = (async (req, res, next) =>
     {
         const { friend } = req.body;
         _friend = friend.trim();
+        if (_friend === '') throw new Error();
     }    
     catch (e)
     {
@@ -20,28 +21,51 @@ const removeFriend = (async (req, res, next) =>
         return;
     }
 
-    const requestBody = 
-    {
-        user1: res.locals.token.login,
-        user2: _friend
-    }
-
     try
     {
         const client = getMongoClient();
         client.connect();
         const db = client.db();
 
-        // attempt to delete relationship
-        const del = await db.collection('Relationships').deleteOne(requestBody);
-
-        // check if deletion occured 
-        if (del.acknowledged === true && del.deletedCount === 0)
+        // check if friend exists
+        const users = await db.collection('Users').find({ Login: _friend }).toArray();
+        if (users.length < 1)
         {
-            res.locals.ret.error = 'Could not find friendship.'
+            res.locals.ret.error = _friend + ' is not a user.';
             res.status(200).json(res.locals.ret);
             return;
+        }
 
+        /*
+        * Sort ids so that no matter the two users that are 
+        * passed (authorized user, friend), they are always formatted
+        * in the same way because their _ids should never change. This
+        * allows us to not have to check if the relationship is
+        * flipped (e.g. friend in user1 vs user2).
+        */
+        let ids = [users[0]._id.toString(), res.locals.token.id];
+        ids.sort((a, b) =>
+        {
+            return a.localeCompare(b);
+        });
+
+        // build request body
+        const requestBody = { user1: ids[0], user2: ids[1] };
+
+        // check if relationship exists
+        const relationships = await db.collection('Relationships').find(requestBody).toArray();
+        if (relationships.length < 1)
+        {
+            res.locals.ret.error = _friend + ' is not a friend.';
+            res.status(200).json(res.locals.ret);
+            return;
+        }
+        else
+        {
+            const del = await db.collection('Relationships').deleteOne(requestBody);
+    
+            // check if deletion occured 
+            if (del.deletedCount === 0) throw new Error();
         }
     }
     catch (e) 
