@@ -1,0 +1,61 @@
+.RPregister-container{
+    background: linear-gradient(45deg, #FF1B6B, #BA5CA2, #7B97D4, #45CAFF);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.RPregister{
+    background-color: white;
+    padding-left: 100px;
+    padding-right: 100px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: "Roboto", sans-serif;
+}
+
+.RPregister #registerh2{
+    font-family: 'omnesregular', Arial, sans-serif !important;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+}
+
+#firstName, #lastName, #email, #username, #password{
+    margin-bottom: 20px;
+}
+
+.RPholder{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#accountbtn{
+    color: black;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#accountbtn:hover{
+    color: #45AAFF;
+    transition: 0.3s;
+}
+
+#registerbtn{
+    background-color: black;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+#registerbtn:hover{
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
