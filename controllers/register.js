@@ -40,7 +40,7 @@ const register = (async (req, res, next) =>
     if (_password !== _confirmPassword)
     {
         ret.error = "Passwords do not match.";
-        res.status(200).json(ret);
+        res.status(400).json(ret);
         return;
     }
     
