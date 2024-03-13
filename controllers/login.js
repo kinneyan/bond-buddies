@@ -54,7 +54,7 @@ const login = (async (req, res, next) =>
         if (query.length < 1)
         {
             ret.error = 'Username or password is incorrect.';
-            res.status(200).json(ret);
+            res.status(401).json(ret);
             return;
         }
         
