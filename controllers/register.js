@@ -65,6 +65,8 @@ const register = (async (req, res, next) =>
         if (duplicate.length > 0)
         {
             ret.error = "Username is already taken.";
+            res.status(409).json(ret);
+            return;
         }
         else 
         {
