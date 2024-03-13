@@ -74,7 +74,7 @@ const register = (async (req, res, next) =>
                 id: newUser._id.toString(),
                 login: newUser.Login
             }
-            ret.bearer = await generateJWT(tokenBody);
+            ret.bearer = 'Bearer ' + await generateJWT(tokenBody);
         }
         
         // return success
