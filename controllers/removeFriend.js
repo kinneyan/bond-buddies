@@ -32,7 +32,7 @@ const removeFriend = (async (req, res, next) =>
         if (users.length < 1)
         {
             res.locals.ret.error = _friend + ' is not a user.';
-            res.status(200).json(res.locals.ret);
+            res.status(409).json(res.locals.ret);
             return;
         }
 
@@ -57,7 +57,7 @@ const removeFriend = (async (req, res, next) =>
         if (relationships.length < 1)
         {
             res.locals.ret.error = _friend + ' is not a friend.';
-            res.status(200).json(res.locals.ret);
+            res.status(409).json(res.locals.ret);
             return;
         }
         else
