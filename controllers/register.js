@@ -40,7 +40,7 @@ const register = (async (req, res, next) =>
     if (_password !== _confirmPassword)
     {
         ret.error = "Passwords do not match.";
-        res.status(200).json(ret);
+        res.status(400).json(ret);
         return;
     }
     
@@ -65,6 +65,8 @@ const register = (async (req, res, next) =>
         if (duplicate.length > 0)
         {
             ret.error = "Username is already taken.";
+            res.status(409).json(ret);
+            return;
         }
         else 
         {
@@ -74,7 +76,7 @@ const register = (async (req, res, next) =>
                 id: newUser._id.toString(),
                 login: newUser.Login
             }
-            ret.bearer = await generateJWT(tokenBody);
+            ret.bearer = 'Bearer ' + await generateJWT(tokenBody);
         }
         
         // return success

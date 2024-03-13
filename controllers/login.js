@@ -54,7 +54,7 @@ const login = (async (req, res, next) =>
         if (query.length < 1)
         {
             ret.error = 'Username or password is incorrect.';
-            res.status(200).json(ret);
+            res.status(401).json(ret);
             return;
         }
         
@@ -64,7 +64,7 @@ const login = (async (req, res, next) =>
             id: query[0]._id.toString(),
             login: body.Login
         }
-        ret.bearer = await generateJWT(tokenBody);
+        ret.bearer = 'Bearer ' + await generateJWT(tokenBody);
 
         // add user information
         ret.firstName = query[0].FirstName;

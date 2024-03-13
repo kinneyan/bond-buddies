@@ -31,7 +31,7 @@ const addFriend = (async (req, res, next) =>
         if (users.length < 1)
         {
             res.locals.ret.error = _friend + ' is not a user.';
-            res.status(200).json(res.locals.ret);
+            res.status(409).json(res.locals.ret);
             return;
         }
 
@@ -66,7 +66,7 @@ const addFriend = (async (req, res, next) =>
             if (relationships[0].RelationshipType == 'friends')
             {
                 res.locals.ret.error = 'Already friends with ' + _friend + '.';
-                res.status(200).json(res.locals.ret);
+                res.status(409).json(res.locals.ret);
                 return;
             }
 
