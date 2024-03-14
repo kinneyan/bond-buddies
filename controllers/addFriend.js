@@ -85,7 +85,6 @@ const addFriend = (async (req, res, next) =>
     }
     catch(e)
     {
-        console.log(e.toString());
         res.locals.ret.error = 'Encountered an error while adding friend.';
         res.status(500).json(res.locals.ret);
         return;
