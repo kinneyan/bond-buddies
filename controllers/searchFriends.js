@@ -7,10 +7,14 @@ const searchFriends = (async (req, res, next) => 
     // outgoing: results or error
 
     let _search = '';
+    let ret = {};
+    ret.error = '';
+
     try
     {
         const {search } = req.body;
         _search = search.trim();
+        if (_search === '') throw new Error();
     }    
     catch (e)
     {
@@ -18,28 +22,43 @@ const searchFriends = (async (req, res, next) => 
         res.status(400).json(res.locals.ret);
         return;
     }
-
-    const requestBody = 
-    {
-        user1: res.locals.token.login,
-        user2: _search
-    }
     try{
         const client = getMongoClient();
         client.connect();
         const db = client.db();
-
-        const results = await db.collection('Relationships').find(requestBody).toArray;
-        
-        if (results.length > 0) {
-            res.status(200).json({ results: results });
-        } 
-        else {
-            res.locals.ret.error = 'Could not find friendship.'
-            res.status(200).json(res.locals.ret);
+        // check if search exists as a user
+        const users = await db.collection('Users').find({ Login: _search }).toArray();
+        if (users.length < 1)
+        {
+            res.locals.ret.error = _search + ' is not a user.';
+            res.status(409).json(res.locals.ret);
             return;
         }
-        res.status(200).json(res.locals.ret);
+        
+        let ids = [users[0]._id.toString(), res.locals.token.id];
+        ids.sort((a, b) =>
+        {
+            return a.localeCompare(b);
+        });
+
+        const requestBody = { user1: ids[0], user2: ids[1] };
+        
+        // check if there is an existing relationship
+        const relationships = await db.collection('Relationships').find(requestBody).toArray();
+        if (relationships.length < 1)
+        {
+            res.locals.ret.error = _search + ' is not a friend.';
+            res.status(409).json(res.locals.ret);
+            return;
+        }
+        else
+        {
+            ret.firstName = users[0].FirstName;
+            ret.lastname = users[0].LastName;
+            ret.relationshipType = relationships[0].RelationshipType;
+            ret.email = users[0].Email;
+    
+        }
 
     }
     catch(e){
@@ -47,6 +66,8 @@ const searchFriends = (async (req, res, next) => 
         res.status(500).json(res.locals.ret);
         return;
     }
+    res.status(200).json(ret);
+    return;
     
 });
 module.exports = { searchFriends };
