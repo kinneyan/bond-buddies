@@ -13,7 +13,7 @@ const update = (async (req, res, next) =>
         const db = client.db();
 
         // add username to query
-        let query = { Login: res.locals.token.login };
+        let query = { login: res.locals.token.login };
         // ensure that fields must already exist in database
         for (let key in req.body)
         {

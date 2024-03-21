@@ -30,8 +30,8 @@ const login = (async (req, res, next) =>
 
     const body = 
     {
-        Login: _username,
-        Password: shaHash(_password)
+        login: _username,
+        password: shaHash(_password)
     }
 
     try 
@@ -62,13 +62,13 @@ const login = (async (req, res, next) =>
         const tokenBody = 
         {
             id: query[0]._id.toString(),
-            login: body.Login
+            login: body.login
         }
         ret.bearer = 'Bearer ' + await generateJWT(tokenBody);
 
         // add user information
-        ret.firstName = query[0].FirstName;
-        ret.lastName = query[0].LastName;
+        ret.firstName = query[0].firstName;
+        ret.lastName = query[0].lastName;
         
         res.status(200).json(ret);
         return;
