@@ -3,7 +3,6 @@ const { getMongoClient } = require('../utils/database');
 const searchFriends = (async (req, res, next) => 
 {
     // incoming: userId, search
-
     // outgoing: results or error
 
     let _search = '';
@@ -24,12 +23,14 @@ const searchFriends = (async (req, res, next) => 
         user1: res.locals.token.login,
         user2: _search
     }
-    try{
+
+    try
+    {
         const client = getMongoClient();
         client.connect();
         const db = client.db();
 
-        const results = await db.collection('Relationships').find(requestBody).toArray;
+        const results = await db.collection('Relationships').find(requestBody).toArray();
         
         if (results.length > 0) {
             res.status(200).json({ results: results });
@@ -49,4 +50,5 @@ const searchFriends = (async (req, res, next) => 
     }
     
 });
+
 module.exports = { searchFriends };

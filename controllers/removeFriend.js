@@ -28,7 +28,7 @@ const removeFriend = (async (req, res, next) =>
         const db = client.db();
 
         // check if friend exists
-        const users = await db.collection('Users').find({ Login: _friend }).toArray();
+        const users = await db.collection('Users').find({ login: _friend }).toArray();
         if (users.length < 1)
         {
             res.locals.ret.error = _friend + ' is not a user.';
