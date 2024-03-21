@@ -36,11 +36,11 @@ const LoginPage = () => {
           <div className="LGlogin">
             <form className="login-form">
               <h2 id="loginh2">Login</h2>
-              <div id="userfield" className="form-group">
+              <div id="userfield" className="LGform-group">
                 <label htmlFor="username">Username</label>
                 <input type="username" className="form-control" id="username"/>
               </div>
-              <div className="form-group">
+              <div className="LGform-group">
                 <label htmlFor="pwd">Password</label>
                 <input type="password" className="form-control" id="pwd"/>
               </div>
