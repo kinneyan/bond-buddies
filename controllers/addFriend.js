@@ -1,12 +1,11 @@
 const { getMongoClient } = require('../utils/database');
 
-const removeFriend = (async (req, res, next) => 
+const addFriend = (async (req, res, next) =>
 {
     // header: auth token
     // body: friend username
     // response: error
 
-    // process body
     let _friend = '';
     try
     {
@@ -52,30 +51,44 @@ const removeFriend = (async (req, res, next) =>
         // build request body
         const requestBody = { user1: ids[0], user2: ids[1] };
 
-        // check if relationship exists
+        // check if relationship already exists in collection
         const relationships = await db.collection('Relationships').find(requestBody).toArray();
         if (relationships.length < 1)
         {
-            res.locals.ret.error = _friend + ' is not a friend.';
-            res.status(409).json(res.locals.ret);
-            return;
+            // if relationship doesn't exist, insert it
+            requestBody.RelationshipType = 'friends';
+            const insert = await db.collection('Relationships').insertOne(requestBody);
+            if (insert.acknowledged === true && insert.insertedCount === 0) throw new Error();
         }
         else
         {
-            const del = await db.collection('Relationships').deleteOne(requestBody);
-    
-            // check if deletion occured 
-            if (del.deletedCount === 0) throw new Error();
+            // if users are already friends
+            if (relationships[0].RelationshipType == 'friends')
+            {
+                res.locals.ret.error = 'Already friends with ' + _friend + '.';
+                res.status(409).json(res.locals.ret);
+                return;
+            }
+
+            // update relationship type
+            db.collection('Relationships').updateOne(requestBody, 
+                {
+                    $set:
+                    {
+                        RelationshipType: 'friends'
+                    }
+                });
         }
-    }
-    catch (e) 
-    {
-        res.locals.ret.error = 'Encountered an error while removing friend.';
-        res.status(500).json(res.locals.ret);
+        
+        res.status(200).json(res.locals.ret);
         return;
     }
-
-    res.status(200).json(res.locals.ret);
+    catch(e)
+    {
+        res.locals.ret.error = 'Encountered an error while adding friend.';
+        res.status(500).json(res.locals.ret);
+        return;
+    }    
 });
 
-module.exports = { removeFriend };
+module.exports = { addFriend };
