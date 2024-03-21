@@ -1,0 +1,125 @@
+.search-section{
+    background-color: black;
+    height: 15vh;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+.search-box{
+    flex-grow: 1;
+    min-width: 36rem;
+}
+
+@media only screen and (max-width: 768px){
+    .search-box{
+        min-width: 18rem;
+    }
+}
+
+.row-search{
+    border-radius: 10px;
+    background-color: #ededed;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+#input-box{
+    font-family: 'Roboto', serif;
+    flex: 1;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.img-b{
+    background: transparent;
+    border: none;
+}
+
+.searchimg{
+    width: 27px;
+    height: 27px;
+}
+
+::placeholder{
+    color: #000000;
+}
+
+.friend-container{
+    background: linear-gradient(45deg, #FF1B6B, #BA5CA2, #7B97D4, #45CAFF);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.whitecontainer{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-left: 80px;
+    padding-right: 80px;
+    font-family: "Roboto", sans-serif;
+    height: 70vh;
+}
+
+.myfriends, .addfriends{
+    display: inline-block;
+    cursor: pointer;
+}
+
+.myfriends .friendTitle, .addfriends .friendTitle{
+    font-family: 'omnesregular', Arial, sans-serif !important;
+    margin: 50px;
+    color: #000000;
+    text-align: center;
+    cursor: pointer; 
+}
+
+.toggleText .friendTitle {
+    font-family: 'omnesbold', Arial, sans-serif;
+    margin-bottom: 20px;
+    background-image: linear-gradient(-45deg, #FF1B6B, #BA5CA2, #7B97D4, #45CAFF);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: gradient 10s ease infinite;
+    background-size: 400% 400%;
+    transition: 0.5s;
+}
+
+.people, .person{
+    font-family: "Roboto", sans-serif;
+    padding: 20px 0;
+    border-top: 1px solid #f1f2f2;
+    border-bottom: 1px solid #f1f2f2;
+}
+
+.profile-link{
+    text-decoration: none;
+    color: black;
+}
+
+.profile-photo-lg{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+#personName{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+}
+
+#remove, #block{
+    margin-right: 5px;
+}
+
