@@ -25,9 +25,11 @@ const Header = () => {
                     <li className="nav-item">
                         <NavLink id="link3" className="nav-link" to="/friends">Friends</NavLink>
                     </li>
+                    {/*
                     <li className="nav-item">
                         <NavLink id="link4" className="nav-link" to="/messages">Messages</NavLink>
                     </li>
+                    */}
                 </ul>
                 <ul className="navbar-nav">
                     <NotificationDropdown />
