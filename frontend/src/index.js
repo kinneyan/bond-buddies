@@ -5,6 +5,9 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import UserPage from './pages/UserPage'
 import AssessmentPage from './pages/AssessmentPage'
+import PersonalityPage from './pages/PersonalityPage'
+import DISCPage from './pages/DISCPage'
+import FriendshipPage from './pages/FriendshipPage'
 import FriendsPage from './pages/FriendsPage'
 import SettingsPage from './pages/SettingsPage'
 
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
   {
     path: "/assessments",
     element: <AssessmentPage />,
+  },
+  {
+    path: "/personalitytype",
+    element: <PersonalityPage />,
+  },
+  {
+    path: "/disc",
+    element: <DISCPage />,
+  },
+  {
+    path: "/friendshiplanguage",
+    element: <FriendshipPage />,
   },
   {
     path: "/friends",

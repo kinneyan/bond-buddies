@@ -80,7 +80,7 @@ const LoginPage = () => {
                   type="button"
                   className="btn btn-primary"
                 >
-                  Send Reset Password Email
+                  Reset Password
                 </button>
               </div>
 
