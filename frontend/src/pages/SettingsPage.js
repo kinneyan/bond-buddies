@@ -24,6 +24,7 @@ const Settings = () => {
                             </div>
                         </div>
                     </div>
+                    <br/>
                     <div className="row">
                         <div className="col">
                             <div id="email" className="SPform-group">
@@ -38,6 +39,7 @@ const Settings = () => {
                             </div>
                         </div>
                     </div>
+                    <br/>
                     <div className="row">
                         <div className="col">
                             <div className="SPform-group">

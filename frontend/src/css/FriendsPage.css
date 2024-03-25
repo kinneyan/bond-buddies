@@ -95,6 +95,7 @@
     transition: 0.5s;
 }
 
+
 .people, .person{
     font-family: "Roboto", sans-serif;
     padding: 20px 0;
@@ -102,24 +103,62 @@
     border-bottom: 1px solid #f1f2f2;
 }
 
-.profile-link{
-    text-decoration: none;
-    color: black;
+.row{
+    height: 70px;
+    display: flex; 
+    align-items: center; 
+    
 }
 
-.profile-photo-lg{
-    height: 40px;
-    width: 40px;
+.col{
+    flex: 1; 
+}
+
+.col-6{
+    flex: 1; 
+    max-width: 270px;
+}
+
+.FPpersonContainer{
+    display: flex;
+    align-items: center; 
+    text-decoration: none;
+    color: black;
+    max-width: 270px;
+}
+
+.FPpersonContainer:hover {
+    text-decoration: none;
+}
+
+#profileSection{
+    max-width: 80px;
+}
+
+.FPprofile{
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
+    margin-right: 10px; 
 }
 
-#personName{
-    font-size: 18px;
-    text-decoration: none;
-    color: black;
+#FPpersonName {
+    font-family: 'Roboto';
+    font-size: 16px; 
+}
+
+#FPbuddyType {
+    font-family: 'Roboto';
+    font-size: 14px;
+    font-weight: normal;
+}
+#buttonSection {
+    display: flex;
+    align-items: center; 
+    justify-content: flex-end;
 }
 
 #remove, #block{
     margin-right: 5px;
+    margin-left: 5px;
 }
-
