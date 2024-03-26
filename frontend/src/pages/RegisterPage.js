@@ -4,6 +4,7 @@ import Footer from '../components/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/RegisterPage.css'; 
 import { NavLink } from 'react-router-dom';
+import { API_URL } from '../components/ApiAddress';
 
 const RegisterForm = () => {
   return (
