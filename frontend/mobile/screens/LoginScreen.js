@@ -12,6 +12,46 @@ export default function LoginScreen() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const handleLogin = async () => {
+
+        const obj = {
+            username,
+            password,
+        };
+
+        try{
+
+            const response = await fetch('http://10.132.181.204:3001/user/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(obj)
+            });
+
+            const res = await response.json();
+
+            if(res.error){
+                console.log("Login failed:", res.error);
+            } 
+            else{
+                console.log("Login successful!");
+                navigation.navigate('UserHome');
+            }
+        }catch(error){
+            console.error("Error during login:", error);
+        }
+
+    };
+    
+    const navigateToForgotPassword = () => {
+        navigation.navigate('Forgot'); 
+    };
+
+    const navigateToRegister = () => {
+        navigation.navigate('Register');
+    };
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -93,24 +133,6 @@ export default function LoginScreen() {
             textDecorationLine: 'none',
         },
     });
-
-    const handleLogin = () => {
-        // login logic, verify credentials with backend
-        if(username.trim() !== '' && password.trim() !== '') {
-            navigation.navigate('UserHome');
-        } 
-        else{
-            console.log('Invalid credentials');
-        }
-    };
-    
-    const navigateToForgotPassword = () => {
-        navigation.navigate('Forgot'); 
-    };
-
-    const navigateToRegister = () => {
-        navigation.navigate('Register');
-    };
 
     return (
         <View style={styles.container}>

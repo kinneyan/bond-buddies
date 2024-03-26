@@ -19,6 +19,50 @@ export default function RegisterScreen() {
         confirmPassword: ''
     });
 
+    const handleNextStep = (data) => {
+        setUserData(prevState => ({ ...prevState, ...data }));
+        setStep(step + 1);
+    };
+  
+    const handleRegister = async () => {
+
+        const { firstName, lastName, email, username, password, confirmPassword } = userData;
+    
+        const obj = {
+            firstName,
+            lastName,
+            email,
+            username,
+            password,
+            confirmPassword
+        };
+    
+        try {
+            const response = await fetch('http://10.132.181.204:3001/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj)
+            });
+    
+            const res = JSON.parse(await response.text());
+    
+            if (res.error) {
+                console.log("Register failed:", res.error);
+            } else {
+                console.log("Register successful!");
+                navigation.navigate('Login');
+            }
+        } catch (error) {
+            console.error("Error during register:", error);
+        }
+    };
+    
+    const navigateToLogin = () => {
+        navigation.navigate('Login');
+    };
+  
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -92,20 +136,6 @@ export default function RegisterScreen() {
         textAlign: 'center',
     },
     });
-
-    const handleNextStep = (data) => {
-      setUserData(prevState => ({ ...prevState, ...data }));
-      setStep(step + 1);
-    };
-
-    const handleRegister = () => {
-      console.log('Registering:', userData);
-      // You can perform registration logic here
-    };
-
-    const navigateToLogin = () => {
-        navigation.navigate('Login');
-    };
 
     const renderStepOne = () => {
       return (
