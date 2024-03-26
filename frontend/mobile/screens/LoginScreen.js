@@ -3,6 +3,7 @@ import { View, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity } from 
 import { useNavigation } from '@react-navigation/native';
 import { Rect, CornerPathEffect} from "@shopify/react-native-skia";
 import BorderGradient from '../components/BorderGradient'; 
+import { API_URL } from '../components/ApiAddress';
 
 export default function LoginScreen() {
 
@@ -11,6 +12,46 @@ export default function LoginScreen() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const handleLogin = async () => {
+
+        const obj = {
+            username,
+            password,
+        };
+
+        try{
+
+            const response = await fetch(API_URL + '/user/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(obj)
+            });
+
+            const res = await response.json();
+
+            if(res.error){
+                console.log("Login failed:", res.error);
+            } 
+            else{
+                console.log("Login successful!");
+                navigation.navigate('UserHome');
+            }
+        }catch(error){
+            console.error("Error during login:", error);
+        }
+
+    };
+    
+    const navigateToForgotPassword = () => {
+        navigation.navigate('Forgot'); 
+    };
+
+    const navigateToRegister = () => {
+        navigation.navigate('Register');
+    };
 
     const styles = StyleSheet.create({
         container: {
@@ -93,24 +134,6 @@ export default function LoginScreen() {
             textDecorationLine: 'none',
         },
     });
-
-    const handleLogin = () => {
-        // login logic, verify credentials with backend
-        if(username.trim() !== '' && password.trim() !== '') {
-            navigation.navigate('UserHome');
-        } 
-        else{
-            console.log('Invalid credentials');
-        }
-    };
-    
-    const navigateToForgotPassword = () => {
-        navigation.navigate('Forgot'); 
-    };
-
-    const navigateToRegister = () => {
-        navigation.navigate('Register');
-    };
 
     return (
         <View style={styles.container}>
