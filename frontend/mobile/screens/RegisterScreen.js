@@ -3,6 +3,7 @@ import { View, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity } from 
 import { useNavigation } from '@react-navigation/native';
 import { Rect, CornerPathEffect } from "@shopify/react-native-skia";
 import BorderGradient from '../components/BorderGradient'; 
+import { API_URL } from '../components/ApiAddress';
 
 export default function RegisterScreen() {
 
@@ -38,7 +39,7 @@ export default function RegisterScreen() {
         };
     
         try {
-            const response = await fetch('http://10.132.181.204:3001/user/register', {
+            const response = await fetch(API_URL + '/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
