@@ -8,8 +8,8 @@ const blockUser = async (req, res, next) => {
     // process body
     let _user = '';
     try {
-        const { friend } = req.body;
-        _user = friend.trim();
+        const { user } = req.body;
+        _user = user.trim();
         if (_user === '') throw new Error();
     } catch (e) {
         res.locals.ret.error = 'Bad request syntax. Missing or incorrect information.';
