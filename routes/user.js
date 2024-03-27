@@ -14,6 +14,7 @@ const { register } = require('../controllers/register');
 const { login } = require('../controllers/login');
 const { update } = require('../controllers/updateUser');
 const { getUser} = require('../controllers/getUser');
+const { unblockUser} = require('../controllers/unblockUser');
 
 router.post('/register', register);
 router.post('/login', login);
@@ -23,5 +24,8 @@ router.post('/update', update);
 
 router.get('/self', authenticate);
 router.get('/self', getUser);
+
+router.post('/unblock', authenticate);
+router.post('/unblock', unblockUser);
 
 module.exports = router;
