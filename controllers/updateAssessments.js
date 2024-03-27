@@ -6,6 +6,8 @@ const updateAssessment = (async (req, res, next) =>
     // body: assessment (int), responses (int array)
     // response: error
 
+    const ASSESSMENT_LENGTH = 20;
+
     // read body
     let assessment = -1;
     let responseArray = [];
@@ -28,7 +30,7 @@ const updateAssessment = (async (req, res, next) =>
                 throw new Error();
         }
 
-        if (responses.length != 20) throw new error();
+        if (responses.length != ASSESSMENT_LENGTH) throw new error();
         responseArray = responses;
     }
     catch (e)
