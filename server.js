@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3001;
 // get routes
 const userRoutes = require('./routes/user');
 const friendRoutes = require('./routes/friends');
+const assessmentRoutes = require('./routes/assessments');
 
 // initialize express
 const app = express();
@@ -21,6 +22,7 @@ app.set('port', PORT);
 // link api routes
 app.use('/user', userRoutes);
 app.use('/friends', friendRoutes);
+app.use('/assessments', assessmentRoutes);
 
 app.use((req, res, next) =>
 {
