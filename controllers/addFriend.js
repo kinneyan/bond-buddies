@@ -1,5 +1,4 @@
 const { getMongoClient } = require('../utils/database');
-const ObjectId = require('mongodb').ObjectId;
 
 const addFriend = (async (req, res, next) =>
 {
