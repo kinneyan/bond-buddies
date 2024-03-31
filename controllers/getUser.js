@@ -1,4 +1,5 @@
 const { getMongoClient } = require('../utils/database');
+const ObjectId = require('mongodb').ObjectId;
 
 const getUser = (async (req, res, next) => 
 {
@@ -11,7 +12,7 @@ const getUser = (async (req, res, next) =>
         client.connect();
         const db = client.db();
 
-        const query = await db.collection('Users').find({ login: res.locals.token.login },
+        const query = await db.collection('Users').find({ login: res.locals.token.login, _id: ObjectId.createFromHexString(res.locals.token.id) },
             { 
                 projection: { _id: 0, login: 1, firstName: 1, lastName: 1, email: 1 } 
             }
@@ -21,7 +22,7 @@ const getUser = (async (req, res, next) =>
         if (query.length < 1)
         {
             res.locals.ret.error = 'Could not get user information from server.';
-            ret.status(409).json(res.locals.ret);
+            res.status(409).json(res.locals.ret);
             return;
         }
 
@@ -37,6 +38,7 @@ const getUser = (async (req, res, next) =>
     }
     catch (e)
     {
+        console.log(e);
         res.locals.ret.error = 'Encountered an error while getting user information.';
         res.status(500).json(res.locals.ret);
         return;
