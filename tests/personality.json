@@ -1,0 +1,59 @@
+{
+    "codes" : 
+    {
+        "EXTR": "extrovert",
+        "INTR": "introvert",
+        "INTU": "intuition",
+        "SENS": "sensing",
+        "FEEL": "feeling",
+        "THIN": "thinking",
+        "JUDG": "judging",
+        "PERC": "perceiving"
+    },
+    "questionTypes" : 
+    {
+        "1": "EXTR",
+        "2": "INTU",
+        "3": "FEEL",
+        "4": "JUDG",
+        "5": "INTU",
+        "6": "INTR",
+        "7": "JUDG",
+        "8": "FEEL",
+        "9": "JUDG",
+        "10": "SENS",
+        "11": "EXTR",
+        "12": "SENS",
+        "13": "THIN",
+        "14": "PERC",
+        "15": "EXTR",
+        "16": "INTU",
+        "17": "INTR",
+        "18": "SENS",
+        "19": "THIN",
+        "20": "PERC"
+    },
+    "questions" :
+    {
+        "1": "It's easy for you to make friends.",
+        "2": "You enjoy exploring the unknown.",
+        "3": "Seeing other people cry makes you want to cry as well.",
+        "4": "You always have multiple plans prepared in the event that one fails.",
+        "5": "You trust your instincts and gut feelings when making decisions.",
+        "6": "You wait for others to approach you first at public events.",
+        "7": "You find pleasure in setting reachable goals for yourself.",
+        "8": "You value helping others achieve their goals.",
+        "9": "You like to use organizing tools to manage your schedule.",
+        "10": "You enjoy learning through hands-on experiences and experimentation.",
+        "11": "You enjoy approaching others first and striking up conversation.",
+        "12": "You prefer not to have invested conversations about abstract ideas.",
+        "13": "You view decision-making based on emotion as inefficient.",
+        "14": "You prefer to go through your days without a schedule.",
+        "15": "You enjoy participating in team-based activities.",
+        "16": "Your dreams tend to be vivid and creative.",
+        "17": "In a group, you prefer to listen than participate in the discussion.",
+        "18": "You often notice small changes in your environment that others might overlook.",
+        "19": "You believe it's more important to rely on rationality than emotions.",
+        "20": "I'm open to new experiences and opportunities, even if they disrupt my existing plans."
+    }
+}
