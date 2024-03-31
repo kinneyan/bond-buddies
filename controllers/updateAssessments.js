@@ -1,4 +1,5 @@
 const { getMongoClient } = require('../utils/database');
+const { scorePersonality } = require('../utils/scoring');
 
 const updateAssessment = (async (req, res, next) => 
 {
@@ -11,6 +12,7 @@ const updateAssessment = (async (req, res, next) =>
     // read body
     let assessment = -1;
     let responseArray = [];
+    let type = ''
     try
     {
         const { assessmentCode, responses } = req.body;
@@ -19,6 +21,7 @@ const updateAssessment = (async (req, res, next) =>
         {
             case 0:
                 assessment = 'Personality';
+                type = scorePersonality(responses);
                 break;
             case 1:
                 assessment = 'DISC';
@@ -32,6 +35,8 @@ const updateAssessment = (async (req, res, next) =>
 
         if (responses.length != ASSESSMENT_LENGTH) throw new error();
         responseArray = responses;
+
+        if (type == '' ) throw new Error();
     }
     catch (e)
     {
@@ -48,7 +53,7 @@ const updateAssessment = (async (req, res, next) =>
 
         const update = await db.collection(assessment).updateOne(
             { login: res.locals.token.login },
-            { $set: { responses: responseArray }},
+            { $set: { responses: responseArray, result: type }},
             { upsert: true }
         );
 
