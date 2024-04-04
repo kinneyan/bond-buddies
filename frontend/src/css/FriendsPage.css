@@ -95,7 +95,6 @@
     transition: 0.5s;
 }
 
-
 .people, .person{
     font-family: "Roboto", sans-serif;
     padding: 20px 0;
@@ -158,7 +157,66 @@
     justify-content: flex-end;
 }
 
-#remove, #block{
+#remove, #block, #add{
     margin-right: 5px;
     margin-left: 5px;
+}
+
+@media screen and (max-width: 630px){
+
+    .myfriends, .addfriends{
+        display: inline;
+        cursor: pointer;
+    }
+    
+    .myfriends .friendTitle, .addfriends .friendTitle{
+        font-family: 'omnesregular', Arial, sans-serif !important;
+        margin: 50px;
+        color: #000000;
+        text-align: center;
+        cursor: pointer; 
+        margin-bottom: 20px;
+    }
+    
+    .toggleText .friendTitle {
+        font-family: 'omnesbold', Arial, sans-serif;
+        background-image: linear-gradient(-45deg, #FF1B6B, #BA5CA2, #7B97D4, #45CAFF);
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        animation: gradient 10s ease infinite;
+        background-size: 400% 400%;
+        transition: 0.5s;
+    }
+
+    .col-6{
+        flex: 1; 
+        max-width: 20px;
+    }
+    
+    .FPpersonContainer{
+        max-width: 80px;
+    }
+
+    #profileSection{
+        max-width: 60px;
+    }
+    
+    .FPprofile{
+        height: 45px;
+        width: 45px;
+    }
+    
+    #FPpersonName {
+        font-size: 12px; 
+    }
+    
+    #FPbuddyType {
+        font-size: 10px;
+    }
+
+    #remove, #block{
+        margin-right: 1px;
+        margin-left: 1px;
+    }
 }
