@@ -1,0 +1,146 @@
+#pageNavbar{
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.UHnavbar-logo #logo{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    height: 50px;
+    width: auto;
+}
+
+.nav-item #link1, #link2, #link3, #link4{
+    text-decoration: none;
+    font-family: 'omnesbold', Arial;
+    font-size: 25px;
+    color: black;
+    transition: 0.5s;
+}
+
+.nav-item:hover{
+    transition: 0.5s;
+}
+
+.nav-item #link1:hover{
+    color: #FF1B6B;
+}
+
+.nav-item #link2:hover{
+    color: #BA5CA2;
+}
+
+.nav-item #link3:hover{
+    color: #7999D6;
+}
+
+.nav-item #link4:hover{
+    color: #45CAFF;
+}
+
+#notificationDropdown::after, #profileDropdown::after{
+    border-top-color: black;
+}
+
+#navprofile{
+    width: 32px; 
+    height: 32px;
+}
+
+#notfdrop{
+    margin-right: 20px;
+}
+
+.userinfo{
+    display: flex;
+    flex-direction: row;
+    height: 50vh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #FF1B6B, #BA5CA2, #7B97D4, #45CAFF);
+    animation: gradient 10s ease infinite;
+    background-size: 400% 400%;
+}
+
+.content{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.left-content{
+    width: 30%;
+    color: white;
+    margin-right: 100px;
+}
+
+.left-content #hello{
+    font-family: 'omnesregular', Arial;
+    margin-bottom: 30px;
+}
+
+.left-content #type{
+    font-family: 'omnesbold', Arial;
+    margin-bottom: 30px;
+    color: black;
+    font-size: 50px;
+}
+
+.left-content #descrip{
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 30px;
+    color: white;
+    font-size: 16px;
+}
+
+.right-content{
+    width: 70%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.rounded-table{
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 20px;
+}
+
+.rounded-table .assessment,
+.rounded-table .result{
+    text-align: left;
+    padding: 15px;
+    font-family: "Roboto", sans-serif;
+}
+
+.rounded-table .assessment{
+    font-weight: bold;
+}
+
+.asessmentInfo{
+    margin: 50px;
+}
+
+.asessmentInfo .pt, .asessmentInfo .disc, .asessmentInfo .fl{
+    margin-bottom: 40px;
+}
+
+.asessmentInfo .assesstitle{
+    font-family: 'omnesregular', Arial;
+    font-size: 22px;
+}
+
+.asessmentInfo .assesstext{
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+}
+
+.dropdown-item{
+    margin: 0 !important;
+}
+

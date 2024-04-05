@@ -11,15 +11,27 @@ const login = (async (req, res, next) =>
     let ret = {};
     ret.error = '';
 
-    // process body
-    const { username, password } = req.body;
-    let _username = username.trim();
-    let _password = password.trim();
+    let _username = '';
+    let _password = '';
+
+    try 
+    {
+        // process body
+        const { username, password } = req.body;
+        _username = username.trim();
+        _password = password.trim();
+    }
+    catch (e) 
+    {
+        ret.error = 'Bad request syntax. Missing or incorrect information.'
+        res.status(400).json(ret);
+        return;
+    }
 
     const body = 
     {
-        Login: _username,
-        Password: shaHash(_password)
+        login: _username,
+        password: shaHash(_password)
     }
 
     try 
@@ -42,7 +54,7 @@ const login = (async (req, res, next) =>
         if (query.length < 1)
         {
             ret.error = 'Username or password is incorrect.';
-            res.status(200).json(ret);
+            res.status(401).json(ret);
             return;
         }
         
@@ -50,13 +62,13 @@ const login = (async (req, res, next) =>
         const tokenBody = 
         {
             id: query[0]._id.toString(),
-            login: body.Login
+            login: body.login
         }
-        ret.bearer = await generateJWT(tokenBody);
+        ret.bearer = 'Bearer ' + await generateJWT(tokenBody);
 
         // add user information
-        ret.firstName = query[0].FirstName;
-        ret.lastName = query[0].LastName;
+        ret.firstName = query[0].firstName;
+        ret.lastName = query[0].lastName;
         
         res.status(200).json(ret);
         return;

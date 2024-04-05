@@ -11,30 +11,46 @@ const register = (async (req, res, next) =>
     let ret = {};
     ret.error = '';
 
-    // process body 
-    const { username, password, confirmPassword, firstName, lastName, email } = req.body;
-    let _username = username.trim();
-    let _password = password.trim();
-    let _confirmPassword = confirmPassword.trim();
-    let _firstName = firstName.trim();
-    let _lastName = lastName.trim();
-    let _email = email.trim();
+    let _username = '';
+    let _password = '';
+    let _confirmPassword = '';
+    let _firstName = '';
+    let _lastName = '';
+    let _email = '';
+
+    try
+    {
+        // process body 
+        const { username, password, confirmPassword, firstName, lastName, email } = req.body;
+        _username = username.trim();
+        _password = password.trim();
+        _confirmPassword = confirmPassword.trim();
+        _firstName = firstName.trim();
+        _lastName = lastName.trim();
+        _email = email.trim();
+    }
+    catch (e) 
+    {
+        ret.error = 'Bad request syntax. Missing or incorrect information.'
+        res.status(400).json(ret);
+        return;
+    }
 
     // check if passwords match
     if (_password !== _confirmPassword)
     {
         ret.error = "Passwords do not match.";
-        res.status(200).json(ret);
+        res.status(400).json(ret);
         return;
     }
     
     const newUser = 
     {
-        FirstName: _firstName,
-        LastName: _lastName,
-        Login: _username,
-        Password: shaHash(_password),
-        Email: _email
+        firstName: _firstName,
+        lastName: _lastName,
+        login: _username,
+        password: shaHash(_password),
+        email: _email
     }
 
     try
@@ -45,10 +61,12 @@ const register = (async (req, res, next) =>
         const db = client.db()
 
         // check if username exists
-        const duplicate = await db.collection('Users').find({Login: newUser.Login}).toArray();
+        const duplicate = await db.collection('Users').find({login: newUser.login}).toArray();
         if (duplicate.length > 0)
         {
             ret.error = "Username is already taken.";
+            res.status(409).json(ret);
+            return;
         }
         else 
         {
@@ -56,9 +74,9 @@ const register = (async (req, res, next) =>
             const tokenBody = 
             {
                 id: newUser._id.toString(),
-                login: newUser.Login
+                login: newUser.login
             }
-            ret.bearer = await generateJWT(tokenBody);
+            ret.bearer = 'Bearer ' + await generateJWT(tokenBody);
         }
         
         // return success
