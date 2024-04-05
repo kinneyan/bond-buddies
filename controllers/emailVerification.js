@@ -34,7 +34,10 @@ const emailVerification = (async (req, res, next) => 
 
         const message = {
             to: user[0].email,
-            from: 'bondbuddiesofficial@gmail.com',
+            from: {
+                name: "Bond Buddies",
+                email: 'bondbuddiesofficial@gmail.com'
+            },
             subject: 'Please Verify Your Email',
             text: 'Please click the link below to verify your email.',
             html: '<h1>Please click the link below to verify your email.</h1>' +  '<p><a href="https://bondbuddies.com/login">Verify Email</a></p>'
