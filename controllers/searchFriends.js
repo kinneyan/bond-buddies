@@ -49,7 +49,7 @@ const searchFriends = async (req, res, next) => {
 
         // check if there is an existing relationship
         const relationships = await db.collection('Relationships').find(requestBody).toArray();
-        if(relationships.blocked == 'true'){
+        if(relationships.blocked){
             res.locals.ret.error = _search + ' is blocked.';
             res.status(409).json(res.locals.ret);
             return;
