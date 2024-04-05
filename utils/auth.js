@@ -40,7 +40,7 @@ const verifyJWT = (async (token) =>
 });
 
 const generateSGAPI = async () => {
-    return SG_API_KEY;
+    return secretEmail;
 };
 
 
