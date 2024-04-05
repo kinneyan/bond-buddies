@@ -3,7 +3,8 @@ const { createSecretKey } = require('crypto');
 require('dotenv').config();
 
 const secret = createSecretKey(process.env.JWT_SECRET, 'utf-8');
-const secretEmail = createSecretKey(process.env.SG_API_KEY, 'utf-8');
+const secretEmail = process.env.SG_API_KEY;
+const secretEmailString = String(secretEmail);
 
 /**
  * Generate a JWT bearer token
@@ -39,8 +40,8 @@ const verifyJWT = (async (token) =>
     }
 });
 
-const generateSGAPI = async () => {
-    return secretEmail;
+const generateSGAPI = () => {
+    return secretEmailString
 };
 
 

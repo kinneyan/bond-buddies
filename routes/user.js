@@ -29,7 +29,7 @@ router.get('/self', getUser);
 router.post('/block', authenticate);
 router.post('/block', blockUser);
 
-router.post('/verify', authenticate);
-router.post('/verify', emailVerification);
+router.get('/verify', authenticate);
+router.get('/verify', emailVerification);
 
 module.exports = router;
