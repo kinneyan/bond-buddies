@@ -1,4 +1,5 @@
 const { getMongoClient } = require("../utils/database");
+const ObjectId = require('mongodb').ObjectId;
 
 const update = (async (req, res, next) =>
 {
@@ -13,7 +14,7 @@ const update = (async (req, res, next) =>
         const db = client.db();
 
         // add username to query
-        let query = { login: res.locals.token.login };
+        let query = { login: res.locals.token.login, _id: ObjectId.createFromHexString(res.locals.token.id) };
         // ensure that fields must already exist in database
         for (let key in req.body)
         {

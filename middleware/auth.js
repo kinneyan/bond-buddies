@@ -1,4 +1,6 @@
 const { verifyJWT } = require('../utils/auth');
+const { getMongoClient } = require('../utils/database');
+const ObjectId = require('mongodb').ObjectId;
 
 const authenticate = (async (req, res, next) =>
 {
@@ -14,6 +16,14 @@ const authenticate = (async (req, res, next) =>
         // verify bearer
         const token = await verifyJWT(auth.split(' ')[1]);
         if (Object.keys(token).length < 1) throw new Error();
+
+        // validate authentication
+        const client = getMongoClient();
+        client.connect();
+        const db = client.db();
+        
+        const query = await db.collection('Users').find({ login: token.login, _id: ObjectId.createFromHexString(token.id) }).toArray();
+        if (query.length < 1) throw new Error();
 
         // save token body
         res.locals.token = token;
