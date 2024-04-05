@@ -54,7 +54,8 @@ const unblockUser = async (req, res, next) => {
         }
 
         // Update the relationship to unblock the user
-        const updateResult = await db.collection('Relationships').updateOne(requestBody, { $unset: { blocked: "false" } });
+        // const updateResult = await db.collection('Relationships').updateOne(requestBody, { $set: { blocked: true } });
+        const updateResult = await db.collection('Relationships').updateOne(requestBody, { $set: { blocked: false } });
 
         // Check if update occurred
         if (updateResult.modifiedCount === 0) throw new Error();
