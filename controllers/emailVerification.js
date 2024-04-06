@@ -34,7 +34,7 @@ const emailVerification = (async (req, res, next) => 
 
         const token = res.locals.token;
 
-        const url = `https://bondbuddies.com/login?token=${token}`;
+        const url = `https://bondbuddies.com/login`;
 
         const message = {
             to: user[0].email,
