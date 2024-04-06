@@ -32,6 +32,10 @@ const emailVerification = (async (req, res, next) => 
 
         res.locals.ret.email = user[0].email;
 
+        const token = res.locals.token;
+
+        const url = `https://bondbuddies.com/login?token=${token}`;
+
         const message = {
             to: user[0].email,
             from: {
@@ -40,10 +44,12 @@ const emailVerification = (async (req, res, next) => 
             },
             subject: 'Please Verify Your Email',
             text: 'Please click the link below to verify your email.',
-            html: '<h1>Please click the link below to verify your email.</h1>' +  '<p><a href="https://bondbuddies.com/login">Verify Email</a></p>'
+            html: `<h1>Please click the link below to verify your email.</h1><p><a href="${url}">Verify Email</a></p>`
 
         }
-        sgMail.send(message).then(response => console.log('Email Sent!')).catch(error=> console.log(error.message))
+        sgMail.send(message)
+        .then(response => console.log('Email Sent!'))
+        .catch(error => console.log(error.message));
         res.status(200).json({ results: results });
         res.status(200).json(res.locals.ret);
 
