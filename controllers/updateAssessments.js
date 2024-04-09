@@ -33,14 +33,22 @@ const updateAssessment = (async (req, res, next) =>
                 throw new Error();
         }
 
-        if (responses.length != ASSESSMENT_LENGTH) throw new error();
+        if (responses.length != ASSESSMENT_LENGTH)
+        {
+            res.locals.ret.error = 'Bad request. Responses should have length ' + ASSESSMENT_LENGTH + '.';
+            throw new Error();
+        }
         responseArray = responses;
 
-        if (type == '' ) throw new Error();
+        if (type == '' )
+        {
+            res.locals.ret.error = 'Could not score results.';
+            throw new Error();
+        }
     }
     catch (e)
     {
-        res.locals.ret.error = 'Bad request. Missing or invalid information.';
+        if (res.locals.ret.error === '') res.locals.ret.error = 'Bad request. Missing or invalid information.';
         res.status(400).json(res.locals.ret);
         return;
     }
