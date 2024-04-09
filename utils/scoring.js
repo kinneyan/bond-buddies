@@ -15,7 +15,7 @@ const scoreTest = (test, responses) =>
 
 const scorePersonality = (responses) =>
 {
-    let personalityJSON = require('../tests/personality.json');
+    const personalityJSON = require('../tests/personality.json');
 
     let cat1 = 0;
     let cat2 = 0;
@@ -51,7 +51,7 @@ const scorePersonality = (responses) =>
                 cat4 += responses[i];
                 break;
             default:
-                return '';
+                break;
         }
     }
 
@@ -98,20 +98,20 @@ const scoreDisc = (responses) =>
                 c += responses[j];
                 break;
             default: 
-                return '';
+                break;
         }
     }
 
     switch (Math.max(d, i, s, c))
     {
         case d:
-            return 'D';
+            return 'Dominance';
         case i:
-            return 'I';
+            return 'Influence';
         case s:
-            return 'S';
+            return 'Steadiness';
         case c:
-            return 'C';
+            return 'Conscientiousness';
         default:
             return '';
     }
@@ -119,7 +119,47 @@ const scoreDisc = (responses) =>
 
 const scoreFriendship = (responses) =>
 {
+    const friendshipJSON = require('../tests/friendship.json');
 
+    let w = 0;
+    let q = 0;
+    let g = 0;
+    let a = 0;
+
+    for (let i = 0; i < Object.keys(friendshipJSON.questions); i++)
+    {
+        switch (friendshipJSON.questionTypes[i + 1])
+        {
+            case "W":
+                w += responses[i];
+                break;
+            case "Q": 
+                q += responses[i];
+                break;
+            case "G":
+                g += responses[i];
+                break;
+            case "A": 
+                a += responses[i];
+                break;
+            default: 
+                break;
+        }
+    }
+
+    switch (Math.max(w, q, g, a))
+    {
+        case w:
+            return 'Words of affirmation';
+        case q:
+            return 'Quality time';
+        case g:
+            return 'Gifts';
+        case a:
+            return 'Acts of service';
+        default:   
+            return '';
+    }
 };
 
 module.exports = { scoreTest };
