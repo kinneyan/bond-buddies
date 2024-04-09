@@ -9,7 +9,7 @@ const { getResults } = require('../controllers/interpretResults');
 router.post('/update', authenticate);
 router.post('/update', updateAssessment);
 
-router.get('/interpret', authenticate);
-router.get('/interpret', getResults);
+router.get('/results', authenticate);
+router.get('/results', getResults);
 
 module.exports = router;
