@@ -1,3 +1,18 @@
+const scoreTest = (test, responses) =>
+{
+    switch (test)
+    {
+        case 'Personality':
+            return scorePersonality(responses);
+        case 'DISC':
+            return scoreDisc(responses);
+        case 'Friendship':
+            return scoreFriendship(responses);
+        default:
+            return '';
+    }
+}
+
 const scorePersonality = (responses) =>
 {
     let personalityJSON = require('../tests/personality.json');
@@ -57,14 +72,54 @@ const scorePersonality = (responses) =>
     return personalityType;
 };
 
-const scoreDisc = () =>
+const scoreDisc = (responses) =>
+{
+    const discJSON = require('../tests/disc.json');
+    
+    let d = 0;
+    let i = 0; 
+    let s = 0;
+    let c = 0;
+
+    for (let j = 0; j < Object.keys(discJSON.questions).length; j++)
+    {
+        switch (discJSON.questionTypes[j + 1])
+        {
+            case "D":
+                d += responses[j];
+                break;
+            case "I":
+                i += responses[j];
+                break;
+            case "S":
+                s += responses[j];
+                break;
+            case "C": 
+                c += responses[j];
+                break;
+            default: 
+                return '';
+        }
+    }
+
+    switch (Math.max(d, i, s, c))
+    {
+        case d:
+            return 'D';
+        case i:
+            return 'I';
+        case s:
+            return 'S';
+        case c:
+            return 'C';
+        default:
+            return '';
+    }
+};
+
+const scoreFriendship = (responses) =>
 {
 
 };
 
-const scoreFriendship = () =>
-{
-
-};
-
-module.exports = { scorePersonality, scoreDisc, scoreFriendship };
+module.exports = { scoreTest };

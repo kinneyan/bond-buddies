@@ -1,6 +1,48 @@
 {
+    "questionTypes" :
+    {
+        "1": "D",
+        "2": "D",
+        "3": "D",
+        "4": "D",
+        "5": "D",
+        "6": "I",
+        "7": "I",
+        "8": "I",
+        "9": "I",
+        "10": "I",
+        "11": "S",
+        "12": "S",
+        "13": "S",
+        "14": "S",
+        "15": "S",
+        "16": "C",
+        "17": "C",
+        "18": "C",
+        "19": "C",
+        "20": "C"
+    },
     "questions" :
     {
-        
+        "1": "I tend to dominate conversations and discussions when spending time with my friends.",
+        "2": "When making plans with friends, I prefer to take the lead and suggest activities.",
+        "3": "I am comfortable with asserting my opinions and ideas even in challenging situations.",
+        "4": "I enjoy challenges and strive to overcome obstacles in order to achieve my goals.",
+        "5": "I am comfortable making tough decisions, even if they may not be popular among others.",
+        "6": "I enjoy being the life of the party and often find myself in the center of social interactions.",
+        "7": "I find pleasure in building relationships with others.",
+        "8": "I enjoy bringing people together and often initiate group outings or gatherings.",
+        "9": "I am persuasive and can effectively communicate my ideas.",
+        "10": "I enjoy entertaining others and making them laugh.",
+        "11": "I value stability and prefer a predictable routine in my daily life.",
+        "12": "I am known for my calm demeanor and ability to remain composed under stressful conditions.",
+        "13": "I am patient and tolerant of others' mistakes or shortcomings.",
+        "14": "I am a loyal and dependable friend, always there to offer support and stability in times of need.",
+        "15": "I prioritize building strong, long-lasting friendships with others.",
+        "16": "I tend to carefully consider the consequences of my actions and strive to make responsible decisions.",
+        "17": "I enjoy analyzing problems and finding innovative solutions.",
+        "18": "I tend to plan ahead and organize events meticulously to ensure everything runs smoothly.",
+        "19": "I pay attention to the needs and preferences of my friends, striving to be considerate and thoughtful in my interactions.",
+        "20": "I am proactive in resolving conflicts or misunderstandings that may arise in my friendships."
     }
 }

@@ -1,5 +1,5 @@
 const { getMongoClient } = require('../utils/database');
-const { scorePersonality } = require('../utils/scoring');
+const { scoreTest } = require('../utils/scoring');
 
 const updateAssessment = (async (req, res, next) => 
 {
@@ -21,7 +21,6 @@ const updateAssessment = (async (req, res, next) =>
         {
             case 0:
                 assessment = 'Personality';
-                type = scorePersonality(responses);
                 break;
             case 1:
                 assessment = 'DISC';
@@ -32,6 +31,7 @@ const updateAssessment = (async (req, res, next) =>
             default:
                 throw new Error();
         }
+        type = scoreTest(assessment, responses);
 
         if (responses.length != ASSESSMENT_LENGTH)
         {
@@ -67,7 +67,7 @@ const updateAssessment = (async (req, res, next) =>
 
         if (update.modifiedCount < 1)
         {
-            res.locals.ret.error = 'Server failed to update responses.';
+            res.locals.ret.error = 'Responses already up-to-date.';
             res.status(409).json(res.locals.ret);
             return;
         }
