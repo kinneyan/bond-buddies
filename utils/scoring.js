@@ -69,7 +69,7 @@ const scorePersonality = (responses) =>
     if (cat4 >= 0) personalityType += 'P';
     else personalityType += 'J';
 
-    return personalityType;
+    return {type: personalityType, description: personalityJSON.descriptions[personalityType]};
 };
 
 const scoreDisc = (responses) =>

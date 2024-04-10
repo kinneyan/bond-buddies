@@ -12,7 +12,7 @@ const updateAssessment = (async (req, res, next) =>
     // read body
     let assessment = -1;
     let responseArray = [];
-    let type = ''
+    let results = {};
     try
     {
         const { assessmentCode, responses } = req.body;
@@ -31,7 +31,7 @@ const updateAssessment = (async (req, res, next) =>
             default:
                 throw new Error();
         }
-        type = scoreTest(assessment, responses);
+        results = scoreTest(assessment, responses);
 
         if (responses.length != ASSESSMENT_LENGTH)
         {
@@ -40,7 +40,7 @@ const updateAssessment = (async (req, res, next) =>
         }
         responseArray = responses;
 
-        if (type == '' )
+        if (results.type == '' )
         {
             res.locals.ret.error = 'Could not score results.';
             throw new Error();
@@ -61,7 +61,7 @@ const updateAssessment = (async (req, res, next) =>
 
         const update = await db.collection(assessment).updateOne(
             { login: res.locals.token.login },
-            { $set: { responses: responseArray, result: type }},
+            { $set: { responses: responseArray, result: results.type, description: results.description }},
             { upsert: true }
         );
 

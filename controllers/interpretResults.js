@@ -18,21 +18,24 @@ const getResults = (async (req, res, next) =>
         const personality = await db.collection('Personality').find(user).toArray();
         if (personality.length >= 1)
         {
-            results.personality = personality[0].result;
-            // desc
+            results.personality = {};
+            results.personality.type = personality[0].result;
+            results.personality.description = personality[0].description;
         }
         
         const disc = await db.collection('DISC').find(user).toArray();
         if (disc.length >= 1)
         {
-            results.disc = disc[0].result;
+            results.disc = {};
+            results.disc.type = disc[0].result;
             // desc
         }
 
         const friendship = await db.collection('Friendship').find(user).toArray();
         if (friendship.length >= 1)
         {
-            results.friendship = friendship[0].result;
+            results.friendship = {};
+            results.friendship.type = friendship[0].result;
             //desc
         }
         
