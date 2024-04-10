@@ -65,7 +65,7 @@ const updateAssessment = (async (req, res, next) =>
             { upsert: true }
         );
 
-        if (update.modifiedCount < 1)
+        if (update.modifiedCount < 1 && update.upsertedCount < 1)
         {
             res.locals.ret.error = 'Responses already up-to-date.';
             res.status(409).json(res.locals.ret);
