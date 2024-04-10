@@ -36,7 +36,7 @@ const getResults = (async (req, res, next) =>
         {
             results.friendship = {};
             results.friendship.type = friendship[0].result;
-            //desc
+            results.friendship.description = friendship[0].description;
         }
         
         if (Object.keys(results) < 1) results.error = 'No assessment results found.';

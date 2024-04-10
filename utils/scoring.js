@@ -150,19 +150,22 @@ const scoreFriendship = (responses) =>
         }
     }
 
+    let type = '';
     switch (Math.max(w, q, g, a))
     {
         case w:
-            return 'Words of affirmation';
+            type = 'Words of affirmation';
         case q:
-            return 'Quality time';
+            type = 'Quality time';
         case g:
-            return 'Gifts';
+            type = 'Gifts';
         case a:
-            return 'Acts of service';
+            type = 'Acts of service';
         default:   
-            return '';
+            break;
     }
+
+    return {type: type, description: friendshipJSON.descriptions[type]};
 };
 
 module.exports = { scoreTest };
