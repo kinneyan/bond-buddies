@@ -1,73 +1,105 @@
-const similarUsers = (async (req, res, next) => 
-{
-    // header: auth token
-    // body:
-    // response: array of compatible users' usernames
+const { getMongoClient } = require('../utils/database');
 
-    const ASSESSMENT_LENGTH = 20;
-
-    // read body
-    let assessment = -1;
+const similarUsers = async (req, res, next) => {
     let responseArray = [];
-    try
-    {
-        const { assessmentCode, responses } = req.body;
-        
-        switch (assessmentCode)
-        {
-            case 0:
-                assessment = 'Personality';
-                break;
-            case 1:
-                assessment = 'DISC';
-                break;
-            case 2:
-                assessment = 'Friendship';
-                break;
-            default:
-                throw new Error();
-        }
 
-        if (responses.length != ASSESSMENT_LENGTH) throw new error();
-        responseArray = responses;
-    }
-    catch (e)
-    {
-        res.locals.ret.error = 'Bad request. Missing or invalid information.';
-        res.status(400).json(res.locals.ret);
-        return;
-    }
-
-    try
-    {
+    try {
         const client = getMongoClient();
-        client.connect();
+        await client.connect();
         const db = client.db();
 
-        const update = await db.collection(assessment).updateOne(
+        // Get personality assessment result for current user
+        const personality = await db.collection('Personality').findOne(
             { login: res.locals.token.login },
-            { $set: { responses: responseArray }},
-            { upsert: true }
+            { projection: { result: 1 } }
         );
 
-        if (update.modifiedCount < 1)
-        {
-            res.locals.ret.error = 'Server failed to update responses.';
+        if (!personality) {
+            res.locals.ret.error = 'Server failed to get personality assessment result for current user.';
             res.status(409).json(res.locals.ret);
             return;
         }
 
+        // Get disc assessment result for current user
+        const disc = await db.collection('DISC').findOne(
+            { login: res.locals.token.login },
+            { projection: { result: 1 } }
+        );
+
+        if (!disc) {
+            res.locals.ret.error = 'Server failed to get disc assessment result for current user.';
+            res.status(409).json(res.locals.ret);
+            return;
+        }
+
+        // Get friendship assessment result for current user
+        const friendship = await db.collection('Friendship').findOne(
+            { login: res.locals.token.login },
+            { projection: { result: 1 } }
+        );
+
+        if (!friendship) {
+            res.locals.ret.error = 'Server failed to get friendship assessment result for current user.';
+            res.status(409).json(res.locals.ret);
+            return;
+        }
+
+        // Iterate through users table to get assessment result field for each user
+        const user = db.collection('Users').find({});
+        await user.forEach(async user => {
+            // Fetch the result field from personality, disc, and friendship collections for each user
+            const personalityResult = await db.collection('Personality').findOne(
+                { login: user.login },
+                { projection: { result: 1 } }
+            );
+            const discResult = await db.collection('DISC').findOne(
+                { login: user.login },
+                { projection: { result: 1 } }
+            );
+            const friendshipResult = await db.collection('Friendship').findOne(
+                { login: user.login },
+                { projection: { result: 1 } }
+            );
+            // check if assessment results are the same for compatbility 
+            if(personality.result == personalityResult.result){
+                responseArray.push({
+                    username: user.username,
+                    personality: personalityResult.result,
+                    disc: discResult.result,
+                    friendship: friendshipResult.result
+                }); 
+                return true;
+            }
+            if(disc.result == discResult.result){
+                responseArray.push({
+                    username: user.username,
+                    personality: personalityResult.result,
+                    disc: discResult.result,
+                    friendship: friendshipResult.result
+                });
+                return true;
+            }
+            if(friendship.result == friendshipResult.result){
+                responseArray.push({
+                    username: user.username,
+                    personality: personalityResult.result,
+                    disc: discResult.result,
+                    friendship: friendshipResult.result
+                });
+                return true;
+            }
+        });
+
         res.locals.ret.error = '';
+        res.locals.ret.similarUsers = responseArray;
         res.status(200).json(res.locals.ret);
         return;
-    }
-    catch (e)
-    {
+    } catch (e) {
         console.log(e);
-        res.locals.ret.error = 'Encoutered an error while updating assessment responses.';
+        res.locals.ret.error = 'Encountered an error while finding similar users.';
         res.status(500).json(res.locals.ret);
         return;
     }
-});
+};
 
 module.exports = { similarUsers };
