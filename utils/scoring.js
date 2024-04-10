@@ -154,13 +154,13 @@ const scoreFriendship = (responses) =>
     switch (Math.max(w, q, g, a))
     {
         case w:
-            type = 'Words of affirmation';
+            type = 'Words of Affirmation';
         case q:
-            type = 'Quality time';
+            type = 'Quality Time';
         case g:
             type = 'Gifts';
         case a:
-            type = 'Acts of service';
+            type = 'Acts of Service';
         default:   
             break;
     }
