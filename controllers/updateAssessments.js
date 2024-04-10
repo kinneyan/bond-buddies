@@ -1,4 +1,5 @@
 const { getMongoClient } = require('../utils/database');
+const { scoreTest } = require('../utils/scoring');
 
 const updateAssessment = (async (req, res, next) => 
 {
@@ -11,6 +12,7 @@ const updateAssessment = (async (req, res, next) =>
     // read body
     let assessment = -1;
     let responseArray = [];
+    let results = {};
     try
     {
         const { assessmentCode, responses } = req.body;
@@ -29,13 +31,24 @@ const updateAssessment = (async (req, res, next) =>
             default:
                 throw new Error();
         }
+        results = scoreTest(assessment, responses);
 
-        if (responses.length != ASSESSMENT_LENGTH) throw new error();
+        if (responses.length != ASSESSMENT_LENGTH)
+        {
+            res.locals.ret.error = 'Bad request. Responses should have length ' + ASSESSMENT_LENGTH + '.';
+            throw new Error();
+        }
         responseArray = responses;
+
+        if (results.type == '' )
+        {
+            res.locals.ret.error = 'Could not score results.';
+            throw new Error();
+        }
     }
     catch (e)
     {
-        res.locals.ret.error = 'Bad request. Missing or invalid information.';
+        if (res.locals.ret.error === '') res.locals.ret.error = 'Bad request. Missing or invalid information.';
         res.status(400).json(res.locals.ret);
         return;
     }
@@ -48,13 +61,13 @@ const updateAssessment = (async (req, res, next) =>
 
         const update = await db.collection(assessment).updateOne(
             { login: res.locals.token.login },
-            { $set: { responses: responseArray }},
+            { $set: { responses: responseArray, result: results.type, description: results.description }},
             { upsert: true }
         );
 
         if (update.modifiedCount < 1)
         {
-            res.locals.ret.error = 'Server failed to update responses.';
+            res.locals.ret.error = 'Responses already up-to-date.';
             res.status(409).json(res.locals.ret);
             return;
         }
