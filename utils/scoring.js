@@ -102,19 +102,22 @@ const scoreDisc = (responses) =>
         }
     }
 
+    let type = '';
     switch (Math.max(d, i, s, c))
     {
         case d:
-            return 'Dominance';
+            type = 'Dominance';
         case i:
-            return 'Influence';
+            type = 'Influence';
         case s:
-            return 'Steadiness';
+            type = 'Steadiness';
         case c:
-            return 'Conscientiousness';
+            type = 'Conscientiousness';
         default:
-            return '';
+            break;
     }
+
+    return {type: type, description: discJSON.descriptions[type]};
 };
 
 const scoreFriendship = (responses) =>

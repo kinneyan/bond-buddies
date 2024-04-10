@@ -28,7 +28,7 @@ const getResults = (async (req, res, next) =>
         {
             results.disc = {};
             results.disc.type = disc[0].result;
-            // desc
+            results.disc.description = disc[0].description;
         }
 
         const friendship = await db.collection('Friendship').find(user).toArray();
