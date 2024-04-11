@@ -36,11 +36,9 @@ const similarUsers = async (req, res, next) => {
             }
 
             // Check if assessment results match for compatibility
-            if (
-                personality.result === personalityResult.result ||
+            if (personality.result === personalityResult.result ||
                 disc.result === discResult.result ||
-                friendship.result === friendshipResult.result
-            ) {
+                friendship.result === friendshipResult.result) {
                 responseArray.push({
                     username: user.username,
                     personality: personalityResult.result,
@@ -49,6 +47,8 @@ const similarUsers = async (req, res, next) => {
                 });
             }
         });
+
+        console.log(responseArray);
 
         res.locals.ret.error = '';
         res.locals.ret.similarUsers = responseArray;
