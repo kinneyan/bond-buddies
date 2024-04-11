@@ -48,6 +48,7 @@ const updateAssessment = (async (req, res, next) =>
     }
     catch (e)
     {
+        console.log(e);
         if (res.locals.ret.error === '') res.locals.ret.error = 'Bad request. Missing or invalid information.';
         res.status(400).json(res.locals.ret);
         return;
