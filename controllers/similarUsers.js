@@ -52,14 +52,29 @@ const similarUsers = async (req, res, next) => {
                 { login: user.login },
                 { projection: { result: 1 } }
             );
+            if(!personalityResult){
+                res.locals.ret.error = 'Server failed to get personality assessment result for other user.';
+                res.status(409).json(res.locals.ret);
+                return;
+            }
             const discResult = await db.collection('DISC').findOne(
                 { login: user.login },
                 { projection: { result: 1 } }
             );
+            if(!discResult){
+                res.locals.ret.error = 'Server failed to get DISC assessment result for other user.';
+                res.status(409).json(res.locals.ret);
+                return;
+            }
             const friendshipResult = await db.collection('Friendship').findOne(
                 { login: user.login },
                 { projection: { result: 1 } }
             );
+            if(!friendshipResult){
+                res.locals.ret.error = 'Server failed to get friendship assessment result for other user.';
+                res.status(409).json(res.locals.ret);
+                return;
+            }
             // check if assessment results are the same for compatbility 
             if(personality.result == personalityResult.result){
                 responseArray.push({
