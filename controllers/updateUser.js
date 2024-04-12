@@ -18,6 +18,7 @@ const update = (async (req, res, next) =>
         // ensure that fields must already exist in database
         for (let key in req.body)
         {
+            if (key == 'password') continue;
             query[key] = { $exists: true };
         }
         
@@ -46,7 +47,6 @@ const update = (async (req, res, next) =>
     }
     catch (e)
     {
-        console.log(e.toString());
         res.locals.ret.error = 'Encountered an error while attempting to update user.';
         res.status(500).json(res.locals.ret);
         return;

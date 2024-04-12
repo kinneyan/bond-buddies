@@ -50,7 +50,8 @@ const register = (async (req, res, next) =>
         lastName: _lastName,
         login: _username,
         password: shaHash(_password),
-        email: _email
+        email: _email,
+        verified: false
     }
 
     try
