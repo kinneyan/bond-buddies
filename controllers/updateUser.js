@@ -18,6 +18,7 @@ const update = (async (req, res, next) =>
         // ensure that fields must already exist in database
         for (let key in req.body)
         {
+            if (key == 'password') continue;
             query[key] = { $exists: true };
         }
         
