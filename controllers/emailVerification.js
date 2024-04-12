@@ -68,7 +68,6 @@ const emailVerification = (async (req, res, next) => 
     }
     catch(e){
         res.locals.ret.error = '';
-        res.status(500).json(res.locals.ret);
         return;
     }
     
