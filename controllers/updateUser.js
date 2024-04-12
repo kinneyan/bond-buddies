@@ -46,7 +46,6 @@ const update = (async (req, res, next) =>
     }
     catch (e)
     {
-        console.log(e.toString());
         res.locals.ret.error = 'Encountered an error while attempting to update user.';
         res.status(500).json(res.locals.ret);
         return;
