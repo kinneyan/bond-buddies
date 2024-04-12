@@ -133,7 +133,7 @@ const scoreFriendship = (responses) =>
     let g = 0;
     let a = 0;
 
-    for (let i = 0; i < Object.keys(friendshipJSON.questions); i++)
+    for (let i = 0; i < Object.keys(friendshipJSON.questions).length; i++)
     {
         switch (friendshipJSON.questionTypes[i + 1])
         {
