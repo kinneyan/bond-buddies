@@ -16,13 +16,10 @@ const { update } = require('../controllers/updateUser');
 const { getUser} = require('../controllers/getUser');
 const { unblockUser} = require('../controllers/unblockUser');
 const { blockUser} = require('../controllers/blockUser');
-<<<<<<< HEAD
 const { similarUsers } = require('../controllers/similarUsers');
-=======
 const { emailVerification } = require('../controllers/emailVerification');
 const { verifyUser } = require('../controllers/verify');
 const { resetPassword } = require('../controllers/resetPassword');
->>>>>>> dev
 
 router.post('/register', register);
 router.post('/login', login);
