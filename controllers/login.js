@@ -69,6 +69,7 @@ const login = (async (req, res, next) =>
         // add user information
         ret.firstName = query[0].firstName;
         ret.lastName = query[0].lastName;
+        ret.verified = query[0].verified;
         
         res.status(200).json(ret);
         return;
