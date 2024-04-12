@@ -168,4 +168,4 @@ const scoreFriendship = (responses) =>
     return {type: type, description: friendshipJSON.descriptions[type]};
 };
 
-module.exports = { scoreTest };
+module.exports = { scoreTest, scorePersonality, scoreDisc, scoreFriendship };
