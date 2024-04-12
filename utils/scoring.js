@@ -107,12 +107,16 @@ const scoreDisc = (responses) =>
     {
         case d:
             type = 'Dominance';
+            break;
         case i:
             type = 'Influence';
+            break;
         case s:
             type = 'Steadiness';
+            break;
         case c:
             type = 'Conscientiousness';
+            break;
         default:
             break;
     }
@@ -155,12 +159,16 @@ const scoreFriendship = (responses) =>
     {
         case w:
             type = 'Words of Affirmation';
+            break;
         case q:
             type = 'Quality Time';
+            break;
         case g:
             type = 'Gifts';
+            break;
         case a:
             type = 'Acts of Service';
+            break;
         default:   
             break;
     }
