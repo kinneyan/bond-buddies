@@ -1,6 +1,7 @@
 const { getMongoClient } = require('../utils/database');
 
 const similarUsers = async (req, res, next) => {
+    let responseArray = [];
 
     try {
         const client = getMongoClient();
@@ -24,9 +25,8 @@ const similarUsers = async (req, res, next) => {
             res.status(409).json(res.locals.ret);
             return;
         }
-        const responseArray = [];
         //responseArray.push(res.locals.token.login)
-        let otheruser = '';
+        
         // Iterate through users to find similar ones
         const cursor = db.collection('Users').find({});
         await cursor.forEach(async user => {
@@ -56,21 +56,24 @@ const similarUsers = async (req, res, next) => {
 
             // Check if assessment results match for compatibility
             if (personality.result === personalityResult.result || disc.result === discResult.result || friendship.result === friendshipResult.result) {
-                    console.log("Made it Here!")
-                    responseArray.push(otheruser)
+                console.log("Made it Here!")
+                console.log(user.login)
+                console.log(personalityResult.result)
+                console.log(discResult.result)
+                console.log(friendshipResult.result)
+                responseArray.push(user.login)
             }
         });
 
         console.log(responseArray);
-
-        res.locals.ret.error = '';
-        res.locals.ret.similarUsers = responseArray;
-        res.status(200).json(res.locals.ret);
     } catch (e) {
         console.error(e);
         res.locals.ret.error = 'Encountered an error while finding similar users.';
         res.status(500).json(res.locals.ret);
     }
+    res.locals.ret.error = '';
+    res.locals.ret.similarUsers = responseArray;
+    res.status(200).json(res.locals.ret);
 };
 
 module.exports = { similarUsers };
