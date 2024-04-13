@@ -13,15 +13,15 @@ const emailVerification = (async (req, res, next) => 
         
     try
     {
-        const { emailType } = req.body;
+        const { emailType, userEmail } = req.body;
 
         const client = getMongoClient();
         client.connect();
         const db = client.db();
 
-        const user = await db.collection('Users').find({ login: res.locals.token.login, _id: ObjectId.createFromHexString(res.locals.token.id) },
+        const user = await db.collection('Users').find({ email: userEmail },
             { 
-                projection: { email: 1 } 
+                projection: { email: 1, login: 1 } 
             }
         ).toArray();
 
@@ -32,14 +32,15 @@ const emailVerification = (async (req, res, next) => 
             return;
         }
 
-        res.locals.ret.email = user[0].email;
+        res.locals.ret.login = user[0].login;
+
 
 
         const verify_url = `https://bondbuddies.com/verify`;
         const reset_url = `https://bondbuddies.com/reset`;
 
         const message = {
-            to: user[0].email,
+            to: userEmail,
             from: {
                 name: "Bond Buddies",
                 email: 'bondbuddiesofficial@gmail.com'
