@@ -1,0 +1,34 @@
+{
+  "name": "bond-buddies-app",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@react-navigation/native": "^6.1.17",
+    "@react-navigation/stack": "^6.3.29",
+    "@shopify/react-native-skia": "^0.1.221",
+    "expo": "~50.0.14",
+    "expo-app-loading": "^2.1.1",
+    "expo-font": "~11.10.3",
+    "expo-linear-gradient": "~12.7.2",
+    "expo-status-bar": "~1.11.1",
+    "react": "18.2.0",
+    "react-lorem-ipsum": "^1.4.10",
+    "react-native": "^0.73.6",
+    "react-native-easy-grid": "^0.2.2",
+    "react-native-linear-gradient": "^2.8.3",
+    "react-native-paper": "^5.12.3",
+    "react-native-reanimated": "^3.6.2",
+    "react-native-skia": "^0.0.1",
+    "react-native-svg": "^15.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}

@@ -92,7 +92,7 @@
 }
 
 .HPassessments{
-    margin-bottom: 80px;
+    margin-bottom: 200px;
 }
 
 .HPassesstext{
@@ -149,6 +149,10 @@
     margin: 20px;
 }
 
+.hidden{
+    display: none;
+}
+
 .HPmoreinfo{
     display: flex;
     flex-direction: row;
@@ -197,12 +201,98 @@
     font-family: "Roboto", sans-serif;
 }
 
-.footerinfo div {
+.footerinfo .footerDiv{
     margin: 20px;
     flex-grow: 1;
 }
 
-.footerinfo a{
+.footerinfo #footerlink{
     color: white;
     text-decoration: none;
+}
+
+@media screen and (max-width: 1000px){
+
+    .HPmoreText{
+        font-size: 15px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+@media screen and (max-width: 768px){
+
+    .HPcompname{
+        font-size: 60px;
+    }
+
+    .HPslogan{
+        font-size: 50px;
+        line-height: 60px;
+    }
+
+    .HPassessments{
+        margin-bottom: 350px;
+    }
+
+    .HPcircle-container{
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .HPcircleText{
+        font-size: 15px;
+    }
+
+    .HPleft{
+        flex: 1.5;
+    }
+
+    .HPleft #leftTitle{
+        font-size: 40px;
+    }
+
+    .HPmoreText{
+        font-size: 15px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .footerinfo .footerDiv{
+        margin: 15px;
+        flex-grow: 1;
+    }
+}
+
+@media screen and (max-width: 545px){
+
+    .HPcompname{
+        font-size: 50px;
+    }
+
+    .HPslogan{
+        font-size: 40px;
+        line-height: 50px;
+    }
+
+    .HPassesstext{
+        margin-top: 80px;
+        margin-bottom: 70px;
+        font-size: 40px;
+        line-height: 80px;
+        font-weight: 500;
+    }
+
+    .HPcircleText{
+        font-size: 14px;
+    }
+
+    .HPleft #leftTitle{
+        font-size: 30px;
+    }
+
+    .HPmoreText{
+        font-size: 13px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
 }

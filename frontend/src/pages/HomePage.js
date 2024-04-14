@@ -57,7 +57,7 @@ const Assessments = () => {
           <div className="col-md-4 text-center">
             <h3>DISC</h3>
             <p className="HPcircleText">
-              Reveal your behavioral style to develop a deeper understanding
+            Reveal your fears and values to develop a deeper understanding
               of your interpersonal interactions and dynamics.
             </p>
           </div>
@@ -88,7 +88,7 @@ const MoreInfo = () => {
           After signing up, you can take comprehensive personality tests that evaluate your preferences, strengths, and communication style. These tests ensure that potential friends are compatible with your personality, making it easier to form meaningful connections.
         </p>
         <p className="HPmoreText">
-          Once you've completed your tests, you can read about your interests and personality traits on your page. If you want to compare with others, simply view their profile, see your compatibility, and read their results. If you would like to further your connection, add them and start a conversation!
+          Once you've completed your tests, you can read about your interests and personality traits on your page. If you want to compare with others, simply view their profile, see your compatibility, and read their results. If you would like to further your connection, add them and start your bond!
         </p>
       </div>
     </div>

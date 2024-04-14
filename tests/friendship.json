@@ -1,0 +1,62 @@
+{
+    "questionTypes" :
+    {
+        "1": "Q",
+        "2": "W",
+        "3": "G",
+        "4": "A",
+        "5": "G",
+        "6": "A",
+        "7": "W",
+        "8": "A",
+        "9": "W",
+        "10": "Q",
+        "11": "G",
+        "12": "A",
+        "13": "W",
+        "14": "Q",
+        "15": "G",
+        "16": "A",
+        "17": "W",
+        "18": "Q",
+        "19": "G",
+        "20": "Q"
+    },
+    "questions" :
+    {
+        "1": "I enjoy spending one on one uninterrupted time with friends.",
+        "2": "Positive and uplifting words have a lasting impact on my self-esteem and happiness.",
+        "3": "I enjoy giving gifts to friends that are close to me.",
+        "4": "I do acts of gestures for my friends even if they don't ask for them.",
+        "5": "I appreciate it when friends surprise me with thoughtful gifts.",
+        "6": "I feel appreciated and loved when friends go out of their way to do something kind for me.",
+        "7": "Hearing sincere compliments from friends boosts my confidence and makes my day.",
+        "8": "I often find myself going out of my way to plan surprises for my friends and loved ones.",
+        "9": "Constructive feedback, delivered with kindness, helps me grow and improve.",
+        "10": "I enjoy when my friends show active participation in my personal interests.",
+        "11": "I believe that gifts are an accurate representation of love and thoughtfulness.",
+        "12": "I find joy in taking on tasks to make the lives of my friends easier.",
+        "13": "I often find myself expressing appreciation and admiration for the people I care about.",
+        "14": "I prefer to spend time with friends in person rather than interact with them virtually.",
+        "15": "I love receiving personalized gifts from friends.",
+        "16": "I enjoy it when my friends offer help during tough situations",
+        "17": "Receiving an honest supportive response from a friend in a conversation makes me feel good.",
+        "18": "I enjoy working towards a common goal with my friends.",
+        "19": "I often like to give friends tokens of appreciation.",
+        "20": "I appreciate it when my friends initiate plans to spend time with me."
+    },
+    "descriptions":
+    {
+        "Words of Affirmation": "In platonic relationships, words of affirmation serve as powerful expressions of appreciation and support. You prioritize validating and uplifting your friends through spoken or written words. Encouraging messages, heartfelt compliments, and expressions of gratitude become your language of connection, fostering a deep sense of trust and companionship. When interacting with your friends, you offer affirmations which serve as a beacon of encouragement, boosting your friends' confidence and morale. Whether it's acknowledging their achievements, expressing admiration for their qualities, or simply affirming their presence in your life, your words carry weight and warmth. Through this friendship language, you build resilient bonds founded on mutual respect, kindness, and unwavering support, nurturing enduring friendships that stand the test of time.",
+        "Quality Time": "In platonic relationships, quality time becomes the cornerstone of connection and intimacy. It's about cherishing moments spent together, sharing experiences, and creating lasting memories. Whether it's engaging in meaningful conversations, embarking on adventures, or simply enjoying each other's company in silence, the essence of quality time lies in the depth of presence and undivided attention you offer to your friends. When interacting with your friends, you prioritize quality time and carve out space in your busy lives to be fully present with one another. You set aside distractions and dedicate your energy to fostering genuine connections with each other. Whether it's a cozy night in, a leisurely stroll, or a spontaneous outing, the value lies not in the activity itself but in the shared experience and the bonds it strengthens. Through this friendship language, you cultivate friendships that thrive on genuine connection, mutual understanding, and the cherished moments you spend together.",
+        "Gifts": "In platonic relationships, the exchange of gifts transcends material value to become a symbolic gesture of thoughtfulness and appreciation. When you express love through the language of gift-giving, you seek out meaningful tokens that reflect your friends' interests, desires, and aspirations. These gifts serve as tangible reminders of your affection and the special place they hold in your heart. When interacting with your friends, offering gifts becomes a way to celebrate milestones, express gratitude, and show support. Whether it's a carefully chosen trinket, a handmade creation, or a small gesture of kindness, each gift carries the sentiment of affection and consideration. Through this friendship language, you convey your admiration and esteem, strengthening the bonds of friendship through the exchange of heartfelt tokens that speak volumes without uttering a word.",
+        "Acts of Service": "In platonic relationships, acts of service become a powerful expression of care and support. When you communicate friendship through this language, you demonstrate your devotion to your friends by anticipating their needs and offering practical assistance. Whether it's lending a helping hand with chores, running errands, or providing a shoulder to lean on during tough times, your actions speak volumes about your commitment to their well-being. When interacting with your friends, acts of service serve as the backbone of your friendship, fostering a sense of security and trust. By actively engaging in tasks that alleviate their burdens or simply make their lives easier, you affirm your dedication to their happiness and success. Through this friendship language, you cultivate a bond built on reciprocity and selflessness, where each act of service becomes a testament to the strength of your friendship and the depth of your connection."
+    },
+    "buddyTypes":
+    {
+        "Words of Affirmation": "Aero",
+        "Quality Time": "Terra",
+        "Gifts": "Pyro",
+        "Acts of Service": "Aqua"
+    }
+}
