@@ -35,6 +35,7 @@ router.post('/unblock', unblockUser);
 router.post('/block', authenticate);
 router.post('/block', blockUser);
 
+
 router.get('/similar', authenticate);
 router.get('/similar', similarUsers);
 

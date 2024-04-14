@@ -13,13 +13,15 @@ const emailVerification = (async (req, res, next) => 
         
     try
     {
+        const { emailType, userEmail } = req.body;
+
         const client = getMongoClient();
         client.connect();
         const db = client.db();
 
-        const user = await db.collection('Users').find({ login: res.locals.token.login, _id: ObjectId.createFromHexString(res.locals.token.id) },
+        const user = await db.collection('Users').find({ email: userEmail },
             { 
-                projection: { _id: 0, login: 1, firstName: 1, lastName: 1, email: 1 } 
+                projection: { email: 1, login: 1 } 
             }
         ).toArray();
 
@@ -30,23 +32,34 @@ const emailVerification = (async (req, res, next) => 
             return;
         }
 
-        res.locals.ret.email = user[0].email;
+        res.locals.ret.login = user[0].login;
 
-        const token = res.locals.token;
 
-        const url = `https://bondbuddies.com/login`;
+
+        const verify_url = `https://bondbuddies.com/verify`;
+        const reset_url = `https://bondbuddies.com/reset`;
 
         const message = {
-            to: user[0].email,
+            to: userEmail,
             from: {
                 name: "Bond Buddies",
                 email: 'bondbuddiesofficial@gmail.com'
             },
-            subject: 'Please Verify Your Email',
-            text: 'Please click the link below to verify your email.',
-            html: `<h1>Please click the link below to verify your email.</h1><p><a href="${url}">Verify Email</a></p>`
-
+            subject: '',
+            text: '',
+            html: ''
+        };
+        
+        if (emailType === 0) {
+            message.subject = 'Please Verify Your Email';
+            message.text = 'Please click the link below to verify your email.';
+            message.html = `<h1>Please click the link below to verify your email.</h1><p><a href="${verify_url}">Verify Email</a></p>`;
+        } else if (emailType === 1) {
+            message.subject = 'Password Reset Request';
+            message.text = 'Please click the link below to reset your password.';
+            message.html = `<h1>Please click the link below to reset your password.</h1><p><a href="${reset_url}">Reset Password</a></p>`;
         }
+    
         sgMail.send(message)
         .then(response => console.log('Email Sent!'))
         .catch(error => console.log(error.message));
@@ -56,7 +69,7 @@ const emailVerification = (async (req, res, next) => 
     }
     catch(e){
         res.locals.ret.error = '';
-        res.status(500).json(res.locals.ret);
+        res.status(200).json(res.locals.ret);
         return;
     }
     
