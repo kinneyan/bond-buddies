@@ -8,6 +8,7 @@ import {NavLink} from 'react-router-dom';
 const Assessment = () => {
   return (
     <div className="asessmentContainer">
+        <h1 className="APassesstext">Assessments</h1>
         <div className="container">
             <div className="HPcircle-container">
                 <div className="HPcircle1">
@@ -27,15 +28,15 @@ const Assessment = () => {
                     Learn about the inner workings of your mind to harness
                     your strengths and weaknesses and connect with yourself.
                     </p>
-                    <NavLink to="/"><button class="btn btn-outline-dark">Start</button></NavLink>
+                    <NavLink to="/personalitytype"><button class="btn btn-outline-dark">Start</button></NavLink>
                 </div>
                 <div className="col-md-4 text-center">
                     <h3>DISC</h3>
                     <p className="HPcircleText">
-                    Reveal your behavioral style to develop a deeper understanding
+                    Reveal your fears and values to develop a deeper understanding
                     of your interpersonal interactions and dynamics.
                     </p>
-                    <NavLink to="/"><button class="btn btn-outline-dark">Start</button></NavLink>
+                    <NavLink to="/disc"><button class="btn btn-outline-dark">Start</button></NavLink>
                 </div>
                 <div className="col-md-4 text-center">
                     <h3>Friendship Language</h3>
@@ -43,7 +44,7 @@ const Assessment = () => {
                     Explore your preferences in expressing and receiving care
                     to nurture and strengthen your friendships.
                     </p>
-                    <NavLink to="/"><button class="btn btn-outline-dark">Start</button></NavLink>
+                    <NavLink to="/friendshiplanguage"><button class="btn btn-outline-dark">Start</button></NavLink>
                 </div>
             </div>
       </div>

@@ -46,11 +46,12 @@ const register = (async (req, res, next) =>
     
     const newUser = 
     {
-        FirstName: _firstName,
-        LastName: _lastName,
-        Login: _username,
-        Password: shaHash(_password),
-        Email: _email
+        firstName: _firstName,
+        lastName: _lastName,
+        login: _username,
+        password: shaHash(_password),
+        email: _email,
+        verified: false
     }
 
     try
@@ -61,7 +62,7 @@ const register = (async (req, res, next) =>
         const db = client.db()
 
         // check if username exists
-        const duplicate = await db.collection('Users').find({Login: newUser.Login}).toArray();
+        const duplicate = await db.collection('Users').find({login: newUser.login}).toArray();
         if (duplicate.length > 0)
         {
             ret.error = "Username is already taken.";
@@ -74,7 +75,7 @@ const register = (async (req, res, next) =>
             const tokenBody = 
             {
                 id: newUser._id.toString(),
-                login: newUser.Login
+                login: newUser.login
             }
             ret.bearer = 'Bearer ' + await generateJWT(tokenBody);
         }

@@ -45,15 +45,12 @@
     text-align: center;
 }
 
-#userfield{
-    margin-bottom: 20px;
-}
-
 .form-control{
     border: 2px solid black; 
 }
 
 .forgotpass{
+    margin-top: 5px;
     margin-bottom: 20px;
 }
 
@@ -66,7 +63,7 @@
 }
 
 .forgotpass #forgot-btn:hover{
-    color: #45AAFF;
+    color: blue;
     transition: 0.3s;
 }
 
@@ -81,7 +78,7 @@
 }
 
 #needaccount:hover{
-    color: #45AAFF;
+    color: blue;
     transition: 0.5s;
 }
 
@@ -129,7 +126,7 @@
 }
 
 .HPback #backbtn:hover{
-    color: #45AAFF;
+    color: blue;
     transition: 0.5s;
 }
 

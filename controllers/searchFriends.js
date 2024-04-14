@@ -1,13 +1,17 @@
 const { getMongoClient } = require('../utils/database');
 
 const searchFriends = async (req, res, next) => {
-    // incoming: userId, search
+    // header: auth token
+    
+    // incoming: search
 
-    // outgoing: results or error
+    // outgoing: friends object array or error
 
     let _search = '';
-    let ret = {};
-    ret.error = '';
+    res.locals.ret.friends = [];
+    let friends = [];
+    let ids = [];
+    let requestBody = {};
 
     try {
         const { search } = req.body;
@@ -34,45 +38,63 @@ const searchFriends = async (req, res, next) => {
             ]
         }).toArray();
 
+        // check if user exists
         if (users.length < 1) {
             res.locals.ret.error = _search + ' is not a user.';
             res.status(409).json(res.locals.ret);
             return;
         }
 
-        let ids = [users[0]._id.toString(), res.locals.token.id];
-        ids.sort((a, b) => {
-            return a.localeCompare(b);
-        });
 
-        const requestBody = { user1: ids[0], user2: ids[1] };
+        // Iterate through Users to find matches to the search
+        for (const user of users){
+            // skip self
+            if (user.Login === res.locals.token.login) continue;
+            console.log("USER: " + user.Login);
 
-        // check if there is an existing relationship
-        const relationships = await db.collection('Relationships').find(requestBody).toArray();
-        if(relationships.blocked){
-            res.locals.ret.error = _search + ' is blocked.';
-            res.status(409).json(res.locals.ret);
-            return;
+            ids = [user._id.toString(), res.locals.token.id];
+            ids.sort((a, b) =>
+            {
+                return a.localeCompare(b);
+            });
+
+            // build request body
+            requestBody = { user1: ids[0], user2: ids[1] };
+    
+            // check if there is an existing relationship
+            const relationships = await db.collection('Relationships').find(requestBody).toArray();
+
+            if (relationships.length < 1 || relationships[0].blocked)
+            {
+                continue;
+            }
+            else{
+                console.log("Login: " + user.Login);
+                console.log("First Name: " + user.FirstName);
+                console.log("Last Name: " + user.LastName);
+                console.log("Relationship: " + relationships[0].RelationshipType);
+
+                const userObject = {
+                    login: user.Login,
+                    firstName: user.FirstName,
+                    lastName: user.LastName,
+                    relationshipType: relationships[0].RelationshipType
+                };
+
+                friends.push(userObject);
+            }
+            
+
         }
-        if (relationships.length < 1) {
-            res.locals.ret.error = _search + ' is not a friend.';
-            res.status(409).json(res.locals.ret);
-            return;
-        } else {
-            ret.firstName = users[0].FirstName;
-            ret.lastName = users[0].LastName;
-            ret.relationshipType = relationships[0].RelationshipType;
-            ret.email = users[0].Email;
-
-        }
+        res.locals.ret.friends = friends;
+        res.status(200).json(res.locals.ret);
+        return;
 
     } catch (e) {
         res.locals.ret.error = 'Encountered an error while searching for friend.';
         res.status(500).json(res.locals.ret);
         return;
     }
-    res.status(200).json(ret);
-    return;
 };
 
 module.exports = { searchFriends };

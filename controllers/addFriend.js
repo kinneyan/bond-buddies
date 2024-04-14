@@ -27,7 +27,7 @@ const addFriend = (async (req, res, next) =>
         const db = client.db();
 
         // check if friend exists
-        const users = await db.collection('Users').find({ Login: _friend }).toArray();
+        const users = await db.collection('Users').find({ login: _friend }).toArray();
         if (users.length < 1)
         {
             res.locals.ret.error = _friend + ' is not a user.';
@@ -56,14 +56,14 @@ const addFriend = (async (req, res, next) =>
         if (relationships.length < 1)
         {
             // if relationship doesn't exist, insert it
-            requestBody.RelationshipType = 'friends';
+            requestBody.relationshipType = 'friends';
             const insert = await db.collection('Relationships').insertOne(requestBody);
-            if (insert.acknowledged === true && insert.insertedCount === 0) throw new Error();
+            if (insert.insertedCount === 0) throw new Error();
         }
         else
         {
             // if users are already friends
-            if (relationships[0].RelationshipType == 'friends')
+            if (relationships[0].relationshipType == 'friends')
             {
                 res.locals.ret.error = 'Already friends with ' + _friend + '.';
                 res.status(409).json(res.locals.ret);
@@ -73,10 +73,7 @@ const addFriend = (async (req, res, next) =>
             // update relationship type
             db.collection('Relationships').updateOne(requestBody, 
                 {
-                    $set:
-                    {
-                        RelationshipType: 'friends'
-                    }
+                    $set: { relationshipType: 'friends' }
                 });
         }
         

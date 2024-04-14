@@ -15,12 +15,6 @@ const UserInfo = () => {
             </div>
             <div className="right-content">
                 <table className="rounded-table">
-                    <thead>
-                        <tr>
-                            <th className="assessment">Assessment</th>
-                            <th className="result">Result</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr>
                             <td className="assessment">Personality Test</td>
@@ -46,17 +40,17 @@ const AsessmentInfo = () => {
     return (
         <div className="asessmentInfo">
             <div className="pt">
-                <h5 className="assesstitle">Personality Test</h5>
+                <h5 className="assesstitle">Personality Test - Result</h5>
                 <p className="assesstext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio aperiam incidunt pariatur maxime, amet perspiciatis 
                     deserunt soluta officia nobis, vel aut quasi ratione molestiae quam perferendis distinctio expedita omnis voluptatem.</p>
             </div>
             <div className="disc">
-                <h5 className="assesstitle">DISC</h5>
+                <h5 className="assesstitle">DISC - Result</h5>
                 <p className="assesstext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio aperiam incidunt pariatur maxime, amet perspiciatis 
                     deserunt soluta officia nobis, vel aut quasi ratione molestiae quam perferendis distinctio expedita omnis voluptatem.</p>
             </div>
             <div className="fl">
-                <h5 className="assesstitle">Friendship Language</h5>
+                <h5 className="assesstitle">Friendship Language - Result</h5>
                 <p className="assesstext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio aperiam incidunt pariatur maxime, amet perspiciatis 
                     deserunt soluta officia nobis, vel aut quasi ratione molestiae quam perferendis distinctio expedita omnis voluptatem.</p>
             </div>

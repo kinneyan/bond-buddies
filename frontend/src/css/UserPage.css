@@ -118,6 +118,10 @@
     font-family: "Roboto", sans-serif;
 }
 
+.rounded-table .assessment{
+    font-weight: bold;
+}
+
 .asessmentInfo{
     margin: 50px;
 }

@@ -6,7 +6,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .RPregister{
@@ -42,7 +41,7 @@
 }
 
 #accountbtn:hover{
-    color: #45AAFF;
+    color: blue;
     transition: 0.3s;
 }
 
