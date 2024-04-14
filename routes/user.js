@@ -34,7 +34,6 @@ router.post('/unblock', unblockUser);
 router.post('/block', authenticate);
 router.post('/block', blockUser);
 
-router.post('/email', authenticate);
 router.post('/email', emailVerification);
 
 router.get('/verifyUser', authenticate);
