@@ -10,7 +10,6 @@ import DISCPage from './pages/DISCPage'
 import FriendshipPage from './pages/FriendshipPage'
 import FriendsPage from './pages/FriendsPage'
 import SettingsPage from './pages/SettingsPage'
-
 import VerifyPage from './pages/VerifyPage'
 import ResetPage from './pages/ResetPage'
 
@@ -32,7 +31,6 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterPage />,
   },
-
   {
     path: "/user",
     element: <UserPage />,
@@ -61,7 +59,6 @@ const router = createBrowserRouter([
     path: "/settings",
     element: <SettingsPage />,
   },
-
   {
     path: "/verify",
     element: <VerifyPage />,

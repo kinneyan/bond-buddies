@@ -45,22 +45,12 @@
     text-align: center;
 }
 
-<<<<<<< HEAD
-#userfield{
-    margin-bottom: 20px;
-}
-
-=======
->>>>>>> dev
 .form-control{
     border: 2px solid black; 
 }
 
 .forgotpass{
-<<<<<<< HEAD
-=======
     margin-top: 5px;
->>>>>>> dev
     margin-bottom: 20px;
 }
 
@@ -73,11 +63,7 @@
 }
 
 .forgotpass #forgot-btn:hover{
-<<<<<<< HEAD
-    color: #45AAFF;
-=======
     color: blue;
->>>>>>> dev
     transition: 0.3s;
 }
 
@@ -92,11 +78,7 @@
 }
 
 #needaccount:hover{
-<<<<<<< HEAD
-    color: #45AAFF;
-=======
     color: blue;
->>>>>>> dev
     transition: 0.5s;
 }
 
@@ -144,11 +126,7 @@
 }
 
 .HPback #backbtn:hover{
-<<<<<<< HEAD
-    color: #45AAFF;
-=======
     color: blue;
->>>>>>> dev
     transition: 0.5s;
 }
 
