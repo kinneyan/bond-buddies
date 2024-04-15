@@ -16,6 +16,7 @@ const { update } = require('../controllers/updateUser');
 const { getUser} = require('../controllers/getUser');
 const { unblockUser} = require('../controllers/unblockUser');
 const { blockUser} = require('../controllers/blockUser');
+const { similarUsers } = require('../controllers/similarUsers');
 const { emailVerification } = require('../controllers/emailVerification');
 const { verifyUser } = require('../controllers/verify');
 const { resetPassword } = require('../controllers/resetPassword');
@@ -34,6 +35,9 @@ router.post('/unblock', authenticate);
 router.post('/unblock', unblockUser);
 router.post('/block', authenticate);
 router.post('/block', blockUser);
+
+router.get('/similar', authenticate);
+router.get('/similar', similarUsers);
 
 router.get('/verify', authenticate);
 router.get('/verify', emailVerification);

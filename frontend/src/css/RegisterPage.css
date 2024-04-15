@@ -6,6 +6,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+<<<<<<< HEAD
+
+=======
+>>>>>>> dev
 }
 
 .RPregister{
@@ -41,7 +45,11 @@
 }
 
 #accountbtn:hover{
+<<<<<<< HEAD
+    color: #45AAFF;
+=======
     color: blue;
+>>>>>>> dev
     transition: 0.3s;
 }
 

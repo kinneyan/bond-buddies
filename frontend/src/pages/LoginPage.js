@@ -36,11 +36,19 @@ const LoginPage = () => {
           <div className="LGlogin">
             <form className="login-form">
               <h2 id="loginh2">Login</h2>
+<<<<<<< HEAD
+              <div id="userfield" className="form-group">
+                <label htmlFor="username">Username</label>
+                <input type="username" className="form-control" id="username"/>
+              </div>
+              <div className="form-group">
+=======
               <div id="userfield" className="LGform-group">
                 <label htmlFor="username">Username</label>
                 <input type="username" className="form-control" id="username"/>
               </div>
               <div className="LGform-group">
+>>>>>>> dev
                 <label htmlFor="pwd">Password</label>
                 <input type="password" className="form-control" id="pwd"/>
               </div>
@@ -80,7 +88,11 @@ const LoginPage = () => {
                   type="button"
                   className="btn btn-primary"
                 >
+<<<<<<< HEAD
+                  Send Reset Password Email
+=======
                   Reset Password
+>>>>>>> dev
                 </button>
               </div>
 
