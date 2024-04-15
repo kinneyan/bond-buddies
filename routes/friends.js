@@ -11,8 +11,8 @@ const { removeFriend } = require('../controllers/removeFriend');
 router.post('/add', authenticate);
 router.post('/add', addFriend);
 
-router.get('/search', authenticate);
-router.get('/search', searchFriends);
+router.post('/search', authenticate);
+router.post('/search', searchFriends);
 
 router.post('/remove', authenticate);
 router.post('/remove', removeFriend);
