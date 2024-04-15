@@ -11,6 +11,9 @@ const emailVerification = (async (req, res, next) => 
     // header: auth token
     // response: error, email message
         
+    res.locals.ret = {};
+    res.locals.ret.error = '';
+    
     try
     {
         const client = getMongoClient();
@@ -29,7 +32,7 @@ const emailVerification = (async (req, res, next) => 
         const url = `https://bondbuddies.com/verify`;
 
         const message = {
-            to: userEmail,
+            to: user[0].email,
             from: {
                 name: "Bond Buddies",
                 email: 'bondbuddiesofficial@gmail.com'
@@ -53,7 +56,7 @@ const emailVerification = (async (req, res, next) => 
     }
     catch(e){
         res.locals.ret.error = 'Failed to send verification email.';
-        res.status(500).json(res.locals.ret);
+        res.status(200).json(res.locals.ret);
         return;
     }
 });
