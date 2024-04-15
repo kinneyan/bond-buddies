@@ -1,6 +1,6 @@
 const { getMongoClient } = require('../utils/database');
 
-const searchFriends = async (req, res, next) => {
+const searchFriends = (async (req, res, next) => {
     // header: auth token
     
     // incoming: search
@@ -31,10 +31,10 @@ const searchFriends = async (req, res, next) => {
         // check if search exists as a user by first name, last name, email, or username (case-insensitive)
         const users = await db.collection('Users').find({
             $or: [
-                { FirstName: { $regex: new RegExp(_search, 'i') } }, // Case-insensitive regex for first name
-                { LastName: { $regex: new RegExp(_search, 'i') } },  // Case-insensitive regex for last name
-                { Email: { $regex: new RegExp(_search, 'i') } },     // Case-insensitive regex for email
-                { Login: { $regex: new RegExp(_search, 'i') } }      // Case-insensitive regex for username
+                { firstName: { $regex: new RegExp(_search, 'i') } }, // Case-insensitive regex for first name
+                { lastName: { $regex: new RegExp(_search, 'i') } },  // Case-insensitive regex for last name
+                { email: { $regex: new RegExp(_search, 'i') } },     // Case-insensitive regex for email
+                { login: { $regex: new RegExp(_search, 'i') } }      // Case-insensitive regex for username
             ]
         }).toArray();
 
@@ -45,12 +45,11 @@ const searchFriends = async (req, res, next) => {
             return;
         }
 
-
         // Iterate through Users to find matches to the search
         for (const user of users){
+
             // skip self
             if (user.Login === res.locals.token.login) continue;
-            console.log("USER: " + user.Login);
 
             ids = [user._id.toString(), res.locals.token.id];
             ids.sort((a, b) =>
@@ -69,22 +68,15 @@ const searchFriends = async (req, res, next) => {
                 continue;
             }
             else{
-                console.log("Login: " + user.Login);
-                console.log("First Name: " + user.FirstName);
-                console.log("Last Name: " + user.LastName);
-                console.log("Relationship: " + relationships[0].RelationshipType);
-
                 const userObject = {
-                    login: user.Login,
-                    firstName: user.FirstName,
-                    lastName: user.LastName,
+                    login: user.login,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
                     relationshipType: relationships[0].RelationshipType
                 };
 
                 friends.push(userObject);
             }
-            
-
         }
         res.locals.ret.friends = friends;
         res.status(200).json(res.locals.ret);
@@ -95,6 +87,6 @@ const searchFriends = async (req, res, next) => {
         res.status(500).json(res.locals.ret);
         return;
     }
-};
+});
 
 module.exports = { searchFriends };
