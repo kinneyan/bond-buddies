@@ -78,7 +78,7 @@ const forgotPassword = (async (req, res, next) =>
     catch (e)
     {
         res.locals.ret.error = 'Failed to send password reset email.';
-        res.status(500).json(res.locals.ret);
+        res.status(200).json(res.locals.ret);
         return;
     }
 });
