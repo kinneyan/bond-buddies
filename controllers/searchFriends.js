@@ -72,7 +72,7 @@ const searchFriends = (async (req, res, next) => {
                     login: user.login,
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    relationshipType: relationships[0].RelationshipType
+                    relationshipType: relationships[0].relationshipType
                 };
 
                 friends.push(userObject);
