@@ -29,7 +29,7 @@ const emailVerification = (async (req, res, next) => 
         const url = `https://bondbuddies.com/verify`;
 
         const message = {
-            to: userEmail,
+            to: user[0].email,
             from: {
                 name: "Bond Buddies",
                 email: 'bondbuddiesofficial@gmail.com'
