@@ -3,7 +3,6 @@ const { getMongoClient } = require('../utils/database');
 const similarUsers = async (req, res, next) => {
     let responseArray = [];
 
-    let responseArray = [];
     res.locals.ret.similarUsers = [];
     try {
         const client = getMongoClient();
