@@ -56,7 +56,7 @@ const emailVerification = (async (req, res, next) => 
     }
     catch(e){
         res.locals.ret.error = 'Failed to send verification email.';
-        res.status(500).json(res.locals.ret);
+        res.status(200).json(res.locals.ret);
         return;
     }
 });
