@@ -19,6 +19,7 @@ const { blockUser} = require('../controllers/blockUser');
 const { emailVerification } = require('../controllers/emailVerification');
 const { verifyUser } = require('../controllers/verify');
 const { resetPassword } = require('../controllers/resetPassword');
+const { forgotPassword } = require('../controllers/forgotPassword');
 
 router.post('/register', register);
 router.post('/login', login);
@@ -34,11 +35,12 @@ router.post('/unblock', unblockUser);
 router.post('/block', authenticate);
 router.post('/block', blockUser);
 
-router.post('/email', emailVerification);
-
+router.get('/verify', authenticate);
+router.get('/verify', emailVerification);
 router.get('/verifyUser', authenticate);
 router.get('/verifyUser', verifyUser);
 
+router.post('/forgotPassword', forgotPassword);
 router.post('/resetPassword', resetPassword);
 
 module.exports = router;
