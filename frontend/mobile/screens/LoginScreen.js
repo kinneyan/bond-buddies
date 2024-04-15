@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { View, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { ActivityIndicator, View, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Rect, CornerPathEffect} from "@shopify/react-native-skia";
 import BorderGradient from '../components/BorderGradient'; 
-import { API_URL } from '../components/ApiAddress';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen() {
 
     const { width, height } = Dimensions.get('window');
     const navigation = useNavigation();
+    const route = useRoute();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const [accountverified, setaccountverified] = useState(false);
 
     const [errors, setErrors] = useState({
         username: '',
@@ -19,6 +23,41 @@ export default function LoginScreen() {
     });
 
     const [errorMessage, setErrorMessage] = useState('');
+    const bearerToken = route.params?.bearerToken || '';
+    const verifiedUser = route.params?.verifiedUser || '';
+
+    /*
+    const verifyUser = async () => {
+
+        console.log(bearerToken);
+
+        try {
+          if(bearerToken) {
+            const response = await fetch('http://172.20.10.3:3001/user/verifyUser', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${bearerToken}`
+              },
+            });
+      
+            //console.log(response);
+
+            if(response.ok) {
+                console.log("Verification successful.");
+                return true; 
+
+            } else {
+                console.error("Verification failed: ", response.error);
+                return false;
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching user info: ", error);
+          return false;
+        }
+      };
+      */
 
     const validateUsername = (username) => {
 
@@ -58,7 +97,9 @@ export default function LoginScreen() {
 
         try{
 
-            const response = await fetch(API_URL + '/user/login', {
+            setLoading(true);
+
+            const response = await fetch('http://10.132.181.204:3001/user/login', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -68,15 +109,42 @@ export default function LoginScreen() {
 
             const res = await response.json();
 
+            console.log(res.verified);
+
+            setLoading(false);
+
             if(res.error){
                 setErrorMessage("Username or password is incorrect");
             } 
             else{
                 console.log("Login successful!");
-                navigation.navigate('UserHome', { username });
+                await AsyncStorage.setItem('bearerToken', res.bearer); 
+
+                if(res.verified){
+                    navigation.navigate('UserHome', { bearerToken: res.bearer });
+                }
+                else{
+                    setErrorMessage("Please verify your account");
+                }
+                //console.log("Bearer token: " + res.bearer);
+                //navigation.navigate('UserHome', { bearerToken: res.bearer });
+                
+                /*
+                const test = await verifyUser();
+
+                console.log(test);
+
+                if(test){
+                    navigation.navigate('UserHome', { bearerToken: res.bearer });
+                }
+                else{
+                    setErrorMessage("Please verify your account");
+                }
+                */
             }
         }catch(error){
-            console.error("Error during login:", error);
+            setLoading(false);
+            console.error("Error during login: ", error);
         }
 
     };
@@ -238,6 +306,12 @@ export default function LoginScreen() {
                     </TouchableOpacity>
                 </View>
             </View>
+            {loading && (
+                <View style={styles.activityIndicator}>
+                    <ActivityIndicator size="large" color="#000000" />
+                    <Text style={styles.activityIndicatorText}>Checking for verification...</Text>
+                </View>
+            )}
         </View>
     );
 }

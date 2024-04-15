@@ -2,15 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Canvas, Rect, CornerPathEffect, LinearGradient, vec } from "@shopify/react-native-skia";
-import * as Font from 'expo-font';
-
-async function loadFonts() {
-  await Font.loadAsync({
-    'Omnes Regular': require('../assets/fonts/Omnes Regular.ttf'),
-    'Roboto Regular': require('../assets/fonts/Roboto Regular.ttf'),
-    'Roboto Medium': require('../assets/fonts/Roboto Medium.ttf'),
-  });
-}
 
 export default function ForgotScreen() {
 
@@ -18,12 +9,10 @@ export default function ForgotScreen() {
     const diagonalLength = Math.sqrt(width * width + height * height);
     const navigation = useNavigation();
 
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [resetEmailSent, setResetEmailSent] = useState(false);
-
-    useEffect(() => {
-        loadFonts();
-    }, []);
+    const [resetError, setresetError] = useState('');
 
     const styles = StyleSheet.create({
         container: {
@@ -63,6 +52,7 @@ export default function ForgotScreen() {
             borderWidth: 2,
             borderRadius: 10,
             paddingHorizontal: 10,
+            marginBottom: 20,
         },
         forgotPasswordContainer: {
             alignSelf: 'flex-start',
@@ -116,16 +106,48 @@ export default function ForgotScreen() {
             marginTop: 30,
             color: 'green',
         },
+        ForgotSubmitErrorText:{
+            fontFamily: 'Roboto Regular',
+            fontSize: 16,
+            marginTop: 30,
+            color: 'red',
+        }
     });
 
-    const handleEmail = () => {
-      console.log('email:', email);
-      // Add logic to send reset email here
-      // Call API to send the reset email
-      // On success, update the state to show the message
-      setResetEmailSent(true);
-  };
+    const handleEmail = async () => {
 
+        try{
+            //console.log(bearerToken);
+
+            const response = await fetch('http://10.132.181.204:3001/user/forgotPassword', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    login: username,
+                    email: email,
+                }),
+            });
+
+            //console.log(response);
+
+            if(response.ok) {
+                console.log("Forgot password email sent.");
+                setResetEmailSent("Reset email sent");
+                setresetError(''); 
+            } else {
+                console.error("Forgot password email failed: ", response.error);
+                setresetError("Reset email failed to send");
+                setResetEmailSent('');
+            }
+
+        }catch (error) {
+            console.error("Error during forgot password email: ", error);
+            setresetError("Reset email failed to send");
+            setResetEmailSent('');
+        };
+    };
 
     const navigateToLogin = () => {
         navigation.navigate('Login');
@@ -154,6 +176,13 @@ export default function ForgotScreen() {
             <View style={styles.textContainer}>
             <Text style={styles.Titletext}>Forgot{'\n'}Password</Text>
                 <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Username</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={text => setUsername(text)}
+                        value={username}
+                        placeholder="Enter your username"
+                    />
                     <Text style={styles.label}>Email</Text>
                     <TextInput
                         style={styles.input}
@@ -162,7 +191,9 @@ export default function ForgotScreen() {
                         placeholder="Enter your email address"
                     />
                 </View>
-                {resetEmailSent && <Text style={styles.ForgotSubmitText}>Reset email sent!</Text>}
+                {resetEmailSent && <Text style={styles.ForgotSubmitText}>{resetEmailSent}</Text>}
+                {resetError && <Text style={styles.ForgotSubmitErrorText}>{resetError}</Text>}
+
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.Loginbutton} onPress={handleEmail}>
                         <Text style={styles.LoginbuttonText}>Reset Password</Text>

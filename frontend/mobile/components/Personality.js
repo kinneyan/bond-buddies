@@ -46,23 +46,23 @@ const Personality = ({ selectedValues, handleRadioButtonChange }) => {
                 onValueChange={(value) => handleRadioButtonChange(index, value)}
               >
                 <View style={styles.radioButton}>
-                  <RadioButton.Android color="#000" value="-2" />
+                  <RadioButton.Android color="#000" value={-2} />
                   <Text style={styles.radioButtonText}>Strongly Disagree</Text>
                 </View>
                 <View style={styles.radioButton}>
-                  <RadioButton.Android color="#000" value="-1" />
+                  <RadioButton.Android color="#000" value={-1} />
                   <Text style={styles.radioButtonText}>Disagree</Text>
                 </View>
                 <View style={styles.radioButton}>
-                  <RadioButton.Android color="#000" value="0" />
+                  <RadioButton.Android color="#000" value={0} />
                   <Text style={styles.radioButtonText}>Neutral</Text>
                 </View>
                 <View style={styles.radioButton}>
-                  <RadioButton.Android color="#000" value="1" />
+                  <RadioButton.Android color="#000" value={1} />
                   <Text style={styles.radioButtonText}>Agree</Text>
                 </View>
                 <View style={styles.radioButton}>
-                  <RadioButton.Android color="#000" value="2" />
+                  <RadioButton.Android color="#000" value={2} />
                   <Text style={styles.radioButtonText}>Strongly Agree</Text>
                 </View>
               </RadioButton.Group>
