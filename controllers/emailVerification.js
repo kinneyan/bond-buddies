@@ -11,6 +11,9 @@ const emailVerification = (async (req, res, next) => 
     // header: auth token
     // response: error, email message
         
+    res.locals.ret = {};
+    res.locals.ret.error = '';
+    
     try
     {
         const client = getMongoClient();

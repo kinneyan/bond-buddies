@@ -7,6 +7,10 @@ sgMail.setApiKey(SG_API_KEY);
 
 const forgotPassword = (async (req, res, next) =>
 {
+
+    res.locals.ret = {};
+    res.locals.ret.error = '';
+    
     let login, email = '';
     try
     {   
