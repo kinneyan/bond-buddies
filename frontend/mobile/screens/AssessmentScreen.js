@@ -1,40 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import BottomMenu from '../components/BottomMenu';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AssessmentScreen = () => {
 
   const { width, height } = Dimensions.get('window');
   const diagonalLength = Math.sqrt(width * width + height * height);
   const navigation = useNavigation();
+  const route = useRoute();
+  const { greeting } = route.params || {};
+  const { bearerToken } = route.params || {};
+  const { buddyImage } = route.params || {};
+
+  //console.log('assessment Received bearerToken:', bearerToken);  
 
   const handleWidgetPress = (screenName) => {
-    navigation.navigate(screenName);
+    navigation.navigate(screenName, { bearerToken, greeting, buddyImage });
   };
 
   const handleStartPress = (buttonIndex) => {
     let selectedComponent = null;
     switch (buttonIndex) {
-      case 1:
+      case 0:
         selectedComponent = 'Personality';
         break;
-      case 2:
+      case 1:
         selectedComponent = 'DISC';
         break;
-      case 3:
+      case 2:
         selectedComponent = 'Friendship';
         break;
       default:
         break;
     }
-    navigation.navigate('Questions', { selectedComponent });
+    navigation.navigate('Questions', { selectedComponent, bearerToken, greeting, buddyImage });
   };
 
   const handleProfilePress = () => {
-    navigation.navigate('Settings');
+    navigation.navigate('Settings', { bearerToken });
   };
 
   return (
@@ -52,9 +59,9 @@ const AssessmentScreen = () => {
       
       <View style={styles.separator} />
       <View style={styles.contentContainer}>
-        <Text style={styles.text}>Hello User</Text>
+        <Text style={styles.text}>{greeting}</Text>
         <TouchableOpacity onPress={handleProfilePress} style={styles.imageContainer}>
-          <Image source={require('../assets/images/aqua.png')} style={styles.image} />
+          <Image source={buddyImage} style={styles.image} />
         </TouchableOpacity>
       </View>
 
@@ -86,17 +93,17 @@ const AssessmentScreen = () => {
 
         <Col style={styles.testButtons}>
           <Row style={styles.testB1}>
-            <TouchableOpacity style={styles.Startbutton}  onPress={() => handleStartPress(1)}>
+            <TouchableOpacity style={styles.Startbutton}  onPress={() => handleStartPress(0)}>
+              <Text style={styles.StartbuttonText}>Start</Text>
+            </TouchableOpacity>
+          </Row>
+          <Row style={styles.testB}>
+            <TouchableOpacity style={styles.Startbutton} onPress={() => handleStartPress(1)}>
               <Text style={styles.StartbuttonText}>Start</Text>
             </TouchableOpacity>
           </Row>
           <Row style={styles.testB}>
             <TouchableOpacity style={styles.Startbutton} onPress={() => handleStartPress(2)}>
-              <Text style={styles.StartbuttonText}>Start</Text>
-            </TouchableOpacity>
-          </Row>
-          <Row style={styles.testB}>
-            <TouchableOpacity style={styles.Startbutton} onPress={() => handleStartPress(3)}>
               <Text style={styles.StartbuttonText}>Start</Text>
             </TouchableOpacity>
           </Row>
@@ -179,7 +186,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   testD: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Roboto Regular',
     fontSize: 14,
   },
   testB: {

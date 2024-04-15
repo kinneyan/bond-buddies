@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
 import BottomMenu from '../components/BottomMenu';
 import Personality from '../components/Personality';
@@ -9,16 +9,35 @@ import Friendship from '../components/Friendship';
 
 const QuestionsScreen = ({ route }) => {
 
-
   const { width, height } = Dimensions.get('window');
   const diagonalLength = Math.sqrt(width * width + height * height);
   const navigation = useNavigation();
+  const bearerToken = route.params?.bearerToken || '';
+  const greeting = route.params?.greeting || '';
+  const { buddyImage } = route.params || {};
+
+  const [errorMessage, setErrorMessage] = useState('');
+  //console.log('questions Received bearerToken:', bearerToken);  
 
   const [selectedValues, setSelectedValues] = useState(Array(20).fill(null));
   const allQuestionsAnswered = selectedValues.every(value => value !== null);
 
+  let assessmentCode;
+
+  switch (route.params.selectedComponent){
+    case 'Personality':
+      assessmentCode = 0;
+      break;
+    case 'DISC':
+      assessmentCode = 1;
+      break;
+    case 'Friendship':
+      assessmentCode = 2;
+      break;
+  }
+
   const handleWidgetPress = (screenName) => {
-    navigation.navigate(screenName);
+    navigation.navigate(screenName, { bearerToken, greeting, buddyImage });
   };
 
   const handleRadioButtonChange = (index, value) => {
@@ -27,16 +46,46 @@ const QuestionsScreen = ({ route }) => {
     setSelectedValues(newSelectedValues);
   };
 
-  const handleSubmit = () => {
-    // Here, you can do whatever you want with the selectedValues array,
-    // such as sending it to a server, storing it locally, etc.
-    console.log("Selected values:", selectedValues);
-    // Reset selectedValues if needed
-    // setSelectedValues(Array(20).fill(null));
+  const handleSubmit = async () => {
+
+    const obj = {
+      assessmentCode,
+      responses: selectedValues,
+    };
+
+    try{
+
+      const response = await fetch('http://10.132.181.204:3001/assessments/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${bearerToken}`
+        },
+        body: JSON.stringify(obj)
+      });
+
+      const res = await response.json();
+
+      //console.log(obj);
+      console.log("res: ", res);
+
+      if(res.error){
+          setErrorMessage("code or values are incorrect");
+      } 
+      else{
+          console.log("Submission successful!");
+          navigation.navigate('UserHome', { bearerToken, greeting });
+      }
+    }catch(error){
+        console.error("Error during assessment: ", error);
+    }
+
+    setSelectedValues(Array(20).fill(null));
+
   };
 
   const handleProfilePress = () => {
-    navigation.navigate('Settings');
+    navigation.navigate('Settings', { bearerToken });
   };
 
   const componentMap = {
@@ -68,9 +117,9 @@ const QuestionsScreen = ({ route }) => {
 
       <View style={styles.separator} />
       <View style={styles.contentContainer}>
-        <Text style={styles.text}>Hello User</Text>
+        <Text style={styles.text}>{greeting}</Text>
         <TouchableOpacity onPress={handleProfilePress} style={styles.imageContainer}>
-          <Image source={require('../assets/images/aqua.png')} style={styles.image} />
+          <Image source={buddyImage} style={styles.image} />
         </TouchableOpacity>
       </View>
 

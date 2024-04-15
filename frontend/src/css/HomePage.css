@@ -92,11 +92,7 @@
 }
 
 .HPassessments{
-<<<<<<< HEAD
-    margin-bottom: 80px;
-=======
     margin-bottom: 200px;
->>>>>>> dev
 }
 
 .HPassesstext{
@@ -153,13 +149,10 @@
     margin: 20px;
 }
 
-<<<<<<< HEAD
-=======
 .hidden{
     display: none;
 }
 
->>>>>>> dev
 .HPmoreinfo{
     display: flex;
     flex-direction: row;
@@ -208,21 +201,11 @@
     font-family: "Roboto", sans-serif;
 }
 
-<<<<<<< HEAD
-.footerinfo div {
-=======
 .footerinfo .footerDiv{
->>>>>>> dev
     margin: 20px;
     flex-grow: 1;
 }
 
-<<<<<<< HEAD
-.footerinfo a{
-    color: white;
-    text-decoration: none;
-}
-=======
 .footerinfo #footerlink{
     color: white;
     text-decoration: none;
@@ -313,8 +296,3 @@
         margin-right: 20px;
     }
 }
-<<<<<<< HEAD
-
->>>>>>> dev
-=======
->>>>>>> dev

@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, TextInput, Image, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import BottomMenu from '../components/BottomMenu';
 import AddFriend from '../components/AddFriend';
 import MyFriend from '../components/MyFriend';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FriendsScreen = () => {
 
   const { width, height } = Dimensions.get('window');
   const diagonalLength = Math.sqrt(width * width + height * height);
   const navigation = useNavigation();
+  const route = useRoute();
+  const bearerToken = route.params?.bearerToken || '';
+  const greeting = route.params?.greeting || '';
+  const { buddyImage } = route.params || {};
 
   const [activeTab, setActiveTab] = useState('MyFriends');
 
   const handleWidgetPress = (screenName) => {
-    navigation.navigate(screenName);
+    navigation.navigate(screenName, { bearerToken, greeting, buddyImage });
   };
 
   const handleProfilePress = () => {
-    navigation.navigate('Settings');
+    navigation.navigate('Settings', { bearerToken });
   };
 
   const searchUsers = () => {
@@ -42,9 +47,9 @@ const FriendsScreen = () => {
               
       <View style={styles.separator} />
       <View style={styles.contentContainer}>
-        <Text style={styles.text}>Hello User</Text>
+        <Text style={styles.text}>{greeting}</Text>
         <TouchableOpacity onPress={handleProfilePress} style={styles.imageContainer}>
-          <Image source={require('../assets/images/aqua.png')} style={styles.image} />
+          <Image source={buddyImage} style={styles.image} />
         </TouchableOpacity>
       </View>
 
