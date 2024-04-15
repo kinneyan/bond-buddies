@@ -5,11 +5,11 @@ import { NavLink } from 'react-router-dom';
 const Header = () => {
   return (
     <div>
-        <nav class="navbar navbar-light bg-white">
-            <div class="navbar-logo">
+        <nav className="navbar navbar-light bg-white">
+            <div className="navbar-logo">
             <NavLink to="/"><img src={logo} alt="Logo"/></NavLink>
             </div>
-            <div class="navbar-login">
+            <div className="navbar-login">
                 <h3>BOND BUDDIES</h3>
             </div>
         </nav>

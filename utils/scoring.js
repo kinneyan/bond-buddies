@@ -15,7 +15,7 @@ const scoreTest = (test, responses) =>
 
 const scorePersonality = (responses) =>
 {
-    const personalityJSON = require('../tests/personality.json');
+    const personalityJSON = require('../assessments/personality.json');
 
     let cat1 = 0;
     let cat2 = 0;
@@ -74,7 +74,7 @@ const scorePersonality = (responses) =>
 
 const scoreDisc = (responses) =>
 {
-    const discJSON = require('../tests/disc.json');
+    const discJSON = require('../assessments/disc.json');
     
     let d = 0;
     let i = 0; 
@@ -126,7 +126,7 @@ const scoreDisc = (responses) =>
 
 const scoreFriendship = (responses) =>
 {
-    const friendshipJSON = require('../tests/friendship.json');
+    const friendshipJSON = require('../assessments/friendship.json');
 
     let w = 0;
     let q = 0;
@@ -176,4 +176,4 @@ const scoreFriendship = (responses) =>
     return {type: type, description: friendshipJSON.descriptions[type]};
 };
 
-module.exports = { scoreTest };
+module.exports = { scoreTest, scorePersonality, scoreDisc, scoreFriendship };

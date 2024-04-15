@@ -1,4 +1,5 @@
 const { getMongoClient } = require('../utils/database');
+const { sortUsers } = require('../utils/sortUsers');
 
 const addFriend = (async (req, res, next) =>
 {
@@ -35,18 +36,7 @@ const addFriend = (async (req, res, next) =>
             return;
         }
 
-        /*
-        * Sort ids so that no matter the two users that are 
-        * passed (authorized user, friend), they are always formatted
-        * in the same way because their _ids should never change. This
-        * allows us to not have to check if the relationship is
-        * flipped (e.g. friend in user1 vs user2).
-        */
-        let ids = [users[0]._id.toString(), res.locals.token.id];
-        ids.sort((a, b) =>
-        {
-            return a.localeCompare(b);
-        });
+        let ids = sortUsers(users[0]._id.toString(), res.locals.token.id);
 
         // build request body
         const requestBody = { user1: ids[0], user2: ids[1] };

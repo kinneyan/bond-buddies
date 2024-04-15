@@ -55,7 +55,6 @@ const resetPassword = (async (req, res, next) =>
     }
     catch (e)
     {
-        console.log(e);
         res.locals.ret.error = 'Failed to reset password.';
         res.status(500).json(res.locals.ret);
         return;

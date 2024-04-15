@@ -11,6 +11,7 @@ import AssessmentScreen from './screens/AssessmentScreen';
 import QuestionScreen from './screens/QuestionScreen';
 import FriendsScreen from './screens/FriendsScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import VerifyScreen from './screens/VerifyScreen';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,7 @@ function App() {
           <Stack.Screen name="Questions" component={QuestionScreen} />
           <Stack.Screen name="Friends" component={FriendsScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="Verify" component={VerifyScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </FontLoader>

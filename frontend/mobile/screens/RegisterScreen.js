@@ -3,7 +3,6 @@ import { View, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity } from 
 import { useNavigation } from '@react-navigation/native';
 import { Rect, CornerPathEffect } from "@shopify/react-native-skia";
 import BorderGradient from '../components/BorderGradient'; 
-import { API_URL } from '../components/ApiAddress';
 
 export default function RegisterScreen() {
 
@@ -32,6 +31,7 @@ export default function RegisterScreen() {
 
     const [attemptedNext, setAttemptedNext] = useState(false); 
     const [errorMessage, setErrorMessage] = useState('');
+    const [bearerToken, setbearerToken] = useState('');
 
     const validateFirstName = (firstName) => {
 
@@ -95,7 +95,7 @@ export default function RegisterScreen() {
     const validateConfirmPassword = (password) => {
 
         if(!password.trim()) {
-            return 'Confirm password xcannot be blank';
+            return 'Confirm password cannot be blank';
         } 
         else{
             return '';
@@ -150,7 +150,7 @@ export default function RegisterScreen() {
             };
         
             try {
-                const response = await fetch(API_URL + '/user/register', {
+                const response = await fetch('http://10.132.181.204:3001/user/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -159,6 +159,8 @@ export default function RegisterScreen() {
                 });
         
                 const res = JSON.parse(await response.text());
+
+                //console.log(res);
         
                 if(res.error === 'Username is already taken.'){
                     setErrorMessage("Username already exists");
@@ -170,11 +172,47 @@ export default function RegisterScreen() {
                 } 
                 else {
                     console.log("Register successful!");
-                    navigation.navigate('Login');
+                    setbearerToken(res.bearer);
                 }
             } catch (error) {
                 console.error("Error during register:", error);
             }
+
+    };
+
+    useEffect(() => {
+
+        console.log(bearerToken);
+
+        if(bearerToken) {
+            handleEmailVerification();
+            navigation.navigate('Login', { bearerToken });
+        }
+    }, [bearerToken]);
+
+    const handleEmailVerification = async () => {
+
+        try{
+
+            //console.log(bearerToken);
+
+            const response = await fetch('http://10.132.181.204:3001/user/verify', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${bearerToken}`
+                },
+            });
+
+            if(response.ok) {
+                console.log("Email verification sent.");
+            } else {
+                console.error("Email verification failed to send: ", response.error);
+            }
+
+        }catch (error) {
+            console.error("Error during verification email sending: ", error);
+        };
 
     };
     
