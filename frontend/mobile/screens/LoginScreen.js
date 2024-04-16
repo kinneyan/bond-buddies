@@ -26,38 +26,6 @@ export default function LoginScreen() {
     const bearerToken = route.params?.bearerToken || '';
     const verifiedUser = route.params?.verifiedUser || '';
 
-    /*
-    const verifyUser = async () => {
-
-        console.log(bearerToken);
-
-        try {
-          if(bearerToken) {
-            const response = await fetch('http://172.20.10.3:3001/user/verifyUser', {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `${bearerToken}`
-              },
-            });
-      
-            //console.log(response);
-
-            if(response.ok) {
-                console.log("Verification successful.");
-                return true; 
-
-            } else {
-                console.error("Verification failed: ", response.error);
-                return false;
-            }
-          }
-        } catch (error) {
-          console.error("Error fetching user info: ", error);
-          return false;
-        }
-      };
-      */
 
     const validateUsername = (username) => {
 
@@ -99,7 +67,7 @@ export default function LoginScreen() {
 
             setLoading(true);
 
-            const response = await fetch('http://10.132.181.204:3001/user/login', {
+            const response = await fetch('https://bondbuddies.com/user/login', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -109,7 +77,7 @@ export default function LoginScreen() {
 
             const res = await response.json();
 
-            console.log(res.verified);
+            console.log ("res: ", res);
 
             setLoading(false);
 
@@ -126,6 +94,7 @@ export default function LoginScreen() {
                 else{
                     setErrorMessage("Please verify your account");
                 }
+                
                 //console.log("Bearer token: " + res.bearer);
                 //navigation.navigate('UserHome', { bearerToken: res.bearer });
                 

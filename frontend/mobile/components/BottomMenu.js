@@ -34,7 +34,7 @@ const BottomMenu = ({ handleWidgetPress }) => {
     <View style={styles.widgetContainer}>
       <CustomIconComponent icon={HomeIcon} onPress={() => handleWidgetPress('UserHome')} />
       <CustomIconComponent icon={AsIcon} onPress={() => handleWidgetPress('Assessment')} />
-      <CustomIconComponent icon={FriendIcon} onPress={() => handleWidgetPress('Friends')} />
+      {/*<CustomIconComponent icon={FriendIcon} onPress={() => handleWidgetPress('Friends')} />*/}
     </View>
   );
 };

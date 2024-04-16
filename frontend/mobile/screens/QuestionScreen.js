@@ -55,7 +55,7 @@ const QuestionsScreen = ({ route }) => {
 
     try{
 
-      const response = await fetch('http://10.132.181.204:3001/assessments/update', {
+      const response = await fetch('https://bondbuddies.com/assessments/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -150,7 +150,7 @@ export default function RegisterScreen() {
             };
         
             try {
-                const response = await fetch('http://10.132.181.204:3001/user/register', {
+                const response = await fetch('https://bondbuddies.com/user/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -194,7 +194,7 @@ export default function RegisterScreen() {
 
         try{
 
-            //console.log(bearerToken);
+            console.log(bearerToken);
 
             const response = await fetch('http://10.132.181.204:3001/user/verify', {
                 method: 'GET',
@@ -215,6 +215,7 @@ export default function RegisterScreen() {
         };
 
     };
+    
     
     const navigateToLogin = () => {
         navigation.navigate('Login');

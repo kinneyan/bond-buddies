@@ -120,8 +120,12 @@ const UserScreen = () => {
   const getResults = async () => {
 
     try {
+
+      console.log(bearerToken);
+
       if (bearerToken) {
-        const response = await fetch('http://10.132.181.204:3001/assessments/results', {
+
+        const response = await fetch('https://bondbuddies.com/assessments/results', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -258,6 +262,7 @@ const UserScreen = () => {
       }
     } catch (error) {
       console.error("Error fetching user info: ", error);
+      console.log("Error: ", error.lineNumber)
     }
   };
   

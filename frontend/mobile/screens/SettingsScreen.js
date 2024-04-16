@@ -71,7 +71,7 @@ const SettingsScreen = () => {
     try {
 
       if (bearerToken) {
-        const response = await fetch('http://10.132.181.204:3001/user/self', {
+        const response = await fetch('https://bondbuddies.com/user/self', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ const SettingsScreen = () => {
     console.log(updatedFields);
   
     try {
-      const response = await fetch('http://10.132.181.204:3001/user/update', {
+      const response = await fetch('https://bondbuddies.com/user/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -118,8 +118,7 @@ export default function ForgotScreen() {
 
         try{
             //console.log(bearerToken);
-
-            const response = await fetch('http://10.132.181.204:3001/user/forgotPassword', {
+            const response = await fetch('https://bondbuddies.com/user/forgotPassword', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
