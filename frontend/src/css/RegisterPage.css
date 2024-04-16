@@ -58,3 +58,22 @@
     margin-bottom: 10px;
     transition: 0.3s;
 }
+
+.invalid
+{
+    color: red;
+    transition: 0.3s;
+}
+
+.valid
+{
+
+    color: green;
+    transition: 0.3s;
+}
+
+.inactive
+{
+    display: none;
+    transition: 0.3s;
+}
