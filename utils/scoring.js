@@ -69,7 +69,11 @@ const scorePersonality = (responses) =>
     if (cat4 >= 0) personalityType += 'P';
     else personalityType += 'J';
 
-    return {type: personalityType, description: personalityJSON.descriptions[personalityType]};
+    const description = Object.assign({}, personalityJSON.descriptions[personalityType]);
+    delete description.buddyType;
+    const buddyType = personalityJSON.descriptions[personalityType].buddyType;
+
+    return {type: personalityType, description: description, buddyType: buddyType};
 };
 
 const scoreDisc = (responses) =>
@@ -120,8 +124,11 @@ const scoreDisc = (responses) =>
         default:
             break;
     }
+    const description = Object.assign({}, discJSON.descriptions[type]);
+    delete description.buddyType;
+    const buddyType = discJSON.descriptions[type].buddyType;
 
-    return {type: type, description: discJSON.descriptions[type]};
+    return {type: type, description: description, buddyType: buddyType};
 };
 
 const scoreFriendship = (responses) =>
@@ -173,7 +180,9 @@ const scoreFriendship = (responses) =>
             break;
     }
 
-    return {type: type, description: friendshipJSON.descriptions[type]};
+    const buddyType = friendshipJSON.buddyTypes[type];
+
+    return {type: type, description: friendshipJSON.descriptions[type], buddyType: buddyType};
 };
 
 module.exports = { scoreTest, scorePersonality, scoreDisc, scoreFriendship };

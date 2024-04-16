@@ -59,9 +59,6 @@ const updateAssessment = (async (req, res, next) =>
         client.connect();
         const db = client.db();
 
-        const buddyType = results.description.buddyType;
-        delete results.description.buddyType;
-
         const [ assessmentUpdate, buddyTypeUpdate ] = await Promise.all
         ([
             db.collection(assessment).updateOne(
@@ -72,7 +69,7 @@ const updateAssessment = (async (req, res, next) =>
             db.collection('Users').updateOne
             (
                 { login: res.locals.token.login },
-                { $set: { buddyType: buddyType }}
+                { $set: { buddyType: results.buddyType }}
             )
         ])
 
