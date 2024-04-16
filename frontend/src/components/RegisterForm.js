@@ -30,7 +30,7 @@ function RegisterForm()
             var res = JSON.parse(await response.text());
             if (res.error === "")
             {
-                window.location.href = '/login'
+                window.location.href = '/'
             }
             
         }
@@ -65,7 +65,7 @@ function RegisterForm()
             }
             );
             var res = JSON.parse(await response.text());
-
+            console.log(res)
             if (res.error !== "")
                 console.log("ain't work!")
             else
@@ -172,7 +172,7 @@ function RegisterForm()
       <div className="RPregister-container">
   
           <div className="RPregister">
-              <form action={doRegister} className="register1-form">
+              <form className="register1-form">
                   <h2 id="registerh2" >Register</h2>
                   <div className="row">
                       <div className="col">
@@ -208,13 +208,13 @@ function RegisterForm()
                       <div className="col">
                           <div id="RPassword" className="form-group">
                               <label for="password">Password</label>
-                              <input ref={(c) => password = c} type="password" className="form-control" onKeyDown={fields} onFocus={fields} onBlur={inactives} required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="password"/>
+                              <input ref={(c) => password = c} type="password" className="form-control" onKeyUp={fields} onFocus={fields} onBlur={inactives} required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="password"/>
                           </div>
                       </div>
                       <div className="col">
                           <div id="RPconfirmPassword" className="form-group">
                               <label for="confirmPassword">Confirm Password</label>
-                              <input ref={(c) => confirmPassword = c} type="password" onKeyDown={fields} onFocus={fields} onBlur={inactives}  className="form-control" id="confirmPassword"/>
+                              <input ref={(c) => confirmPassword = c} type="password" onKeyUp={fields} onFocus={fields} onBlur={inactives}  className="form-control" id="confirmPassword"/>
                           </div>
                       </div>
                   </div>
@@ -228,7 +228,7 @@ function RegisterForm()
                   </ul>
   
                   <div id="RPbuttons" className="d-flex justify-content-center">
-                      <input id="registerbtn" type="submit" className="btn btn-primary" Create an Account/>
+                      <input onClick={doRegister} id="registerbtn" type="submit" className="btn btn-primary" Create an Account/>
                   </div>
                   <div className="RPholder">
                       <NavLink id="accountbtn" to="/login">Have an account?</NavLink>
