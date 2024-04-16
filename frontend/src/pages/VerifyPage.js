@@ -90,7 +90,7 @@ const VerifyPage = () => {
   
     try {
       if (bearer) {
-        const response = await fetch('http://localhost:3001/user/verifyUser', {
+        const response = await fetch(buildPath("user/verifyUser"), {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
