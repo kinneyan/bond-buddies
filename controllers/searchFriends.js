@@ -49,7 +49,7 @@ const searchFriends = (async (req, res, next) => {
         for (const user of users){
 
             // skip self
-            if (user.Login === res.locals.token.login) continue;
+            if (user.login === res.locals.token.login) continue;
 
             ids = [user._id.toString(), res.locals.token.id];
             ids.sort((a, b) =>
