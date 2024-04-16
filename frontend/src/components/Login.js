@@ -33,7 +33,14 @@ function Login()
         sessionStorage.setItem("email", res.email)
         sessionStorage.setItem("bearer", bearer)
         sessionStorage.setItem("login", res.login)
-        window.location.href = '/user';
+        if (sessionStorage.getItem("verified") === "true")
+        {
+          sessionStorage.setItem("verified", true)
+          window.location.href = '/user';
+        }
+        else
+        alert("Please verify your account to log in")
+        
       }
     }
     catch(e)
@@ -46,6 +53,7 @@ function Login()
     const doLogin = async event =>
     {
         event.preventDefault();
+        sessionStorage.clear();
         var obj = {
             username: username.value,
             password: pwd.value
@@ -57,10 +65,8 @@ function Login()
             {method: 'POST', body: payload, headers: {'Content-type': 'application/json'}});
             var res = JSON.parse(await response.text());
 
-            if(res.error === "Username or password is incorrect."){
-              console.log(res.error);
-              setfailureMessage("Username or password is incorrect");
-            }
+            if (res.error === "Username or password is incorrect.")
+                console.log(res.error)
             else
             {
                 var userInfo = {
@@ -70,7 +76,10 @@ function Login()
                     bearer: res.bearer
                 }
                 bearer = userInfo.bearer
+                sessionStorage.setItem("verified", res.verified)
                 getInfo();
+                
+
             }
             
         }
@@ -81,11 +90,12 @@ function Login()
         }
     }
 
+    
+
     const [showLogin, setShowLogin] = useState(true);
     const [showForgot, setShowForgot] = useState(false);
     const [forgotEmail, setForgotEmail] = useState('');
     const [forgotPasswordSuccessMessage, setForgotPasswordSuccessMessage] = useState('');
-    const [failureMessage, setfailureMessage] = useState('');
 
     const handleForgotClick = () => {
         setShowLogin(false);
@@ -121,10 +131,6 @@ function Login()
               <div className="forgotpass">
                 <button onClick={handleForgotClick} id='forgot-btn' className="btn-member btn-fade">Forgot Password?</button>
               </div>
-
-              {failureMessage && <span className="error-message">{failureMessage}</span>}
-              {failureMessage && <br />}
-              <br/>
               <div className="d-flex justify-content-center">
                 <button id="submitbtn" type="submit" className="btn btn-primary" onClick={doLogin}>Log In</button>
               </div>

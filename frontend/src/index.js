@@ -11,7 +11,6 @@ import FriendshipPage from './pages/FriendshipPage'
 import FriendsPage from './pages/FriendsPage'
 import SettingsPage from './pages/SettingsPage'
 import VerifyPage from './pages/VerifyPage'
-import ResetPage from './pages/ResetPage'
 
 import {
   createBrowserRouter,
@@ -62,10 +61,6 @@ const router = createBrowserRouter([
   {
     path: "/verify",
     element: <VerifyPage />,
-  },
-  {
-    path: "/reset",
-    element: <ResetPage />,
   },
 ]);
 

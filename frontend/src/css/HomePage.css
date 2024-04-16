@@ -211,15 +211,6 @@
     text-decoration: none;
 }
 
-@media screen and (max-width: 1000px){
-
-    .HPmoreText{
-        font-size: 15px;
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-}
-
 @media screen and (max-width: 768px){
 
     .HPcompname{
@@ -231,16 +222,8 @@
         line-height: 60px;
     }
 
-    .HPassessments{
-        margin-bottom: 350px;
-    }
-
     .HPcircle-container{
         grid-template-columns: repeat(1, 1fr);
-    }
-
-    .HPcircleText{
-        font-size: 15px;
     }
 
     .HPleft{
@@ -258,32 +241,36 @@
     }
 
     .footerinfo .footerDiv{
-        margin: 15px;
+        margin: 5px;
         flex-grow: 1;
     }
 }
 
-@media screen and (max-width: 545px){
+@media screen and (max-width: 500px){
+
+    .HPcompname, .HPslogan{
+        line-height: 30px;
+    }
 
     .HPcompname{
-        font-size: 50px;
+        font-size: 40px;
     }
 
     .HPslogan{
         font-size: 40px;
-        line-height: 50px;
+        line-height: 60px;
     }
 
     .HPassesstext{
-        margin-top: 80px;
-        margin-bottom: 70px;
         font-size: 40px;
-        line-height: 80px;
-        font-weight: 500;
     }
 
-    .HPcircleText{
-        font-size: 14px;
+    .HPcircle-container{
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .HPleft{
+        flex: 1.5;
     }
 
     .HPleft #leftTitle{
@@ -292,7 +279,13 @@
 
     .HPmoreText{
         font-size: 13px;
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .footerinfo .footerDiv{
+        margin: 2px;
+        flex-grow: 1;
     }
 }
+

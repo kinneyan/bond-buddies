@@ -10,39 +10,3 @@
     text-align: center;
     margin-bottom: 80px;
 }
-
-@media only screen and (max-width: 1400px){
-
-    .asessmentContainer{
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-bottom: 200px;
-        margin-top: 50px;
-    }
-}
-
-@media only screen and (max-width: 1000px){
-
-    .asessmentContainer{
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-bottom: 300px;
-        margin-top: 50px;
-    }
-}
-
-@media only screen and (max-width: 780px){
-
-    .asessmentContainer{
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-bottom: 470px;
-        margin-top: 30px;
-    }
-
-    .asessmentContainer #HPbuttons{
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-bottom: 20px;
-    }
-}

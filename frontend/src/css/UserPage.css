@@ -122,20 +122,20 @@
     font-weight: bold;
 }
 
-.asessmentInfo{
+.assessmentInfo{
     margin: 50px;
 }
 
-.asessmentInfo .pt, .asessmentInfo .disc, .asessmentInfo .fl{
+.assessmentInfo .pt, .asessmentInfo .disc, .asessmentInfo .fl{
     margin-bottom: 40px;
 }
 
-.asessmentInfo .assesstitle{
+.assessmentInfo .assesstitle{
     font-family: 'omnesregular', Arial;
     font-size: 22px;
 }
 
-.asessmentInfo .assesstext{
+.assessmentInfo .assesstext{
     font-family: "Roboto", sans-serif;
     font-size: 16px;
 }
@@ -143,4 +143,3 @@
 .dropdown-item{
     margin: 0 !important;
 }
-

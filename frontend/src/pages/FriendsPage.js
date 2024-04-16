@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserHeader from '../components/UserHeader';
 import Footer from '../components/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,6 +8,51 @@ import prof from '../images/aqua.png';
 import { NavLink } from 'react-router-dom';
 import FriendPerson from '../components/FriendPerson';
 import AddPerson from '../components/AddPerson';
+import RegisterForm from '../components/RegisterForm';
+
+const app_name = "bondbuddies.com/"
+function buildPath(route)
+{
+    if(process.env.NODE_ENV === 'production')
+        return "http://" + app_name + route;
+    else
+        return "http://localhost:3001/" + route;
+}
+
+var search
+
+const  getSearchResults = async event =>
+{
+  var obj = {
+    search: search.value
+  }
+  var payload = JSON.stringify(obj)
+  try
+  {
+    const response = await fetch(buildPath("friends/search"),
+    {method: 'POST', body: payload, headers:{'Content-type': 'application/json',
+    'Authorization': sessionStorage.getItem('bearer')}})
+    var res = JSON.parse(await response.text())
+    if(res.error === "")
+    {
+        var create = ''
+        console.log(res.friends)
+        for (var i in res.friends)
+        {
+          console.log(res.friends[i].firstName)
+          create += <FriendPerson profileSrc={prof} name={res.friends[i].firstName}  buddyType="Buddy type" />
+          console.log(create)
+        }
+        document.getElementById("friendList").innerHTML = create
+          
+    }
+  }
+  catch(e)
+  {
+    alert(e.toString())
+    return;
+  }
+}
 
 const Search = () => {
   return (
@@ -15,7 +60,7 @@ const Search = () => {
       <div id="searchDiv">
           <div className="search-box">
               <div className="row-search">
-                  <input type="text" id="input-box" placeholder="Search"  name="input-box" autoComplete="off"/>
+                  <input ref={(c) => search = c} onKeyUp={getSearchResults}type="text" id="input-box" placeholder="Search"  name="input-box" autoComplete="off"/>
                   <button type="button" id="searchb" className="img-b"><img className="searchimg" src={searchicon} alt=""/></button>
               </div>
           </div>
@@ -24,8 +69,9 @@ const Search = () => {
   );
 };
 
-const Friends = () => {
 
+
+const Friends = () => {
   const [activeTab, setActiveTab] = useState('My Friends');
 
   const toggleText = (tabName) => {
@@ -47,12 +93,20 @@ const Friends = () => {
         <div className="people">
 
           {activeTab === 'My Friends' ? (
-
-            <FriendPerson profileSrc={prof} name="My Friend" buddyType="Buddy type" />
+            <div id="friendList">
+              <FriendPerson profileSrc={prof} name="Temp"  buddyType="Buddy type" />
+              <FriendPerson profileSrc={prof} name="Temp"  buddyType="Buddy type" />
+              <FriendPerson profileSrc={prof} name="Temp"  buddyType="Buddy type" />
+              
+            </div>
           ) : (
 
             <AddPerson profileSrc={prof} name="Add Friend" buddyType="Buddy type" />
           )}
+        </div>
+        <div className="buttoncontainer">
+        <button id="prevButton" className="btn btn-dark" disabled>Previous</button>
+        <button id="nextButton" className="btn btn-dark">Next</button>
         </div>
       </div>
     </div>
