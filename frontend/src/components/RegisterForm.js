@@ -6,7 +6,7 @@ const app_name = "bondbuddies.com/"
 function buildPath(route)
 {
     if(process.env.NODE_ENV === 'production')
-        return "http://" + app_name + route;
+        return "https://" + app_name + route;
     else
         return "http://localhost:3001/" + route;
 }
