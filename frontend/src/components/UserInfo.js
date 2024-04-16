@@ -84,7 +84,7 @@ useEffect(() => {
                   <h3 id="hello">Hello, {sessionStorage.getItem("firstName").charAt(0).toUpperCase() + sessionStorage.getItem("firstName").slice(1)}</h3>
                   <img id="buddyImg" src={unknown} className="rounded-circle" style={{border: '3px solid black', position: 'relative', bottom: '10px', left: '1vh', width: '88px', height: '88px' }} />
                   <h2 id="type">Unknown</h2>
-                  <p id="descrip"></p>
+                  <p id="descrip">Piquing curiosity with your mysterious allure, you draw others (and our algorithm) to unravel the enigma of your essence</p>
               </div>
               <div className="right-content">
                   <table className="rounded-table">
