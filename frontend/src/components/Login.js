@@ -5,7 +5,7 @@ const app_name = "bondbuddies.com/"
 function buildPath(route)
 {
     if(process.env.NODE_ENV === 'production')
-        return "http://" + app_name + route;
+        return "https://" + app_name + route;
     else
         return "http://localhost:3001/" + route;
 }
@@ -15,6 +15,27 @@ function Login()
     var username;
     var pwd;
     var bearer;
+
+    const resetPassword = async event =>
+    {
+      var obj = {
+        login: forgotUser,
+        email: forgotEmail
+      }
+      var payload = JSON.stringify(obj)
+      try
+      {
+        const response = await fetch(buildPath("user/forgotPassword"),
+        {method: 'POST', body: payload, headers:{'Content-type': 'application/json'}});
+        var res = JSON.parse(await response.text());
+        console.log(res)
+      }
+      catch(e)
+      {
+        e.toString();
+        return;
+      }
+    }
 
     const getInfo = async event =>
       {
@@ -95,6 +116,7 @@ function Login()
     const [showLogin, setShowLogin] = useState(true);
     const [showForgot, setShowForgot] = useState(false);
     const [forgotEmail, setForgotEmail] = useState('');
+    const [forgotUser, setForgotUser] = useState('');
     const [forgotPasswordSuccessMessage, setForgotPasswordSuccessMessage] = useState('');
 
     const handleForgotClick = () => {
@@ -111,6 +133,7 @@ function Login()
 
     const handleSendResetPasswordEmail = () => {
         console.log(`Reset password email sent to: ${forgotEmail}`);
+        resetPassword();
         setForgotPasswordSuccessMessage(`Password reset email sent to: ${forgotEmail}`);
     };
 
@@ -147,6 +170,14 @@ function Login()
               <h2 id="registerh2">Forgot Password</h2>
 
               <div className="form-group">
+              <label htmlFor="forgotUserInput">Username</label>
+                <input
+                  type="input"
+                  className="form-control"
+                  id="forgotUserInput"
+                  value={forgotUser}
+                  onChange={(e) => setForgotUser(e.target.value)}
+                />
                 <label htmlFor="forgotEmailInput">Email</label>
                 <input
                   type="email"
