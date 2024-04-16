@@ -49,7 +49,7 @@ const searchFriends = (async (req, res, next) => {
         for (const user of users){
 
             // skip self
-            if (user.Login === res.locals.token.login) continue;
+            if (user.login === res.locals.token.login) continue;
 
             ids = [user._id.toString(), res.locals.token.id];
             ids.sort((a, b) =>
@@ -68,11 +68,14 @@ const searchFriends = (async (req, res, next) => {
                 continue;
             }
             else{
+                const friendBuddyType = await db.collection('Users').find({ login: user.login }).toArray();
+
                 const userObject = {
                     login: user.login,
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    relationshipType: relationships[0].relationshipType
+                    relationshipType: relationships[0].relationshipType,
+                    buddyType: friendBuddyType[0].buddyType || ''
                 };
 
                 friends.push(userObject);

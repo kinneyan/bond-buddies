@@ -59,13 +59,24 @@ const updateAssessment = (async (req, res, next) =>
         client.connect();
         const db = client.db();
 
-        const update = await db.collection(assessment).updateOne(
-            { login: res.locals.token.login },
-            { $set: { responses: responseArray, result: results.type, description: results.description }},
-            { upsert: true }
-        );
+        const buddyType = results.description.buddyType;
+        delete results.description.buddyType;
 
-        if (update.modifiedCount < 1 && update.upsertedCount < 1)
+        const [ assessmentUpdate, buddyTypeUpdate ] = await Promise.all
+        ([
+            db.collection(assessment).updateOne(
+                { login: res.locals.token.login },
+                { $set: { responses: responseArray, result: results.type, description: results.description }},
+                { upsert: true }
+            ),
+            db.collection('Users').updateOne
+            (
+                { login: res.locals.token.login },
+                { $set: { buddyType: buddyType }}
+            )
+        ])
+
+        if (assessmentUpdate.modifiedCount < 1 && assessmentUpdate.upsertedCount < 1)
         {
             res.locals.ret.error = 'Responses already up-to-date.';
             res.status(409).json(res.locals.ret);
