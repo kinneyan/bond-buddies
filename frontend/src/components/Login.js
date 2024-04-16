@@ -5,7 +5,7 @@ const app_name = "bondbuddies.com/"
 function buildPath(route)
 {
     if(process.env.NODE_ENV === 'production')
-        return "http://" + app_name + route;
+        return "https://" + app_name + route;
     else
         return "http://localhost:3001/" + route;
 }
@@ -15,6 +15,27 @@ function Login()
     var username;
     var pwd;
     var bearer;
+
+    const resetPassword = async event =>
+    {
+      var obj = {
+        login: forgotUser,
+        email: forgotEmail
+      }
+      var payload = JSON.stringify(obj)
+      try
+      {
+        const response = await fetch(buildPath("user/forgotPassword"),
+        {method: 'POST', body: payload, headers:{'Content-type': 'application/json'}});
+        var res = JSON.parse(await response.text());
+        console.log(res)
+      }
+      catch(e)
+      {
+        e.toString();
+        return;
+      }
+    }
 
     const getInfo = async event =>
       {
@@ -33,7 +54,14 @@ function Login()
         sessionStorage.setItem("email", res.email)
         sessionStorage.setItem("bearer", bearer)
         sessionStorage.setItem("login", res.login)
-        window.location.href = '/user';
+        if (sessionStorage.getItem("verified") === "true")
+        {
+          sessionStorage.setItem("verified", true)
+          window.location.href = '/user';
+        }
+        else
+        alert("Please verify your account to log in")
+        
       }
     }
     catch(e)
@@ -46,6 +74,7 @@ function Login()
     const doLogin = async event =>
     {
         event.preventDefault();
+        sessionStorage.clear();
         var obj = {
             username: username.value,
             password: pwd.value
@@ -57,10 +86,8 @@ function Login()
             {method: 'POST', body: payload, headers: {'Content-type': 'application/json'}});
             var res = JSON.parse(await response.text());
 
-            if(res.error === "Username or password is incorrect."){
-              console.log(res.error);
-              setfailureMessage("Username or password is incorrect");
-            }
+            if (res.error === "Username or password is incorrect.")
+                console.log(res.error)
             else
             {
                 var userInfo = {
@@ -70,7 +97,10 @@ function Login()
                     bearer: res.bearer
                 }
                 bearer = userInfo.bearer
+                sessionStorage.setItem("verified", res.verified)
                 getInfo();
+                
+
             }
             
         }
@@ -81,11 +111,13 @@ function Login()
         }
     }
 
+    
+
     const [showLogin, setShowLogin] = useState(true);
     const [showForgot, setShowForgot] = useState(false);
     const [forgotEmail, setForgotEmail] = useState('');
+    const [forgotUser, setForgotUser] = useState('');
     const [forgotPasswordSuccessMessage, setForgotPasswordSuccessMessage] = useState('');
-    const [failureMessage, setfailureMessage] = useState('');
 
     const handleForgotClick = () => {
         setShowLogin(false);
@@ -101,6 +133,7 @@ function Login()
 
     const handleSendResetPasswordEmail = () => {
         console.log(`Reset password email sent to: ${forgotEmail}`);
+        resetPassword();
         setForgotPasswordSuccessMessage(`Password reset email sent to: ${forgotEmail}`);
     };
 
@@ -121,10 +154,6 @@ function Login()
               <div className="forgotpass">
                 <button onClick={handleForgotClick} id='forgot-btn' className="btn-member btn-fade">Forgot Password?</button>
               </div>
-
-              {failureMessage && <span className="error-message">{failureMessage}</span>}
-              {failureMessage && <br />}
-              <br/>
               <div className="d-flex justify-content-center">
                 <button id="submitbtn" type="submit" className="btn btn-primary" onClick={doLogin}>Log In</button>
               </div>
@@ -141,6 +170,14 @@ function Login()
               <h2 id="registerh2">Forgot Password</h2>
 
               <div className="form-group">
+              <label htmlFor="forgotUserInput">Username</label>
+                <input
+                  type="input"
+                  className="form-control"
+                  id="forgotUserInput"
+                  value={forgotUser}
+                  onChange={(e) => setForgotUser(e.target.value)}
+                />
                 <label htmlFor="forgotEmailInput">Email</label>
                 <input
                   type="email"

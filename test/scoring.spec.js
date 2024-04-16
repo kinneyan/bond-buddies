@@ -15,19 +15,19 @@ describe('Assessment scoring', () =>
     });
     describe('#scoreDisc()', () => 
     {
-        it('Should return conscientiousness with all neutral responses', () =>
+        it('Should return Dominance with all neutral responses', () =>
         {
             const actual = scoreDisc(neutral).type;
-            const expected = 'Conscientiousness';
+            const expected = 'Dominance';
             expect(actual).to.equal(expected);
         });
     });
     describe('#scoreFriendship()', () =>
     {
-        it('Should return Acts of Service with all neutral responses', () =>
+        it('Should return Words of Affirmation with all neutral responses', () =>
         {
             const actual = scoreFriendship(neutral).type;
-            const expected = 'Acts of Service';
+            const expected = 'Words of Affirmation';
             expect(actual).to.equal(expected);
         });
     });
@@ -39,16 +39,16 @@ describe('Assessment scoring', () =>
             const expected = 'ISTP';
             expect(actual).to.equal(expected);
         });
-        it('Should return conscientiousness for disc test with neutral responses', () =>
+        it('Should return Dominance for disc test with neutral responses', () =>
         {
             const actual = scoreTest('DISC', neutral).type;
-            const expected = 'Conscientiousness';
+            const expected = 'Dominance';
             expect(actual).to.equal(expected);
         });
-        it('Should return Acts of Service for friendship test with neutral responses', () =>
+        it('Should return Words of Affirmation for friendship test with neutral responses', () =>
         {
             const actual = scoreTest('Friendship', neutral).type;
-            const expected = 'Acts of Service';
+            const expected = 'Words of Affirmation';
             expect(actual).to.equal(expected);
         })
     });

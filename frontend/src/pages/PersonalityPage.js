@@ -4,28 +4,69 @@ import Footer from '../components/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/QuestionsPage.css';
 
-const PersonalityPage = () => {
+
+const app_name = "bondbuddies.com/"
+function buildPath(route)
+{
+    if(process.env.NODE_ENV === 'production')
+        return "https://" + app_name + route;
+    else
+        return "http://localhost:3001/" + route;
+}
+
+function PersonalityPage()
+{
+
+    const updatePersonality = async event =>
+    {
+        var obj = {
+            assessmentCode: 0,
+            responses: questionStates
+        }
+        var payload = JSON.stringify(obj)
+        try
+        {
+            const response = await fetch(buildPath("assessments/update"),
+            {method: 'POST', body: payload, headers: {'Content-type': 'application/json', 
+            'Authorization': sessionStorage.getItem('bearer')}})
+            var res = JSON.parse(await response.text());
+            if (res.error === "")
+            {
+                console.log("it probably worked")
+                window.location.href = '/user'
+            }
+            else
+            {
+                console.log(res.error)
+            }
+        }
+        catch(e)
+        {
+            console.log(e.toString())
+            return;
+        }
+    }
     const questions = [
-        "It’s easy for you to make friends.",
-        "You enjoy exploring the unknown.",
-        "Seeing other people cry makes you want to cry as well.",
-        "You always have multiple plans prepared in the event that one fails.",
-        "You trust your instincts and gut feelings when making decisions.",
-        "You wait for others to approach you first at public events.",
-        "You find pleasure in setting reachable goals for yourself.",
-        "You value helping others achieve their goals.",
-        "You like to use organizing tools to manage your schedule.",
-        "You enjoy learning through hands-on experiences and experimentation.",
-        "You enjoy approaching others first and striking up conversation.",
-        "You prefer not to have invested conversations about abstract ideas.",
-        "You view decision-making based on emotion as inefficient.",
-        "You prefer to go through your days without a schedule.",
-        "You enjoy participating in team-based activities.",
-        "Your dreams tend to be vivid and creative.",
-        "In a group, you prefer to listen than participate in the discussion.",
-        "You often notice small changes in your environment that others might overlook.",
-        "You believe it’s more important to rely on rationality than emotions.",
-        "I'm open to new experiences and opportunities, even if they disrupt my existing plans.",
+        "1. It’s easy for you to make friends.",
+        "2. You enjoy exploring the unknown.",
+        "3. Seeing other people cry makes you want to cry as well.",
+        "4. You always have multiple plans prepared in the event that one fails.",
+        "5. You trust your instincts and gut feelings when making decisions.",
+        "6. You wait for others to approach you first at public events.",
+        "7. You find pleasure in setting reachable goals for yourself.",
+        "8. You value helping others achieve their goals.",
+        "9. You like to use organizing tools to manage your schedule.",
+        "10. You enjoy learning through hands-on experiences and experimentation.",
+        "11. You enjoy approaching others first and striking up conversation.",
+        "12. You prefer not to have invested conversations about abstract ideas.",
+        "13. You view decision-making based on emotion as inefficient.",
+        "14. You prefer to go through your days without a schedule.",
+        "15. You enjoy participating in team-based activities.",
+        "16. Your dreams tend to be vivid and creative.",
+        "17. In a group, you prefer to listen than participate in the discussion.",
+        "18. You often notice small changes in your environment that others might overlook.",
+        "19. You believe it’s more important to rely on rationality than emotions.",
+        "20. I'm open to new experiences and opportunities, even if they disrupt my existing plans.",
     ];
 
     const [questionStates, setQuestionStates] = useState(Array.from({ length: questions.length }, () => null));
@@ -49,12 +90,13 @@ const PersonalityPage = () => {
 
     const handleSubmit = () => {
         console.log("here: ", questionStates); 
+        updatePersonality()
     };
 
     const renderQuestionsInSection = (startIndex, endIndex) => {
         return questions.slice(startIndex, endIndex).map((question, index) => (
             <div key={`question-${startIndex + index}`} className="question">
-                <p className="questionText">{`${startIndex + index + 1}. ${question}`}</p>
+                <p className="questionText">{question}</p>
                 <label className="questionLabel">
                     {[...Array(5)].map((_, optionIndex) => (
                         <span className="questionSpan" key={`radio-span-${startIndex + index}-${optionIndex}`}>
@@ -100,6 +142,5 @@ const PersonalityPage = () => {
             <Footer />
         </>
     );
-};
-
+}
 export default PersonalityPage;

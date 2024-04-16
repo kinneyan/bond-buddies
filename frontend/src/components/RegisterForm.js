@@ -6,7 +6,7 @@ const app_name = "bondbuddies.com/"
 function buildPath(route)
 {
     if(process.env.NODE_ENV === 'production')
-        return "http://" + app_name + route;
+        return "https://" + app_name + route;
     else
         return "http://localhost:3001/" + route;
 }
@@ -30,7 +30,7 @@ function RegisterForm()
             var res = JSON.parse(await response.text());
             if (res.error === "")
             {
-                window.location.href = '/login'
+                window.location.href = '/'
             }
             
         }
@@ -65,7 +65,7 @@ function RegisterForm()
             }
             );
             var res = JSON.parse(await response.text());
-
+            console.log(res)
             if (res.error !== "")
                 console.log("ain't work!")
             else
@@ -87,9 +87,23 @@ function RegisterForm()
             return;
         }
     }
+
+    const inactives = event =>
+    {
+        document.getElementById("require1").classList.add("inactive")
+        document.getElementById("require2").classList.add("inactive")
+        document.getElementById("require3").classList.add("inactive")
+        document.getElementById("require4").classList.add("inactive")
+        document.getElementById("require5").classList.add("inactive")
+    }
+
     const fields = event =>
     {
-
+        document.getElementById("require1").classList.remove("inactive")
+        document.getElementById("require2").classList.remove("inactive")
+        document.getElementById("require3").classList.remove("inactive")
+        document.getElementById("require4").classList.remove("inactive")
+        document.getElementById("require5").classList.remove("inactive")
         var lowerCase = /[a-z]/g;
         var upperCase = /[A-Z]/g;
         var nums = /[0-9]/g;
@@ -158,7 +172,7 @@ function RegisterForm()
       <div className="RPregister-container">
   
           <div className="RPregister">
-              <form action={doRegister} className="register1-form">
+              <form className="register1-form">
                   <h2 id="registerh2" >Register</h2>
                   <div className="row">
                       <div className="col">
@@ -194,27 +208,27 @@ function RegisterForm()
                       <div className="col">
                           <div id="RPassword" className="form-group">
                               <label for="password">Password</label>
-                              <input ref={(c) => password = c} type="password" className="form-control" onKeyUp={fields} required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="password"/>
+                              <input ref={(c) => password = c} type="password" className="form-control" onKeyUp={fields} onFocus={fields} onBlur={inactives} required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="password"/>
                           </div>
                       </div>
                       <div className="col">
                           <div id="RPconfirmPassword" className="form-group">
                               <label for="confirmPassword">Confirm Password</label>
-                              <input ref={(c) => confirmPassword = c} type="password" onKeyUp={fields} className="form-control" id="confirmPassword"/>
+                              <input ref={(c) => confirmPassword = c} type="password" onKeyUp={fields} onFocus={fields} onBlur={inactives}  className="form-control" id="confirmPassword"/>
                           </div>
                       </div>
                   </div>
                   <br/>
-                  <ul>
-                    <li class="invalid" id="require1">password be at least 8 characters</li>
-                    <li class="invalid" id="require2">Password must have a lowercase</li>
-                    <li class="invalid" id="require3">Password must have an uppercase</li>
-                    <li class="invalid" id="require4">Password must have a number</li>
-                    <li class="invalid" id="require5">Passwords must match</li>
+                  <ul id="passwordRequirements">
+                    <li className="invalid inactive" id="require1">password be at least 8 characters</li>
+                    <li className="invalid inactive" id="require2">Password must have a lowercase</li>
+                    <li className="invalid inactive" id="require3">Password must have an uppercase</li>
+                    <li className="invalid inactive" id="require4">Password must have a number</li>
+                    <li className="invalid inactive" id="require5">Passwords must match</li>
                   </ul>
   
                   <div id="RPbuttons" className="d-flex justify-content-center">
-                      <input id="registerbtn" type="submit" className="btn btn-primary" Create an Account/>
+                      <input onClick={doRegister} id="registerbtn" type="submit" className="btn btn-primary" Create an Account/>
                   </div>
                   <div className="RPholder">
                       <NavLink id="accountbtn" to="/login">Have an account?</NavLink>
