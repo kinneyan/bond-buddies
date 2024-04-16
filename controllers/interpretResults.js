@@ -38,6 +38,9 @@ const getResults = (async (req, res, next) =>
             results.friendship.type = friendship[0].result;
             results.friendship.description = friendship[0].description;
         }
+
+        const buddyType = await db.collection('Users').find(user).toArray();
+        results['buddyType'] = buddyType[0].buddyType;
         
         if (Object.keys(results) < 1) results.error = 'No assessment results found.';
         else results.error = '';
