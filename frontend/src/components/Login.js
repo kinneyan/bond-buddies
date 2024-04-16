@@ -10,31 +10,56 @@ function buildPath(route)
         return "http://localhost:3001/" + route;
 }
 
-function Login()
-{
-    var username;
-    var pwd;
+function Login(){
+
+    var firstName;
+    var lastName;
+    var email;
+    var login;
     var bearer;
 
-    const getInfo = async event =>
-      {
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const getInfo = async event => {
+
         console.log(bearer)
-        try
-      {
-      const response = await fetch(buildPath("user/self"),
-      {method: 'GET', headers:{'Content-type': 'application/json', 'Authorization': bearer}});
-      var res = JSON.parse(await response.text());
-      if (res.error === "Could not authenticate request." || res.error === "Could not get user information from server.")
-        console.log(res.error)
-      else
-      {
-        sessionStorage.setItem("firstName", res.firstName)
-        sessionStorage.setItem("lastName", res.lastName)
-        sessionStorage.setItem("email", res.email)
-        sessionStorage.setItem("bearer", bearer)
-        sessionStorage.setItem("login", res.login)
-        window.location.href = '/user';
-      }
+          
+        try{
+
+          const response = await fetch(buildPath("user/verify"),
+          {
+            method: 'GET', 
+            headers:{
+              'Content-type': 'application/json', 
+              'Authorization': bearer}
+          });
+
+          var res = JSON.parse(await response.text());
+
+          console.log(res);
+
+          if(res.error === "Could not authenticate request." || res.error === "Could not get user information from server."){
+            console.log(res.error)
+          }
+          else{
+
+            console.log("firstName: " + firstName)
+            console.log("lastName: " + lastName)
+
+            sessionStorage.setItem("firstName", firstName);
+            sessionStorage.setItem("lastName", lastName);
+            sessionStorage.setItem("email", email);
+            sessionStorage.setItem("bearer", bearer);
+            sessionStorage.setItem("login", res.login);
+
+            if(sessionStorage.getItem("verified") === "true"){
+              sessionStorage.setItem("verified", true)
+              window.location.href = '/user';
+            }
+            else{
+              setErrorMessage("Please verify your account");
+            }
+          }
     }
     catch(e)
       {
@@ -46,36 +71,61 @@ function Login()
     const doLogin = async event =>
     {
         event.preventDefault();
+        sessionStorage.clear();
+
+        console.log("username: " + loginusername);
+        console.log("email: " + loginpassword);
+        
         var obj = {
-            username: username.value,
-            password: pwd.value
+
+            username: loginusername,
+            password: loginpassword
         }
+
         var payload = JSON.stringify(obj);
+
         try
         {
             const response = await fetch(buildPath("user/login"),
-            {method: 'POST', body: payload, headers: {'Content-type': 'application/json'}});
+            {
+              method: 'POST', 
+              body: payload, 
+              headers: {
+                'Content-type': 'application/json'}
+              });
+
             var res = JSON.parse(await response.text());
 
             if(res.error === "Username or password is incorrect."){
               console.log(res.error);
-              setfailureMessage("Username or password is incorrect");
+              setErrorMessage("Username or password is incorrect");
+              setForgotPasswordSuccessMessage('');
             }
             else
             {
+              console.log("Login successful!");
+
                 var userInfo = {
                     firstName: res.firstName,
                     lastName: res.lastName,
                     error: res.error,
                     bearer: res.bearer
                 }
-                bearer = userInfo.bearer
+
+                firstName = userInfo.firstName;
+                lastName = userInfo.lastName;
+                bearer = userInfo.bearer;
+
+                sessionStorage.setItem("verified", res.verified);
                 getInfo();
+                setErrorMessage('');
+              
             }
             
         }
         catch(e)
         {
+            setForgotPasswordSuccessMessage('');
             alert(e.toString());
             return;
         }
@@ -83,9 +133,12 @@ function Login()
 
     const [showLogin, setShowLogin] = useState(true);
     const [showForgot, setShowForgot] = useState(false);
+    const [loginusername, setloginUsername] = useState('');
+    const [loginpassword, setloginPassword] = useState('');
     const [forgotEmail, setForgotEmail] = useState('');
+    const [forgotUsername, setForgotUsername] = useState('');
     const [forgotPasswordSuccessMessage, setForgotPasswordSuccessMessage] = useState('');
-    const [failureMessage, setfailureMessage] = useState('');
+    const [forgotPasswordErrorMessage, setForgotPasswordErrorMessage] = useState('');
 
     const handleForgotClick = () => {
         setShowLogin(false);
@@ -99,9 +152,41 @@ function Login()
         setForgotPasswordSuccessMessage('');
     };  
 
-    const handleSendResetPasswordEmail = () => {
-        console.log(`Reset password email sent to: ${forgotEmail}`);
-        setForgotPasswordSuccessMessage(`Password reset email sent to: ${forgotEmail}`);
+    const handleSendResetPasswordEmail = async () => {
+
+      try{
+
+        console.log("username: " + forgotUsername);
+        console.log("email: " + forgotEmail);
+
+        const response = await fetch(buildPath("user/forgotPassword"), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                login: forgotUsername,
+                email: forgotEmail,
+            }),
+        });
+
+        //console.log(response);
+
+        if(response.ok) {
+          console.log(`Reset password email sent to: ${forgotEmail}`);
+          setForgotPasswordSuccessMessage(`Password reset email sent to: ${forgotEmail}`);
+          setForgotPasswordErrorMessage('');
+        } else {
+            console.error("Forgot password email failed: ", response.error);
+            setForgotPasswordErrorMessage("Password reset email failed to send");
+            setForgotPasswordSuccessMessage('');
+        }
+
+      }catch (error) {
+          console.error("Error during forgot password email: ", error);
+          setForgotPasswordErrorMessage("Password reset email failed to send");
+          setForgotPasswordSuccessMessage('');
+      };
     };
 
     return(
@@ -112,19 +197,32 @@ function Login()
               <h2 id="loginh2">Login</h2>
               <div id="userfield" className="LGform-group">
                 <label htmlFor="username">Username</label>
-                <input ref={(c) => username = c} type="username" className="form-control" id="username"/>
+                <input
+                  type="username"
+                  className="form-control"
+                  id="username"
+                  value={loginusername}
+                  onChange={(e) => setloginUsername(e.target.value)}
+                />
               </div>
               <div className="LGform-group">
                 <label htmlFor="pwd">Password</label>
-                <input ref={(c) => pwd = c} type="password" className="form-control" id="pwd"/>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="pwd"
+                  value={loginpassword}
+                  onChange={(e) => setloginPassword(e.target.value)}
+                />
               </div>
               <div className="forgotpass">
                 <button onClick={handleForgotClick} id='forgot-btn' className="btn-member btn-fade">Forgot Password?</button>
               </div>
+              {errorMessage && (
+                <div className="error-message">{errorMessage}</div>
+              )}
+              {errorMessage && (<br />)}
 
-              {failureMessage && <span className="error-message">{failureMessage}</span>}
-              {failureMessage && <br />}
-              <br/>
               <div className="d-flex justify-content-center">
                 <button id="submitbtn" type="submit" className="btn btn-primary" onClick={doLogin}>Log In</button>
               </div>
@@ -141,6 +239,15 @@ function Login()
               <h2 id="registerh2">Forgot Password</h2>
 
               <div className="form-group">
+                <label htmlFor="forgotEmailInput">Username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="forgotEmailUsername"
+                  value={forgotUsername}
+                  onChange={(e) => setForgotUsername(e.target.value)}
+                />
+                <br />
                 <label htmlFor="forgotEmailInput">Email</label>
                 <input
                   type="email"
@@ -162,7 +269,15 @@ function Login()
                 </button>
               </div>
 
-              <p id="forgotPasswordSuccessMessage">{forgotPasswordSuccessMessage}</p>
+              {forgotPasswordSuccessMessage && (
+                  <p id="forgotPasswordSuccessMessage">{forgotPasswordSuccessMessage}</p>
+              )}
+              {forgotPasswordErrorMessage && (
+                  <br />)}
+
+              {forgotPasswordErrorMessage && (
+                  <p id="forgotPasswordErrorMessage">{forgotPasswordErrorMessage}</p>
+              )}
 
               <div className="HPback">
                 <button id="backbtn" onClick={handleLoginClick} className="btn-login btn-fade">Back to Login</button>
