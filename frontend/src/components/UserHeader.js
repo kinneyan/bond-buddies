@@ -32,7 +32,6 @@ const Header = () => {
                     */}
                 </ul>
                 <ul className="navbar-nav">
-                    <NotificationDropdown />
                     <ProfileDropdown />
                 </ul>
             </div>
